@@ -10,4 +10,4 @@
 * [Emre Kahreman](https://github.com/bounswe/bounswe2017group9/wiki/Emre-Kahreman)
 * Kıvanç Ünal
 * [İhsan Öztürk](https://github.com/bounswe/bounswe2017group9/wiki/%C4%B0hsan-%C3%96zt%C3%BCrk)
-* Mehmet Akif Yücel
+* [Mehmet Akif Yücel] (https://github.com/bounswe/bounswe2017group9/wiki/Mehmet-Akif-Y%C3%BCcel)  
