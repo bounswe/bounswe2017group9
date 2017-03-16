@@ -1,5 +1,11 @@
 # bounswe2017group9
 
+## Concerter
+
+This project is about creating a social media platform for finding new concerts and recommending concerts to other people.
+
+[Check out our wiki page for more information!](https://github.com/bounswe/bounswe2017group9/wiki)
+
 ### Members:
 
 * [Hilal Dönmez](https://github.com/bounswe/bounswe2017group9/wiki/Hilal-D%C3%B6nmez)
