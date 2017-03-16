@@ -10,5 +10,5 @@
 * [Necip Fazıl Ergün](https://github.com/bounswe/bounswe2017group9/wiki/Necip-Faz%C4%B1l-Erg%C3%BCn)
 * [Emre Kahreman](https://github.com/bounswe/bounswe2017group9/wiki/Emre-Kahreman)
 * [İhsan Öztürk](https://github.com/bounswe/bounswe2017group9/wiki/%C4%B0hsan-%C3%96zt%C3%BCrk)
-* [Mehmet Akif Yücel] (https://github.com/bounswe/bounswe2017group9/wiki/Mehmet-Akif-Y%C3%BCcel)  
+* [Mehmet Akif Yücel](https://github.com/bounswe/bounswe2017group9/wiki/Mehmet-Akif-Y%C3%BCcel)  
 * [Kasım Bozdağ](https://github.com/bounswe/bounswe2017group9/wiki/Kas%C4%B1m-Bozda%C4%9F)
