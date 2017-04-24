@@ -26,9 +26,9 @@ public interface IConcertResource {
 	@Path("{id}")
 	public void deleteConcert(int id);
 	@GET
-	@Path("{concertName}")
+	@Path("{cn}")
 	@Produces("application/json")
-	public String searchConcert(String concertName);
+	public String searchConcert(String cn);
 	@GET
 	public String getAllConcerts();
 }

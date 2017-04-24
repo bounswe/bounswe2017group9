@@ -11,6 +11,9 @@ public class Comment {
 	public int getId() {
 		return id;
 	}
+	public int getConcertId() {
+		return concertId;
+	}
 	public void setId(int id) {
 		this.id = id;
 	}

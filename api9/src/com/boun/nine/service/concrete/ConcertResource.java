@@ -48,9 +48,9 @@ public class ConcertResource extends ConnectedService implements IConcertResourc
 		
 	}
 	@Override
-	public String searchConcert(String concertName) {
+	public String searchConcert(String cn) {
 		// TODO Auto-generated method stub
-		String query = "SELECT * FROM concert WHERE name="+concertName+";";
+		String query = "SELECT * FROM concert WHERE name="+cn+";";
 		ResultSet rs;
 		Concert concert = new Concert();
 		Gson gson = new Gson();
