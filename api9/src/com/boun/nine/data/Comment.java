@@ -2,26 +2,27 @@ package com.boun.nine.data;
 import java.util.Date;
 public class Comment {
 	private int id;
-	private String name;
+	private int concertId;
 	private int ownerId;
-	private String artistName;
-	private double locationX;
-	private double locationY;
-	private double minPrice;
-	private double maxPrice;
-	private double rate;
-	private Date dateTime;
+	private int upVote;
+	private int downVote;
+	private String content;
+	private Date date;
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getName() {
-		return name;
+	public void setConcertId(int concertId) {
+		this.concertId = concertId;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public String getContent()
+	{
+		return content;
 	}
 	public int getOwnerId() {
 		return ownerId;
@@ -29,46 +30,27 @@ public class Comment {
 	public void setOwnerId(int ownerId) {
 		this.ownerId = ownerId;
 	}
-	public String getArtistName() {
-		return artistName;
+	public Date getDate() {
+		return date;
 	}
-	public void setArtistName(String artistName) {
-		this.artistName = artistName;
+	public void setDate(Date date) {
+		this.date = date;
 	}
-	public double getLocationX() {
-		return locationX;
+	public int getUpVote()
+	{
+		return upVote;
 	}
-	public void setLocationX(double locationX) {
-		this.locationX = locationX;
+	public int getDownVote()
+	{
+		return downVote;
 	}
-	public double getLocationY() {
-		return locationY;
+	public void upVote()
+	{
+		//TODO
+		this.upVote+=1;
 	}
-	public void setLocationY(double locationY) {
-		this.locationY = locationY;
-	}
-	public double getMinPrice() {
-		return minPrice;
-	}
-	public void setMinPrice(double minPrice) {
-		this.minPrice = minPrice;
-	}
-	public double getMaxPrice() {
-		return maxPrice;
-	}
-	public void setMaxPrice(double maxPrice) {
-		this.maxPrice = maxPrice;
-	}
-	public double getRate() {
-		return rate;
-	}
-	public void setRate(double rate) {
-		this.rate = rate;
-	}
-	public Date getDateTime() {
-		return dateTime;
-	}
-	public void setDateTime(Date dateTime) {
-		this.dateTime = dateTime;
+	public void downVote()
+	{
+		this.downVote+=1;
 	}
 }

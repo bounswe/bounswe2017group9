@@ -6,6 +6,7 @@ import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
 import com.boun.nine.service.concrete.ConcertResource;
+import com.boun.nine.service.concrete.UserResource;
 
 @ApplicationPath("/rest")
 public class NineService extends Application{
@@ -14,6 +15,7 @@ public class NineService extends Application{
 	public NineService(){
 		singletons.add(new TestService());
 		singletons.add(new ConcertResource());
+		singletons.add(new UserResource());
 	}
 	@Override
 	public Set<Class<?>> getClasses(){
