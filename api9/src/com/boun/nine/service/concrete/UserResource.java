@@ -14,7 +14,7 @@ public class UserResource extends ConnectedService implements IUserResource{
 
 	@Override
 	public String login(String email, String password) {
-		String query = "SELECT * FROM user WHERE email="+email+",password="+password+";";
+		String query = "SELECT * FROM user WHERE email="+email+" and password="+password+";";
 		ResultSet rs;
 		Gson gson = new Gson();
 		User user=new User();
