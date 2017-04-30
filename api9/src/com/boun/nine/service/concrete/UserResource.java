@@ -14,7 +14,7 @@ public class UserResource extends ConnectedService implements IUserResource{
 
 	@Override
 	public String login(String email, String password) {
-		String query = "SELECT * FROM user WHERE email="+email+",password"+password+";";
+		String query = "SELECT * FROM user WHERE email="+email+" and password="+password+";";
 		ResultSet rs;
 		Gson gson = new Gson();
 		User user=new User();
@@ -48,10 +48,11 @@ public class UserResource extends ConnectedService implements IUserResource{
 		String query = "INSERT INTO user (";
 		String values = " VALUES (";
 		user=g.fromJson(body,User.class);
+		/*
 		if(user.getId() != 0){
 			query+="id,";
 			values += user.getId()+",";
-		}
+		}*/
 		if(user.getFacebook_id() != 0){
 			query+="facebook_id,";
 			values += user.getFacebook_id()+",";
@@ -68,14 +69,19 @@ public class UserResource extends ConnectedService implements IUserResource{
 			query+="username,";
 			values += "'"+user.getUsername()+"',";
 		}
+		if(user.getEmail() != null || user.getEmail() != ""){
+			query+="email,";
+			values += "'"+user.getEmail()+"',";
+		}
 		if(user.getPassword() != null || user.getPassword() != ""){
 			query+="password,";
 			values += "'"+user.getPassword()+"',";
 		}
+		/*
 		if(user.getPhoto_path() != null || user.getPhoto_path() != ""){
 			query+="photo_path,";
 			values += "'"+user.getPhoto_path()+"',";
-		}
+		}*/
 		if(query.endsWith(",")){
 			query = query.substring(0, query.length()-1);
 		}
