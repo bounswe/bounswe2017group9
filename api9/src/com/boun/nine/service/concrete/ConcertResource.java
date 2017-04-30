@@ -20,7 +20,38 @@ public class ConcertResource extends ConnectedService implements IConcertResourc
 		// TODO Auto-generated method stub
 		
 	}
-
+	@Override
+	public String getAllConcerts() {
+		// TODO Auto-generated method stub
+		String query = "SELECT * FROM concert";
+		ResultSet rs;
+		Concert concert = new Concert();
+		Gson gson = new Gson();
+		String json = new String();
+		json += "[";
+		try{
+			rs = this.executeQuery(query);
+			while(rs.next()){
+				concert.setId(rs.getInt("id"));
+				concert.setName(rs.getString("name"));
+				concert.setOwnerId(rs.getInt("owner_id"));
+				concert.setArtistName(rs.getString("artist_name"));
+				concert.setLocationX(rs.getDouble("location_x"));
+				concert.setLocationY(rs.getDouble("location_y"));
+				concert.setMinPrice(rs.getDouble("min_price"));
+				concert.setMaxPrice(rs.getDouble("max_price"));
+				concert.setRate(rs.getDouble("rate"));
+				json += gson.toJson(concert)+",";
+			}
+			json = json.substring(0, json.length()-1);
+			json += "]";
+			return json;
+		}catch(SQLException ex){
+			ex.printStackTrace();
+			return null;
+		}
+		
+	}
 	@Override
 	public String getConcert(int id) {
 		// TODO Auto-generated method stub

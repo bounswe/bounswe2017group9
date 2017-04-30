@@ -5,7 +5,7 @@ public abstract class ConnectedService {
 	private static final String DB_URL = "jdbc:mysql://localhost:3306/api_project";
 	
 	private static final String USERNAME = "root";
-	private static final String PASSWORD = "password";
+	private static final String PASSWORD = "";
 	private static Connection conn;
 	private static Statement stmt;
 	private static ResultSet rs;

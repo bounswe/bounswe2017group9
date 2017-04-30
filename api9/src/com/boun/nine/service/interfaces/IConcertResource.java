@@ -25,4 +25,7 @@ public interface IConcertResource {
 	@DELETE
 	@Path("{id}")
 	public void deleteConcert(int id);
+	@GET
+	@Produces("application/json")
+	public String getAllConcerts();
 }
