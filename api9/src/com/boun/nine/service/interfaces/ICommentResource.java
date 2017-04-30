@@ -15,5 +15,6 @@ public interface ICommentResource {
 	@Produces("text/plain")
 	public String writeComment(String body);
 	@GET
+	@Produces("application/json")
 	public String getAllComments();
 }

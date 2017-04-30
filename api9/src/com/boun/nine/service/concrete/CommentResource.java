@@ -18,21 +18,21 @@ public class CommentResource extends ConnectedService implements ICommentResourc
 		String query = "INSERT INTO comment (";
 		String values = " VALUES (";
 		comment = g.fromJson(body,Comment.class);
-		if(comment.getId() != 0){
-			query+="id,";
-			values += comment.getId()+",";
-		}
 		if(comment.getOwnerId() != 0){
 			query+="owner_id,";
-			values += comment.getOwnerId()+",";
+			values += "'"+comment.getOwnerId()+"',";
 		}
-		if(comment.getConcertId() != 0){
-			query+="owner_id,";
-			values += comment.getOwnerId()+",";
+		if(comment.get_up_vote() != 0){
+			query += "up_vote,";
+			values += comment.get_up_vote()+",";
 		}
-		if(comment.getUpVote() != 0){
-			query += "rate,";
-			values += comment.getUpVote();
+		if(comment.get_down_vote() != 0){
+			query += "down_vote,";
+			values += comment.get_down_vote()+",";
+		}
+		if(comment.getContent() != null || comment.getContent() != ""){
+			query += "content,";
+			values += "'"+comment.getContent()+"',";
 		}
 		if(query.endsWith(",")){
 			query = query.substring(0, query.length()-1);
@@ -55,8 +55,30 @@ public class CommentResource extends ConnectedService implements ICommentResourc
 	@Override
 	public String getAllComments() {
 		// TODO Auto-generated method stub
-		String test = "getAllComments works!";
-		return test;
+		String query = "SELECT * FROM comment";
+		ResultSet rs;
+		Comment comment = new Comment();
+		Gson gson = new Gson();
+		String json = new String();
+		json += "[";
+		try{
+			rs = this.executeQuery(query);
+			while(rs.next()){
+				comment.setId(rs.getInt("id"));
+				comment.setContent(rs.getString("content"));
+				comment.setOwnerId(rs.getInt("owner_id"));
+				comment.set_up_vote(rs.getInt("up_vote"));
+				comment.set_down_vote(rs.getInt("down_vote"));
+				json += gson.toJson(comment)+",";
+			}
+			json = json.substring(0, json.length()-1);
+			json += "]";
+			return json;
+		}catch(SQLException ex){
+			ex.printStackTrace();
+			return null;
+		}
+		
 	}
 
 }
