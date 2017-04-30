@@ -18,6 +18,7 @@ public class NineService extends Application{
 		singletons.add(new ConcertResource());
 		singletons.add(new UserResource());
 		singletons.add(new CommentResource());
+
 	}
 	@Override
 	public Set<Class<?>> getClasses(){
