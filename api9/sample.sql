@@ -4,6 +4,8 @@
 -- ------------------------------------------------------
 -- Server version	5.7.17-0ubuntu0.16.04.1
 
+
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -18,12 +20,15 @@
 --
 -- Table structure for table `comment`
 --
+/*CREATE DATABASE demo;*/
+USE demo;
 
 DROP TABLE IF EXISTS `comment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `concert_id` int(11) DEFAULT NULL,
   `content` varchar(140) CHARACTER SET utf8 DEFAULT NULL,
   `date_time` datetime DEFAULT NULL,
   `owner_id` int(11) DEFAULT NULL,

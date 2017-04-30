@@ -110,5 +110,25 @@ public class ConcertResource extends ConnectedService implements IConcertResourc
 		
 		return query;
 	}
+
+	@Override
+	public String rateConcert(String body) {
+		// TODO Auto-generated method stub
+		Concert concert = new Concert();
+		Gson g = new Gson();
+		String query = "UPDATE concert SET ";
+		String clause = " WHERE id=";
+		concert = g.fromJson(body,Concert.class);
+		if(concert.getId() != 0){
+			clause+=concert.getId();
+		}
+		if(concert.getRate() != 0){
+			query+="rate=";
+			query+=(concert.getRate() + 1);
+		}
+		query+=clause+";";
+		
+		return query;
+	}
 	
 }

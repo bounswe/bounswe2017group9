@@ -25,4 +25,10 @@ public interface IConcertResource {
 	@DELETE
 	@Path("{id}")
 	public void deleteConcert(int id);
+	@POST
+	@Consumes("application/json")
+	@Produces("text/plain")
+	public String rateConcert(String body);
+	
+	
 }
