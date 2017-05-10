@@ -2,6 +2,8 @@ package com.boun.nine.service.concrete;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.ws.rs.core.Response;
+
 import com.boun.nine.data.Concert;
 import com.boun.nine.service.interfaces.ConnectedService;
 import com.boun.nine.service.interfaces.IConcertResource;
@@ -81,7 +83,7 @@ public class ConcertResource extends ConnectedService implements IConcertResourc
 	}
 
 	@Override
-	public void createConcert(String body) {
+	public Response createConcert(String body) {
 		// TODO Auto-generated method stub
 		Concert concert = new Concert();
 		Gson g = new Gson();
@@ -134,8 +136,13 @@ public class ConcertResource extends ConnectedService implements IConcertResourc
 		query += values+");";
 		try{
 			this.executeUpdate(query);
+			return Response.status(200).entity("Concert is created").build();
 		}catch(SQLException ex){
 			ex.printStackTrace();
+			return Response.status(500).entity("Oops! There was a database error. Try again.").build();
+		}catch(Exception ex){
+			ex.printStackTrace();
+			return Response.status(500).entity("Oops! There was an internal error. Try again.").build();
 		}
 		
 	}
