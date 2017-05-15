@@ -11,7 +11,14 @@ import com.google.gson.Gson;
 
 
 public class UserResource extends ConnectedService implements IUserResource{
-
+	
+	/**
+	 * @param email and password of the user 
+	 * Find the user who has email and password given parameters from database
+	 * Gain the user information from the database
+	 * @return JSON which has the user information 
+	 */
+	
 	@Override
 	public String login(String email, String password) {
 		String query = "SELECT * FROM user WHERE email="+email+" and password="+password+";";
@@ -38,9 +45,15 @@ public class UserResource extends ConnectedService implements IUserResource{
 		}
 	}
 
+	/**
+	 * @param body which is a string and which has user information 
+	 * Convert this string into JSON form
+	 * Insert this information into related fields
+	 * @return the related query as a string if the request is successful 
+	 * 
+	 */
 	
 	
-	// it should be a check whether this email has already been used 
 	@Override
 	public String signUp(String body) {
 		User user=new User();
