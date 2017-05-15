@@ -46,7 +46,7 @@ public class CommentResource extends ConnectedService implements ICommentResourc
 			this.executeUpdate(query);
 		}catch(SQLException ex){
 			ex.printStackTrace();
-			return "409";
+			return "404";
 		}
 		
 		return query;
