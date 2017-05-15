@@ -10,7 +10,22 @@ import com.boun.nine.service.interfaces.IConcertResource;
 import com.google.gson.Gson;
 
 public class CommentResource extends ConnectedService implements ICommentResource{
-
+	
+	/**
+	* <h1>Write a conmment</h1>
+	* Write a comment function POSTs the
+	* given comment JSON to the database.
+	* Required JSON parameters to be inputted with POST are:
+	* ownerId
+	* context
+	* Optional JSON parameters to be inputted:
+	* upVote
+	* downVote
+	*
+	* @author  Efehan Atıcı
+	* @version 1.0
+	* @since   2017-04-21 
+	*/
 	@Override
 	public String writeComment(String body) {
 		Comment comment = new Comment();
@@ -51,7 +66,17 @@ public class CommentResource extends ConnectedService implements ICommentResourc
 		
 		return query;
 	}
-
+	/**
+	* <h1>Get all comments</h1>
+	* Get all comments by sending a GET
+	* request to the /comment path.
+	* Using a SELECT query from database
+	* it brings all the comments in JSON form.
+	*
+	* @author  Efehan Atıcı
+	* @version 1.0
+	* @since   2017-04-21 
+	*/
 	@Override
 	public String getAllComments() {
 		// TODO Auto-generated method stub
