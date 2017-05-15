@@ -1,5 +1,12 @@
 package com.boun.nine.data;
 import java.util.Date;
+/**
+ * 
+ * Container data class for concerts in API.
+ * @author ffguven
+ * @version 1.0
+ * @since 15-05-2017
+ */
 public class Concert {
 	private int id;
 	private String name;
