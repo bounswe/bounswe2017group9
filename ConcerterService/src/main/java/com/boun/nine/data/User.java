@@ -2,6 +2,12 @@ package com.boun.nine.data;
 
 import java.util.Date;
 import java.util.List;
+/**
+ * 
+ * @author HİLAL DÖNMEZ
+ * Determine user fields
+ * Contain get and set methods for these fields  
+ */
 
 public class User {
 	private int id;
@@ -12,8 +18,7 @@ public class User {
 	private String email;
 	private String password;
 	private String photo_path;
-	private Date create_at;
-	private Date last_login;
+	
 	public int getId() {
 		return id;
 	}
@@ -62,18 +67,7 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Date getCreate_at() {
-		return create_at;
-	}
-	public void setCreate_at(Date create_at) {
-		this.create_at = create_at;
-	}
-	public Date getLast_login() {
-		return last_login;
-	}
-	public void setLast_login(Date last_login) {
-		this.last_login = last_login;
-	}
+	
 	
 	
 	
