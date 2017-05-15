@@ -22,6 +22,17 @@ public class ConcertResource extends ConnectedService implements IConcertResourc
 		// TODO Auto-generated method stub
 		
 	}
+	/**
+	* <h1>Get all Concerts</h1>
+	* The Get all concerts function returns all the existing
+	* concerts on the database with a JSON code. Simply requesting
+	* with a SELECT query with giving required parameters of
+	* concert entity.
+	*
+	* @author  Efehan Atıcı
+	* @version 1.0
+	* @since   2017-04-21 
+	*/
 	@Override
 	public String getAllConcerts() {
 		// TODO Auto-generated method stub
