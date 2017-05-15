@@ -9,6 +9,14 @@ import com.boun.nine.service.interfaces.ConnectedService;
 import com.boun.nine.service.interfaces.IConcertResource;
 import com.google.gson.Gson;
 
+/**
+ * The class stands for meeting {@code Concert} related requirements.
+ * When the {@code ConcerterService/rest/concert} URL is triggered, this class' functions will be called.
+ * @author ffguven
+ * @version 1.0
+ * @since 2014-05-15
+ *
+ */
 public class ConcertResource extends ConnectedService implements IConcertResource{
 
 	@Override
@@ -65,6 +73,12 @@ public class ConcertResource extends ConnectedService implements IConcertResourc
 		}
 		
 	}
+	/**
+	 * Handles GET requests to {@code ConcerterService/rest/concert/<concert_id>} URL.
+	 * Selects the requested concert from SQL database and convert the SQL row to JSON object
+	 * @return String The function returns JSON of requested concert.
+	 * @param id This is the id of a concert that is requested.
+	 */
 	@Override
 	public String getConcert(int id) {
 		// TODO Auto-generated method stub
@@ -92,7 +106,12 @@ public class ConcertResource extends ConnectedService implements IConcertResourc
 		}
 		
 	}
-
+	/**
+	 * Handles POST requests to {@code ConcerterService/rest/concert} URL.
+	 * Gets requested concert's JSON and saves it to SQL database.
+	 * @param body This parameter gets the HTTP request's JSON body
+	 * @return Response If the process is done, then response {@code HTTP 201 CREATED} else {@code HTTP 500 Internal Server Error}
+	 */
 	@Override
 	public Response createConcert(String body) {
 		// TODO Auto-generated method stub
