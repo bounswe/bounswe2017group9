@@ -37,7 +37,7 @@ public class UserResourceTest extends JerseyTest{
 	
 	/**
 	 * Create a user instance whose name is hilal, username is hilaldnmz,email is hilaldonmez@gmail.com, and password is aaaa
-	 * @return the successful result if HTTP 200 is obtained as a respponse
+	 * @return the successful result if HTTP 200 is obtained as a response
 	 * @return error otherwise
 	 */
 	
