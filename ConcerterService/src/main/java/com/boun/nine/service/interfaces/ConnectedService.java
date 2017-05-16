@@ -9,10 +9,10 @@ import java.sql.*;
  */
 public abstract class ConnectedService {
 	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	private static final String DB_URL = "jdbc:mysql://localhost:3306/api_project";
+	private static final String DB_URL = "jdbc:mysql://us-cdbr-iron-east-03.cleardb.net/heroku_0ea3dd7ad9e9f94";
 	
-	private static final String USERNAME = "root";
-	private static final String PASSWORD = "";
+	private static final String USERNAME = "b4212c339c1065";
+	private static final String PASSWORD = "11d132ae";
 	private static Connection conn;
 	private static Statement stmt;
 	private static ResultSet rs;
@@ -23,7 +23,7 @@ public abstract class ConnectedService {
 	 * @return ResultSet The response that is obtained from SQL database.
 	 * @throws SQLException
 	 */
-	public ResultSet executeQuery(String query) throws SQLException{
+	public static ResultSet executeQuery(String query) throws SQLException{
 		try{
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(DB_URL,USERNAME,PASSWORD);
