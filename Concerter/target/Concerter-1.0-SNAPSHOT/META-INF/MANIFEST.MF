@@ -1,5 +1,8 @@
 Manifest-Version: 1.0
+Implementation-Version: 1.0-SNAPSHOT
 Built-By: HİLAL DÖNMEZ
+Implementation-Vendor-Id: Concerter
 Created-By: IntelliJ IDEA
 Build-Jdk: 1.8.0_131
+Main-Class: ${start-class}
 
