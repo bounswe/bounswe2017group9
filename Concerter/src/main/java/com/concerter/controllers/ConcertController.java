@@ -72,7 +72,7 @@ public class ConcertController {
 
     //http://localhost:8080/Concert/getConcertById/1
     @RequestMapping(value="getConcertById/{concertId}")
-    @CrossOrigin(origins="http://localhost:3000")
+    //@CrossOrigin(origins="http://localhost:3000")
     public JSONObject getConcertById(@PathVariable int concertId ){
         createMockConcerts();
         JSONObject json=map.get(concertId);
@@ -85,7 +85,7 @@ public class ConcertController {
 
 
     @RequestMapping(value="getAllConcerts/{userId}", method = RequestMethod.GET)
-    @CrossOrigin(origins="http://localhost:3000")
+    //@CrossOrigin(origins="http://localhost:3000")
     public JSONObject getAllConcertsByUserId(@PathVariable int userId) {
         createMockConcerts();
         JSONObject json=new JSONObject();
@@ -96,7 +96,7 @@ public class ConcertController {
 
     //localhost:8080/Concert/createConcert
     @RequestMapping(value="/createConcert", method = RequestMethod.POST)
-    @CrossOrigin(origins="http://localhost:3000")
+    //@CrossOrigin(origins="http://localhost:3000")
     public JSONObject createConcert(@RequestBody Concerts concert) throws ParseException{
         JSONObject json=new JSONObject();
         return json;
