@@ -8,24 +8,57 @@
 
 
    <LinearLayout
-      android:orientation="vertical"
+       android:orientation="vertical"
        android:layout_width="match_parent"
        android:layout_height="wrap_content">
 
 
       <TextView
-          android:textSize="20sp"
-          android:text="WELCOME"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content" />
+          android:textSize="30sp"
+          android:text="CONCERTS"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center"/>
 
+      <LinearLayout
+          android:weightSum="4"
+          android:orientation="horizontal"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+         <TextView
+             android:gravity="center"
+             android:layout_weight="1"
+             android:textSize="20sp"
+             android:layout_marginTop="5dp"
+             android:text="Home"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content" />
+         <TextView
+             android:gravity="center"
+             android:layout_weight="1"
+             android:textSize="20sp"
+             android:layout_marginTop="5dp"
+             android:text="Profile"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content" />
+         <TextView
+             android:gravity="center"
+             android:layout_weight="1"
+             android:textSize="20sp"
+             android:layout_marginTop="5dp"
+             android:text="Messages"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content" />
+         <TextView
+             android:gravity="center"
+             android:layout_weight="1"
+             android:textSize="20sp"
+             android:layout_marginTop="5dp"
+             android:text="Logout"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content" />
+      </LinearLayout>
 
-      <TextView
-          android:textSize="20sp"
-          android:layout_marginTop="20dp"
-          android:text="SÜLO"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content" />
 
 
    </LinearLayout>
@@ -35,6 +68,6 @@
        android:id="@+id/lv_concerts"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-    />
+       />
 
 </LinearLayout>
