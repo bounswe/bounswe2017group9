@@ -1,0 +1,142 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Concerter",
+		"_postman_id": "d1d6efbb-2a4c-4f1b-703b-c1ec0b569f84",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User Login",
+			"request": {
+				"url": "localhost:8080/user",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"fatihguven@gmail.com\",\n\t\"password\":\"654321\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Signup",
+			"request": {
+				"url": "localhost:8080/new-user",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"fatihguven@gmail.com\",\n\t\"name\":\"Fatih Guven\",\n\t\"password\":\"654321\",\n\t\"followers\":0,\n\t\"followings\":0,\n\t\"photo_path\":\"localhost:8080/photo\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Concert",
+			"request": {
+				"url": "localhost:8080/concert/6",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create Comment",
+			"request": {
+				"url": "localhost:8080/comments",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"comment\":\"Concert was ridiculous.\",\n\t\"concert_id\":6,\n\t\"commented_by\":7\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Comments for a concert",
+			"request": {
+				"url": "localhost:8080/concerts/6/comments",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Concerts of a User",
+			"request": {
+				"url": {
+					"raw": "localhost:8080/concerts?user_id=7",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"concerts"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "7",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create Concert",
+			"request": {
+				"url": "localhost:8080/concerts",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"TasodaFest\",\n\t\"created_by_id\":7,\n\t\"artist\":{\n\t\t\"name\":\"Embedded Artist\"\n\t},\n\t\"location\":{\n\t\t\"longitude\":45.12312,\n\t\t\"latitude\":63.43432,\n\t\t\"city\":\"Istanbul\",\n\t\t\"address\":\"Bebek Mah. Nispetiye Cad. Test Sokak\"\n\t},\n\t\"date_time\":\"Oct 28, 2017 7:29:53 PM\",\n\t\"min_price\":50,\n\t\"max_price\":110,\n\t\"image_path\":\"localhost:8080/testPath\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
