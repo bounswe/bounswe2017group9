@@ -6,8 +6,12 @@ import java.sql.SQLException;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.services.s3.transfer.TransferManager;
 import com.google.gson.JsonSyntaxException;
 
 import boun.group9.webservice.app.Application;
@@ -23,6 +27,15 @@ public class UserController {
 	@RequestMapping("test")
 	public String test() {
 		return "Works.";
+	}
+	@SuppressWarnings("TransferManager")
+	@RequestMapping(value="user/photo",method=RequestMethod.POST)
+	public String uploadPhoto(@RequestParam("file") MultipartFile file) {
+		if(file.isEmpty()) {
+			return "File is empty.";
+		}
+		TransferManager tm = new TransferManager(new ProfileCredentialsProvider());
+		return null;
 	}
 	@RequestMapping(value="new-user",method=RequestMethod.POST)
 	public String newUser(@RequestBody String body) {
@@ -63,6 +76,9 @@ public class UserController {
 				user.setFollowers(rs.getInt("followers"));
 				user.setFollowings(rs.getInt("followings"));
 				user.setPhoto_path(rs.getString("photo_path"));
+				user.setCreated_at(rs.getTimestamp("created_at"));
+				user.setLast_login(rs.getTimestamp("last_login"));
+				user.setUpdated_at(rs.getTimestamp("updated_at"));
 				return Application.gson.toJson(user);
 			}else {
 				return "Nothing returned.";
