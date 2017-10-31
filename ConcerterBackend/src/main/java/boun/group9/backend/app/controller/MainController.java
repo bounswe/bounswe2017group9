@@ -15,7 +15,7 @@ public class MainController {
 	}
 	@RequestMapping("/index")
 	public String index(Model model) {
-		
+		ArrayList<Concerts> concertList = ConcertOperations.getAllActiveConcerts();
 		return "index";
 	}
 }
