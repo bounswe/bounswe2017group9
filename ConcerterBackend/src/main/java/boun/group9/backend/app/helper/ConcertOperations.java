@@ -1,12 +1,17 @@
 package boun.group9.backend.app.helper;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,22 +23,101 @@ import boun.group9.backend.app.data.Concerts;
 import boun.group9.backend.app.data.Locations;
 public class ConcertOperations {
 	public static ArrayList<Concerts> getAttendingConcerts(int userID){
-		 
+		String resultJson="";
+		ArrayList<Concerts> resultList;
+		try {
+			URL url = new URL(Application.API_ENDPOINT+"/concerts?user_id="+userID+"&"+"status=attending");
+			HttpURLConnection connection =(HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setDoInput(true);
+			connection.connect();
+			BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			resultJson = br.readLine();
+			resultList = new ArrayList<Concerts>(Arrays.asList(Application.gson.fromJson(resultJson, Concerts[].class)));
+			return resultList;
+		}catch(MalformedURLException ex) {
+			ex.printStackTrace();
+		}catch(IOException ex) {
+			ex.printStackTrace();
+		}
 		return null;
 	}
 	public static ArrayList<Concerts> getAttendedConcerts(int userID){
-		
+		String resultJson="";
+		ArrayList<Concerts> resultList;
+		try {
+			URL url = new URL(Application.API_ENDPOINT+"/concerts?user_id="+userID+"&"+"status=attended");
+			HttpURLConnection connection =(HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setDoInput(true);
+			connection.connect();
+			BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			resultJson = br.readLine();
+			resultList = new ArrayList<Concerts>(Arrays.asList(Application.gson.fromJson(resultJson, Concerts[].class)));
+			return resultList;
+		}catch(MalformedURLException ex) {
+			ex.printStackTrace();
+		}catch(IOException ex) {
+			ex.printStackTrace();
+		}
 		return null;
 	}
 	public static ArrayList<Concerts> getThinkingConcerts(int userID){
-		
+		String resultJson="";
+		ArrayList<Concerts> resultList;
+		try {
+			URL url = new URL(Application.API_ENDPOINT+"/concerts?user_id="+userID+"&"+"status=thinking");
+			HttpURLConnection connection =(HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setDoInput(true);
+			connection.connect();
+			BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			resultJson = br.readLine();
+			resultList = new ArrayList<Concerts>(Arrays.asList(Application.gson.fromJson(resultJson, Concerts[].class)));
+			return resultList;
+		}catch(MalformedURLException ex) {
+			ex.printStackTrace();
+		}catch(IOException ex) {
+			ex.printStackTrace();
+		}
 		return null;
 	}
 	public static Concerts getConcert(int concertID) {
-		
+		String resultJson="";
+		try {
+			URL url = new URL(Application.API_ENDPOINT+"/concerts/"+concertID);
+			HttpURLConnection connection =(HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setDoInput(true);
+			connection.connect();
+			BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			resultJson = br.readLine();
+			return Application.gson.fromJson(resultJson, Concerts.class);
+		}catch(MalformedURLException ex) {
+			ex.printStackTrace();
+		}catch(IOException ex) {
+			ex.printStackTrace();
+		}
 		return null;
 	}
 	public static ArrayList<Concerts> getAllActiveConcerts(){
+		String resultJson="";
+		ArrayList<Concerts> resultList;
+		try {
+			URL url = new URL(Application.API_ENDPOINT+"/concerts");
+			HttpURLConnection connection =(HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setDoInput(true);
+			connection.connect();
+			BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			resultJson = br.readLine();
+			resultList = new ArrayList<Concerts>(Arrays.asList(Application.gson.fromJson(resultJson, Concerts[].class)));
+			return resultList;
+		}catch(MalformedURLException ex) {
+			ex.printStackTrace();
+		}catch(IOException ex) {
+			ex.printStackTrace();
+		}
 		return null;
 	}
 	public static STATUS createConcert(Concerts concert) {

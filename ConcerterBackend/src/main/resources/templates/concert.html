@@ -4,6 +4,7 @@
 	<title>ConcerterBackend Test</title>
 	<meta http-equiv="Content-Type" content="text/html;" charset="UTF-8" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"></link>
+	<link rel="stylesheet" href="/css/style.css"></link> 
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light">
@@ -39,24 +40,24 @@
 <div class="card border-success">
   <img class="card-img-top" src="/1.jpg" alt="Card image cap"></img>
   <div class="card-body">
-    <a class="card-title" href="/concert/1">"Yürüyen Köşk" İstanbul Prömiyeri</a>
+    <p class="card-title" href="/concert/1" th:text="${concert.name}"></p>
     <a href="#" class="btn btn-success">Attending</a>
     <a href="#" class="btn btn-warning">Maybe</a>
     <hr />
     <div class="row">
     <div class="col-4">
-    <p><b>Artist : </b> Fazıl Say</p>
-    <p><b>Created By :</b> Fatih Güven</p>
+    <p><b>Artist : </b> <span th:text="${concert.artist.name}"></span></p>
+    <p><b>Created By :</b> <span th:text="${concert.created_by.name}"></span></p>
     </div>
     <div class="col-4">
-    <p><b>Location : </b> İstanbul </p>
+    <p><b>Location : </b> <span th:text="${concert.location.city}"></span> </p>
     <p><b>Date :</b> 29/10/2017</p>
     <p><b>Time :</b> 18:00 </p>
     </div>
     <div class="col-4">
-    <p><b>Min Price : </b> 70$ </p>
-    <p> <b>Max Price : </b> 100$</p>
-    <p><b>Rate : </b> 3.2 </p>
+    <p><b>Min Price : </b> <span th:text="${concert.min_price}"></span></p>
+    <p> <b>Max Price : </b> <span th:text="${concert.max_price}"></span></p>
+    <p><b>Rate : </b> <span th:text="${concert.rate}"></span></p>
     </div>
     </div>
     <hr />

@@ -26,24 +26,28 @@ public class UserController {
 	public String attendingProfilePage(@PathVariable("userID") int userID, Model model) {
 		Users user = UserOperations.getUser(userID);
 		ArrayList<Concerts> attendingConcertList = ConcertOperations.getAttendingConcerts(userID);
+		model.addAttribute("page","1");
 		model.addAttribute("user",user);
 		model.addAttribute("concertList",attendingConcertList);
-		return "attendingProfile";
+		System.out.println("Concert id:"+attendingConcertList.get(0).getId());
+		return "profile";
 	}
 	@RequestMapping("/profile/{userID}/attended")
 	public String attendedProfilePage(@PathVariable("userID") int userID, Model model) {
 		Users user = UserOperations.getUser(userID);
 		ArrayList<Concerts> attendedConcertList = ConcertOperations.getAttendedConcerts(userID);
+		model.addAttribute("page","2");
 		model.addAttribute("user",user);
 		model.addAttribute("concertList",attendedConcertList);
-		return "attendedProfile";
+		return "profile";
 	}
 	@RequestMapping("/profile/{userID}/thinking")
 	public String thinkingProfilePage(@PathVariable("userID") int userID, Model model) {
 		Users user = UserOperations.getUser(userID);
 		ArrayList<Concerts> thinkingConcertList = ConcertOperations.getThinkingConcerts(userID);
+		model.addAttribute("page","3");
 		model.addAttribute("user",user);
 		model.addAttribute("concertList",thinkingConcertList);
-		return "thinking";
+		return "profile";
 	}
 }

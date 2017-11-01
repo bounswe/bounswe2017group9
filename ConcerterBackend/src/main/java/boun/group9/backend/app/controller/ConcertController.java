@@ -23,6 +23,7 @@ public class ConcertController {
 	@RequestMapping("/concert/{concertID}")
 	public String concertPage(@PathVariable("concertID") int concertID,Model model) {
 		Concerts concert = ConcertOperations.getConcert(concertID);
+		model.addAttribute("concert",concert);
 		return "concert";
 	}
 	@RequestMapping(value="/new-concert",method=RequestMethod.GET)
