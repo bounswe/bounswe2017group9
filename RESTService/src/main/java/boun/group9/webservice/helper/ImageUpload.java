@@ -22,7 +22,7 @@ public class ImageUpload {
     //String uploadFileName = "C:\\Users\\hilaldonmez\\Desktop\\coldplay.jpg";
 
     public  void imageUpload(String keyName,String uploadFileName) throws IOException {
-        AWSCredentials awsCreds = new BasicAWSCredentials("AKIAJQWJ2BW25TAQX6UA", "X41/jZhLHMHVMvR8Iw6IYBEnAJhtPkIFtokKKPF7");
+        AWSCredentials awsCreds = new BasicAWSCredentials("accessKey", "secretKey");
         AmazonS3 s3client = new AmazonS3Client(awsCreds);
         try {
             //System.out.println("Uploading a new object to S3 from a file\n");
