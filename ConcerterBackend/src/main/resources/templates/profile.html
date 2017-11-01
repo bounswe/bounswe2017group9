@@ -58,44 +58,79 @@
 				<!-- END SIDEBAR BUTTONS -->
 				<!-- SIDEBAR MENU -->
 				<div class="nav flex-column nav-pills profile-usermenu" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-  <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Attending Concerts</a>
-  <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Thinking Concerts</a>
-  <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Attended Concerts</a>
-</div>
-<div class="tab-content" id="v-pills-tabContent">
-  <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab"></div>
-  <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab"></div>
-  <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab"></div>
-  <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab"></div>
-</div>
+  					<a href="/profile/7/attending" class="btn btn-info">Attending Concerts</a>
+  					<a href="/profile/7/thinking" class="btn btn-info">Thinking Concerts</a>
+  					<a href="/profile/7/attended" class="btn btn-info">Attended Concerts</a>
+				</div>
+
 				<!-- END MENU -->
 			</div>
 		</div>
 		<div class="col-md-9">
-            <div class="profile-content">
+            <div class="profile-content" th:each="concert : ${concertList}">
 			   <div class="row">
 <div class="col-8 offset-2">
 <div class="card border-success">
   <img class="card-img-top" src="/1.jpg" alt="Card image cap"></img>
   <div class="card-body">
-    <a class="card-title" href="/concert/1">"Yürüyen Köşk" İstanbul Prömiyeri</a>
+    <a class="card-title" th:href="@{~/concert/{id}(id=${concert.id})}" th:text="${concert.name}"></a>
     <a href="#" class="btn btn-success">Attending</a>
     <a href="#" class="btn btn-warning">Maybe</a>
     <hr />
     <div class="row">
     <div class="col-4">
-    <p><b>Artist : </b> Fazıl Say</p>
-    <p><b>Created By :</b> Fatih Güven</p>
+    <p><b>Artist : </b> <span th:text="${concert.artist.name}"></span></p>
+    <p><b>Created By :</b> <span th:text="${concert.created_by.name}"></span> </p>
     </div>
     <div class="col-4">
-    <p><b>Location : </b> İstanbul </p>
+    <p><b>Location : </b> <span th:text="${concert.location.city}"> </span></p>
     <p><b>Date :</b> 29/10/2017</p>
     <p><b>Time :</b> 18:00 </p>
     </div>
     <div class="col-4">
-    <p><b>Min Price : </b> 70$ </p>
-    <p> <b>Max Price : </b> 100$</p>
-    <p><b>Rate : </b> 3.2 </p>
+    <p><b>Min Price : </b> <span th:text="${concert.min_price}"></span></p>
+    <p> <b>Max Price : </b> <span th:text="${concert.max_price}"></span></p>
+    <p><b>Rate : </b> <span th:text="${concert.rate}"></span></p>
+    </div>
+    </div>
+    <hr />
+    <div class="media comment">
+  <a href="/profile/1"><img class="align-self-center mr-3 commenterPhoto" src="/fatihGuven.jpg" alt="Generic placeholder image"></img></a>
+  <div class="media-body">
+    <a class="mt-0" href="/profile/1"><b>Fatih Güven</b></a>
+    <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. </p>
+    <p class="mb-0">Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+  </div>
+</div>
+  </div>
+</div>
+<hr />
+</div>
+
+</div><div class="profile-content" th:each="concert : ${concertList}">
+			   <div class="row">
+<div class="col-8 offset-2">
+<div class="card border-success">
+  <img class="card-img-top" src="/1.jpg" alt="Card image cap"></img>
+  <div class="card-body">
+    <a class="card-title" th:href="@{~/concert/{id}(id=${concert.id})}" th:text="${concert.name}"></a>
+    <a href="#" class="btn btn-success">Attending</a>
+    <a href="#" class="btn btn-warning">Maybe</a>
+    <hr />
+    <div class="row">
+    <div class="col-4">
+    <p><b>Artist : </b> <span th:text="${concert.artist.name}"></span></p>
+    <p><b>Created By :</b> <span th:text="${concert.created_by.name}"></span> </p>
+    </div>
+    <div class="col-4">
+    <p><b>Location : </b> <span th:text="${concert.location.city}"> </span></p>
+    <p><b>Date :</b> 29/10/2017</p>
+    <p><b>Time :</b> 18:00 </p>
+    </div>
+    <div class="col-4">
+    <p><b>Min Price : </b> <span th:text="${concert.min_price}"></span></p>
+    <p> <b>Max Price : </b> <span th:text="${concert.max_price}"></span></p>
+    <p><b>Rate : </b> <span th:text="${concert.rate}"></span></p>
     </div>
     </div>
     <hr />
@@ -113,6 +148,7 @@
 </div>
 
 </div>
+            </div>
             </div>
 		</div>
 	</div>

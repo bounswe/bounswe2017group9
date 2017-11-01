@@ -13,7 +13,7 @@ public class Database {
 	static int updateResult;
 	public static ResultSet connect(String query,int mode) throws SQLException,NotSavedException{
 		try {
-			//Class.forName(JDBC_DRIVER);
+			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(DB_URL,Application.username,Application.password);
 			stmt = conn.createStatement();
 			switch(mode) {
@@ -39,11 +39,9 @@ public class Database {
 			ex.printStackTrace();
 			throw new SQLException();
 		}
-		/*
 		catch(ClassNotFoundException ex) {
 			ex.printStackTrace();
 		}
-		*/
 		return rs;
 	}
 	public static void closeConnection(){

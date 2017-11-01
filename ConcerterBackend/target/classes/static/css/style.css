@@ -2,12 +2,14 @@
 	margin-bottom:0rem;
 	font-size:12px;
 }
-
+.btn-info{
+	margin-top:2%;
+}
 .btn-warning{
 	margin-left:5%;
 }
 .commenterPhoto{
-	width:50px;
+	width:50px!important;
 }
 .comment p{
 	font-size:10px;

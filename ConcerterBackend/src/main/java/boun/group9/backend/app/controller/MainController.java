@@ -1,9 +1,14 @@
 package boun.group9.backend.app.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import boun.group9.backend.app.data.Concerts;
+import boun.group9.backend.app.helper.ConcertOperations;
 
 @Controller
 public class MainController {
@@ -16,6 +21,7 @@ public class MainController {
 	@RequestMapping("/index")
 	public String index(Model model) {
 		ArrayList<Concerts> concertList = ConcertOperations.getAllActiveConcerts();
+		model.addAttribute("concertList",concertList);
 		return "index";
 	}
 }
