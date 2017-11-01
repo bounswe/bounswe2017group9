@@ -18,8 +18,8 @@ import boun.group9.backend.app.helper.UserOperations;
 public class UserController {
 	@RequestMapping("/profile/{userID}")
 	public String profilePage(@PathVariable("userID") int userID,Model model) {
-		Users user = UserOperations.getUser(userID);
-		model.addAttribute(user);
+		//Users user = UserOperations.getUser(userID);
+		//model.addAttribute(user);
 		return "profile";
 	}
 	@RequestMapping("/profile/{userID}/attending")

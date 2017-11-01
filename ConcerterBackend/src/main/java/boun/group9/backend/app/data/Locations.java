@@ -6,6 +6,15 @@ public class Locations {
 	private double latitude;
 	private String city;
 	private String address;
+	public Locations() {
+		
+	}
+	public Locations(double longitude,double latitude,String city,String address) {
+		this.longitude = longitude;
+		this.latitude = latitude;
+		this.city = city;
+		this.address = address;
+	}
 	public int getId() {
 		return id;
 	}

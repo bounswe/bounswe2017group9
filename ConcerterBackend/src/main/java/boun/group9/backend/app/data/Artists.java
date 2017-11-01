@@ -3,6 +3,12 @@ package boun.group9.backend.app.data;
 public class Artists {
 	private int id;
 	private String name;
+	public Artists() {
+		
+	}
+	public Artists(String name) {
+		this.name = name;
+	}
 	public int getId() {
 		return id;
 	}

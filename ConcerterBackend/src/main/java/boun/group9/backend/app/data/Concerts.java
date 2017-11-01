@@ -9,8 +9,12 @@ public class Concerts {
 	private Users created_by;
 	private int created_by_id;
 	private Artists artist;
+	private String artist_name;
+	private String location_name;
 	private Locations location;
 	private Date date_time;
+	private String date_str;
+	private String time_str;
 	private int artist_id;
 	private int location_id;
 	private int min_price;
@@ -20,6 +24,30 @@ public class Concerts {
 	private String image_path;
 	public Concerts() {
 	
+	}
+	public String getTime_str() {
+		return this.time_str;
+	}
+	public void setTime_str(String time_str) {
+		this.time_str = time_str;
+	}
+	public String getDate_str() {
+		return this.date_str;
+	}
+	public void setDate_str(String date_str) {
+		this.date_str = date_str;
+	}
+	public String getLocation_name() {
+		return this.location_name;
+	}
+	public void setLocation_name(String location_name) {
+		this.location_name = location_name;
+	}
+	public String getArtist_name() {
+		return this.artist_name;
+	}
+	public void setArtist_name(String artist_name) {
+		this.artist_name = artist_name;
 	}
 	public int getCreated_by_id() {
 		return this.created_by_id;
@@ -72,8 +100,9 @@ public class Concerts {
 	public Date getDate_time() {
 		return date_time;
 	}
-	public void setDate_time(Timestamp date_time) {
-		this.date_time = new Date(date_time.getTime());
+	public void setDate_time(Date date_time) {
+		//this.date_time = new Date(date_time.getTime());
+		this.date_time = date_time;
 	}
 	public int getMin_price() {
 		return min_price;
