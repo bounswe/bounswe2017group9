@@ -64,19 +64,30 @@
     </div>
     </div>
     <hr />
-    <div class="media comment">
+    <div class="media comment" th:each="comment : ${concert.commentList}">
   <a href="/profile/1"><img class="align-self-center mr-3 commenterPhoto" src="/fatihGuven.jpg" alt="Generic placeholder image"></img></a>
-  <div class="media-body">
+  <div class="media-body" >
     <a class="mt-0" href="/profile/1"><b>Fatih Güven</b></a>
-    <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. </p>
-    <p class="mb-0">Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+    <p th:text="${comment.comment}"></p>
   </div>
+  <hr/>
+  
 </div>
+<form action="#" th:action="@{/new-comment}" th:object="${newComment}" method="post">
+<div class="media-body">
+  
+  	<input type="text" placeholder="Comment" th:field="*{comment}"></input>
+  	<input type="hidden" th:value="${concert.id}" th:id="concert_id" th:name="concert_id"></input>
+  </div>
+  <div class="media-body">
+  	<button class="btn btn-outline-success" type="submit">Comment</button>
+  </div>
+  </form>
   </div>
 </div>
 <hr />
 </div>
-
+	
 </div>
 
 	</div>

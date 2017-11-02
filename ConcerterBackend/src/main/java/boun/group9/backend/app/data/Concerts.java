@@ -1,6 +1,7 @@
 package boun.group9.backend.app.data;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Concerts {
@@ -15,6 +16,7 @@ public class Concerts {
 	private Date date_time;
 	private String date_str;
 	private String time_str;
+	private ArrayList<Comments> commentList;
 	private int artist_id;
 	private int location_id;
 	private int min_price;
@@ -24,6 +26,12 @@ public class Concerts {
 	private String image_path;
 	public Concerts() {
 	
+	}
+	public ArrayList<Comments> getCommentList(){
+		return this.commentList;
+	}
+	public void setCommentList(ArrayList<Comments> commentList) {
+		this.commentList = commentList;
 	}
 	public String getTime_str() {
 		return this.time_str;

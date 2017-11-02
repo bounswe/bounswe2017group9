@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import boun.group9.backend.app.Application;
 import boun.group9.backend.app.Application.STATUS;
 import boun.group9.backend.app.data.Artists;
+import boun.group9.backend.app.data.Comments;
 import boun.group9.backend.app.data.Concerts;
 import boun.group9.backend.app.data.Locations;
 public class ConcertOperations {
@@ -34,6 +35,19 @@ public class ConcertOperations {
 			BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			resultJson = br.readLine();
 			resultList = new ArrayList<Concerts>(Arrays.asList(Application.gson.fromJson(resultJson, Concerts[].class)));
+			for(Concerts oneConcert : resultList) {
+				ArrayList<Comments> commentList;
+				Comments comment;
+				url = new URL(Application.API_ENDPOINT+"/concerts/"+oneConcert.getId()+"/comments");
+				connection = (HttpURLConnection) url.openConnection();
+				connection.setRequestMethod("GET");
+				connection.setDoInput(true);
+				connection.connect();
+				br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+				resultJson = br.readLine();
+				commentList = new ArrayList<Comments> (Arrays.asList(Application.gson.fromJson(resultJson, Comments[].class)));
+				oneConcert.setCommentList(commentList);
+			}
 			return resultList;
 		}catch(MalformedURLException ex) {
 			ex.printStackTrace();
@@ -54,6 +68,19 @@ public class ConcertOperations {
 			BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			resultJson = br.readLine();
 			resultList = new ArrayList<Concerts>(Arrays.asList(Application.gson.fromJson(resultJson, Concerts[].class)));
+			for(Concerts oneConcert : resultList) {
+				ArrayList<Comments> commentList;
+				Comments comment;
+				url = new URL(Application.API_ENDPOINT+"/concerts/"+oneConcert.getId()+"/comments");
+				connection = (HttpURLConnection) url.openConnection();
+				connection.setRequestMethod("GET");
+				connection.setDoInput(true);
+				connection.connect();
+				br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+				resultJson = br.readLine();
+				commentList = new ArrayList<Comments> (Arrays.asList(Application.gson.fromJson(resultJson, Comments[].class)));
+				oneConcert.setCommentList(commentList);
+			}
 			return resultList;
 		}catch(MalformedURLException ex) {
 			ex.printStackTrace();
@@ -74,6 +101,19 @@ public class ConcertOperations {
 			BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			resultJson = br.readLine();
 			resultList = new ArrayList<Concerts>(Arrays.asList(Application.gson.fromJson(resultJson, Concerts[].class)));
+			for(Concerts oneConcert : resultList) {
+				ArrayList<Comments> commentList;
+				Comments comment;
+				url = new URL(Application.API_ENDPOINT+"/concerts/"+oneConcert.getId()+"/comments");
+				connection = (HttpURLConnection) url.openConnection();
+				connection.setRequestMethod("GET");
+				connection.setDoInput(true);
+				connection.connect();
+				br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+				resultJson = br.readLine();
+				commentList = new ArrayList<Comments> (Arrays.asList(Application.gson.fromJson(resultJson, Comments[].class)));
+				oneConcert.setCommentList(commentList);
+			}
 			return resultList;
 		}catch(MalformedURLException ex) {
 			ex.printStackTrace();
@@ -112,6 +152,19 @@ public class ConcertOperations {
 			BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			resultJson = br.readLine();
 			resultList = new ArrayList<Concerts>(Arrays.asList(Application.gson.fromJson(resultJson, Concerts[].class)));
+			for(Concerts oneConcert : resultList) {
+				ArrayList<Comments> commentList;
+				Comments comment;
+				url = new URL(Application.API_ENDPOINT+"/concerts/"+oneConcert.getId()+"/comments");
+				connection = (HttpURLConnection) url.openConnection();
+				connection.setRequestMethod("GET");
+				connection.setDoInput(true);
+				connection.connect();
+				br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+				resultJson = br.readLine();
+				commentList = new ArrayList<Comments> (Arrays.asList(Application.gson.fromJson(resultJson, Comments[].class)));
+				oneConcert.setCommentList(commentList);
+			}
 			return resultList;
 		}catch(MalformedURLException ex) {
 			ex.printStackTrace();
@@ -153,7 +206,6 @@ public class ConcertOperations {
 			ex.printStackTrace();
 			return Application.STATUS.ERROR;
 		}
-		
 		return Application.STATUS.SUCCESS;
 	}
 }
