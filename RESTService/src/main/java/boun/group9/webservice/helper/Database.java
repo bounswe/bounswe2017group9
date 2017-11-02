@@ -9,10 +9,11 @@ public class Database {
 	static Connection conn;
 	static Statement stmt;
 	static ResultSet rs;
+	public static int last_generated_id;
 	static int updateResult;
 	public static ResultSet connect(String query,int mode) throws SQLException,NotSavedException{
 		try {
-			//Class.forName(JDBC_DRIVER);
+			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(DB_URL,Application.username,Application.password);
 			stmt = conn.createStatement();
 			switch(mode) {
@@ -20,7 +21,12 @@ public class Database {
 				rs = stmt.executeQuery(query);
 				break;
 			case Application.MODE_UPDATE:
-				updateResult = stmt.executeUpdate(query);
+				updateResult = stmt.executeUpdate(query,Statement.RETURN_GENERATED_KEYS);
+				rs = stmt.getGeneratedKeys();
+				if(rs.next()) {
+					Database.last_generated_id = rs.getInt(1);
+				}
+				
 				if(updateResult == 0) {
 					throw new NotSavedException();
 				}
@@ -32,6 +38,9 @@ public class Database {
 			System.out.println("SQL Exception occured.");
 			ex.printStackTrace();
 			throw new SQLException();
+		}
+		catch(ClassNotFoundException ex) {
+			ex.printStackTrace();
 		}
 		return rs;
 	}

@@ -1,5 +1,6 @@
 package boun.group9.webservice.app.data;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Users {
@@ -15,6 +16,7 @@ public class Users {
 	private Date created_at;
 	private Date updated_at;
 	private Date last_login;
+	private String username;
 	public int getId() {
 		return id;
 	}
@@ -72,19 +74,25 @@ public class Users {
 	public Date getCreated_at() {
 		return created_at;
 	}
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
+	public void setCreated_at(Timestamp created_at) {
+		this.created_at = new Date(created_at.getTime());
 	}
 	public Date getUpdated_at() {
 		return updated_at;
 	}
-	public void setUpdated_at(Date updated_at) {
-		this.updated_at = updated_at;
+	public void setUpdated_at(Timestamp updated_at) {
+		this.updated_at = new Date(updated_at.getTime());
 	}
 	public Date getLast_login() {
 		return last_login;
 	}
-	public void setLast_login(Date last_login) {
-		this.last_login = last_login;
+	public void setLast_login(Timestamp last_login) {
+		this.last_login = new Date(last_login.getTime());
+	}
+	public String getUsername() {
+		return this.username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
 	}
 }

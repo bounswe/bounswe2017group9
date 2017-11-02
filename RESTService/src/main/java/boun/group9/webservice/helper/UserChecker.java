@@ -4,6 +4,9 @@ import boun.group9.webservice.app.data.Users;
 
 public class UserChecker {
 	public static String insertUserQuery(Users user) {
+		java.util.Date date = new java.util.Date();
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String currentTime = sdf.format(date);
 		String query = "INSERT INTO Users ";
 		String fieldQuery = "(";
 		String valuesQuery = "VALUES(";
@@ -39,6 +42,12 @@ public class UserChecker {
 			fieldQuery += "photo_path,";
 			valuesQuery += "'"+user.getPhoto_path()+"',";
 		}
+		fieldQuery += "created_at,";
+		valuesQuery += "'"+currentTime+"',";
+		fieldQuery += "updated_at,";
+		valuesQuery += "'"+currentTime+"',";
+		fieldQuery += "last_login";
+		valuesQuery += "'"+currentTime+"'";
 		if(fieldQuery.endsWith(",")) {
 			fieldQuery = fieldQuery.substring(0, fieldQuery.length()-1);
 		}
@@ -46,6 +55,7 @@ public class UserChecker {
 			valuesQuery = valuesQuery.substring(0, valuesQuery.length()-1);
 		}
 		query+=fieldQuery+") "+valuesQuery+");";
+		System.out.println(query);
 		return query;
 	}
 }
