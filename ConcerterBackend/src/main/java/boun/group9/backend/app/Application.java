@@ -8,7 +8,7 @@ import com.google.gson.Gson;
 
 @SpringBootApplication
 public class Application {
-	public static final String API_ENDPOINT = "http://localhost:8081/RESTService-0.0.3-SNAPSHOT";
+	public static final String API_ENDPOINT = "http://concerterservice-env.yzkzigt6vn.eu-central-1.elasticbeanstalk.com";
 	public static enum STATUS{
 		SUCCESS,ERROR;
 	}

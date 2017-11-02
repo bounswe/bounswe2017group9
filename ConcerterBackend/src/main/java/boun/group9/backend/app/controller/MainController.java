@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import boun.group9.backend.app.data.Comments;
 import boun.group9.backend.app.data.Concerts;
 import boun.group9.backend.app.helper.ConcertOperations;
 
@@ -21,6 +22,7 @@ public class MainController {
 	@RequestMapping("/index")
 	public String index(Model model) {
 		ArrayList<Concerts> concertList = ConcertOperations.getAllActiveConcerts();
+		model.addAttribute("newComment",new Comments());
 		model.addAttribute("concertList",concertList);
 		return "index";
 	}
