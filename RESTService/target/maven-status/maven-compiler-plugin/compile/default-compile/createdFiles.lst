@@ -1,5 +1,6 @@
 boun/group9/webservice/app/data/Concerts.class
 boun/group9/webservice/app/controller/UserController.class
+boun/group9/webservice/helper/FileChecker.class
 boun/group9/webservice/app/data/Notification_type.class
 boun/group9/webservice/app/data/Comments.class
 boun/group9/webservice/app/data/Locations.class

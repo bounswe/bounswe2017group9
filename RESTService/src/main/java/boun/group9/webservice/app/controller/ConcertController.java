@@ -1,5 +1,6 @@
 package boun.group9.webservice.app.controller;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import boun.group9.webservice.app.Application;
 import boun.group9.webservice.app.data.Artists;
@@ -19,12 +21,35 @@ import boun.group9.webservice.app.data.Locations;
 import boun.group9.webservice.app.data.Users;
 import boun.group9.webservice.exception.NotSavedException;
 import boun.group9.webservice.helper.ArtistChecker;
+import boun.group9.webservice.helper.CommentChecker;
 import boun.group9.webservice.helper.ConcertChecker;
 import boun.group9.webservice.helper.Database;
+import boun.group9.webservice.helper.FileChecker;
 import boun.group9.webservice.helper.LocationChecker;
 
 @RestController
 public class ConcertController {
+	@RequestMapping(value="concerts/{concertID}/photo",method=RequestMethod.POST)
+	public String uploadConcertPhoto(@PathVariable(value="concertID") int concertID,@RequestParam(value="file") MultipartFile file) {
+		if(!file.isEmpty()) {
+			try {
+				FileChecker.imageUpload(file);
+			}catch(IOException ex) {
+				System.out.println("IO Exception occured.");
+				ex.printStackTrace();
+			}
+			
+			return "File saved.";
+		}else {
+			return "File is empty.";
+		}
+	}
+	@RequestMapping(value="concerts/{concertID}/comments",method=RequestMethod.GET)
+	public String getCommentsForConcert(@PathVariable(value="concertID") int concertID) {
+		ArrayList<Comments> commentList = CommentChecker.getCommentList(concertID);
+		String jsonString = Application.gson.toJson(commentList);
+		return jsonString;
+	}
 	@RequestMapping(value="concerts/{concertID}",method=RequestMethod.GET)
 	public String getConcert(@PathVariable(value="concertID") int concertID) {
 		String jsonString="";
@@ -84,40 +109,7 @@ public class ConcertController {
 		}
 		return jsonString;
 	}
-	@RequestMapping(value="concerts/{concertID}/comments",method=RequestMethod.GET)
-	public String getCommentsForConcert(@PathVariable("concertID") int concert_id) {
-		ArrayList<Comments> commentList = new ArrayList<Comments>();
-		String jsonString="";
-		Comments comment;
-		Users user;
-		String query = "SELECT Comments.id AS Comments_id, Comments.up_votes AS Comments_up_votes, Comments.down_votes AS Comments_down_votes, Comments.comment, Users.id AS user_id, Users.name AS Users_name, Users.username AS Users_username , Users.photo_path AS Users_photo_path FROM Comments INNER JOIN Users ON Comments.commented_by = Users.id WHERE Comments.concert_id="+concert_id+";";
-		ResultSet rs;
-		try {
-			rs = Database.connect(query, Application.MODE_GET);
-			while(rs.next()) {
-				comment = new Comments();
-				user = new Users();
-				comment.setId(rs.getInt("Comments_id"));
-				comment.setConcert_id(concert_id);
-				comment.setComment(rs.getString("comment"));
-				user.setId(rs.getInt("user_id"));
-				user.setName(rs.getString("Users_name"));
-				user.setUsername(rs.getString("Users_username"));
-				user.setPhoto_path(rs.getString("Users_photo_path"));
-				comment.setCommented_user(user);
-				commentList.add(comment);
-			}
-		}catch(SQLException ex) {
-			ex.printStackTrace();
-			return "SQL Exception occured.";
-		}catch(NotSavedException ex) {
-			ex.printStackTrace();
-			return "Not saved.";
-		}
-		jsonString = Application.gson.toJson(commentList);
-		System.out.println(jsonString);
-		return jsonString;
-	}
+	
 	@RequestMapping(value="concerts",method = RequestMethod.GET)
 	public String getConcertsForUser(@RequestParam(value="user_id",required=false) Integer user_id,@RequestParam(value="status",required=false) String status,@RequestParam(value="created_by",required=false) String created_by) {
 		String jsonString="";
