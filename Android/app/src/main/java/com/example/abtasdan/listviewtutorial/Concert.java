@@ -27,6 +27,10 @@ public class Concert {
         this.numberOfAttendee = numberOfAttendee;
     }
 
+
+    public Concert() {
+    }
+
     public String getArtist() {
         return artist;
     }
