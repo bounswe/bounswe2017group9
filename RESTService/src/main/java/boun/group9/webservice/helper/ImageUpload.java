@@ -18,9 +18,7 @@ public class ImageUpload {
 
     private static String bucketName     = "concerter/concerts";
 
-    //String keyName="coldplay.jpg";
-    //String uploadFileName = "C:\\Users\\hilaldonmez\\Desktop\\coldplay.jpg";
-
+   
     public  void imageUpload(String keyName,String uploadFileName) throws IOException {
         AWSCredentials awsCreds = new BasicAWSCredentials("accessKey", "secretKey");
         AmazonS3 s3client = new AmazonS3Client(awsCreds);
