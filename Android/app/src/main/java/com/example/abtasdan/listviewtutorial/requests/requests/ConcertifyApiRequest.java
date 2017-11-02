@@ -1,22 +1,13 @@
 package com.example.abtasdan.listviewtutorial.requests.requests;
 
-import android.support.annotation.Nullable;
-
-import com.example.abtasdan.listviewtutorial.Concert;
+import com.example.abtasdan.listviewtutorial.modals.Concert;
 
 
 import java.util.ArrayList;
 
 import retrofit.Callback;
-import retrofit.http.Field;
-import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
-import retrofit.http.Multipart;
-import retrofit.http.POST;
-import retrofit.http.Part;
-import retrofit.http.Path;
 import retrofit.http.Query;
-import retrofit.mime.TypedFile;
 
 
 public interface ConcertifyApiRequest {
@@ -140,8 +131,8 @@ public interface ConcertifyApiRequest {
 ////    @POST("/login")
 ////    void login(@Body DriverLoginRequest body, Callback<DriverLoginSignupResponse> loginResponse);
 ////
-////    @POST("/location")
-////    void location(@Body DriverLocationRequest body, Callback<Response> loginResponse);
+////    @POST("/LocationObject")
+////    void LocationObject(@Body DriverLocationRequest body, Callback<Response> loginResponse);
 ////
 ////    @GET("/available-freights")
 ////    void getAvaliableFreights(@Nullable @Query("olderThan") String olderThan, @Nullable @Query("newerThan") String newerThan, Callback<DriverAvailableFreightsResponse> driverAvailableFreightsResponseCallback);
