@@ -26,6 +26,10 @@ public class UserChecker {
 			fieldQuery+="name,";
 			valuesQuery+="'"+user.getName()+"',";
 		}
+		if(user.getUsername() != null) {
+			fieldQuery+="username,";
+			valuesQuery+="'"+user.getUsername()+"',";
+		}
 		if(user.getEmail() != null) {
 			fieldQuery += "email,";
 			valuesQuery+="'"+user.getEmail()+"',";
