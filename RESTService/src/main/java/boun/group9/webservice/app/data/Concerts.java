@@ -1,19 +1,44 @@
 package boun.group9.webservice.app.data;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Concerts {
 	private int id;
 	private String name;
-	private int created_by;
-	private String artist_name;
-	private int location;
+	private Users created_by;
+	private int created_by_id;
+	private Artists artist;
+	private Locations location;
 	private Date date_time;
+	private int artist_id;
+	private int location_id;
 	private int min_price;
 	private int max_price;
 	private float rate;
 	private int voter_amount;
 	private String image_path;
+	public Concerts() {
+	
+	}
+	public int getCreated_by_id() {
+		return this.created_by_id;
+	}
+	public void setCreated_by_id(int id) {
+		this.created_by_id = id;
+	}
+	public int getArtist_id() {
+		return this.artist_id;
+	}
+	public void setArtist_id(int artist_id) {
+		this.artist_id = artist_id;
+	}
+	public int getLocation_id() {
+		return this.location_id;
+	}
+	public void setLocation_id(int location_id) {
+		this.location_id = location_id;
+	}
 	public int getId() {
 		return id;
 	}
@@ -26,29 +51,29 @@ public class Concerts {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getCreated_by() {
+	public Users getCreated_by() {
 		return created_by;
 	}
-	public void setCreated_by(int created_by) {
+	public void setCreated_by(Users created_by) {
 		this.created_by = created_by;
 	}
-	public String getArtist_name() {
-		return artist_name;
+	public Artists getArtist() {
+		return artist;
 	}
-	public void setArtist_name(String artist_name) {
-		this.artist_name = artist_name;
+	public void setArtist(Artists artist_name) {
+		this.artist = artist_name;
 	}
-	public int getLocation() {
+	public Locations getLocation() {
 		return location;
 	}
-	public void setLocation(int location) {
+	public void setLocation(Locations location) {
 		this.location = location;
 	}
 	public Date getDate_time() {
 		return date_time;
 	}
-	public void setDate_time(Date date_time) {
-		this.date_time = date_time;
+	public void setDate_time(Timestamp date_time) {
+		this.date_time = new Date(date_time.getTime());
 	}
 	public int getMin_price() {
 		return min_price;

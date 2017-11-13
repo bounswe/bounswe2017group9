@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>ConcerterBackend Test</title>
+	<meta http-equiv="Content-Type" content="text/html;" charset="UTF-8" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"></link>
+	<link rel="stylesheet" href="/css/style.css"></link>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light">
+  <a class="navbar-brand" href="/index">Concerter</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/profile/1">Profile</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Concerts
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/new-concert">Create Concert</a>
+        </div>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+<div class="container">
+    <div class="row profile">
+		<div class="col-md-3">
+			<div class="profile-sidebar">
+				<!-- SIDEBAR USERPIC -->
+				<div class="profile-userpic">
+					<img src="/fatihGuven.jpg" class="img-responsive" alt=""></img>
+				</div>
+				<!-- END SIDEBAR USERPIC -->
+				<!-- SIDEBAR USER TITLE -->
+				<div class="profile-usertitle">
+					<div class="profile-usertitle-name">
+						Fatih Güven
+					</div>
+					<div class="profile-usertitle-job">
+						Developer
+					</div>
+				</div>
+				<!-- END SIDEBAR USER TITLE -->
+				<!-- SIDEBAR BUTTONS -->
+				<div class="profile-userbuttons">
+					<button type="button" class="btn btn-success btn-sm">Follow</button>
+				</div>
+				<!-- END SIDEBAR BUTTONS -->
+				<!-- SIDEBAR MENU -->
+				<div class="nav flex-column nav-pills profile-usermenu" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+  					<a href="/profile/7/attending" class="btn btn-info">Attending Concerts</a>
+  					<a href="/profile/7/thinking" class="btn btn-info">Thinking Concerts</a>
+  					<a href="/profile/7/attended" class="btn btn-info">Attended Concerts</a>
+				</div>
+
+				<!-- END MENU -->
+			</div>
+		</div>
+		<div class="col-md-9">
+            <div class="profile-content" th:each="concert : ${concertList}">
+			   <div class="row">
+<div class="col-8 offset-2">
+<div class="card border-success">
+  <img class="card-img-top" src="/1.jpg" alt="Card image cap"></img>
+  <div class="card-body">
+    <a class="card-title" th:href="@{~/concert/{id}(id=${concert.id})}" th:text="${concert.name}"></a>
+    <a href="#" class="btn btn-success">Attending</a>
+    <a href="#" class="btn btn-warning">Maybe</a>
+    <hr />
+    <div class="row">
+    <div class="col-4">
+    <p><b>Artist : </b> <span th:text="${concert.artist.name}"></span></p>
+    <p><b>Created By :</b> <span th:text="${concert.created_by.name}"></span> </p>
+    </div>
+    <div class="col-4">
+    <p><b>Location : </b> <span th:text="${concert.location.city}"> </span></p>
+    <p><b>Date :</b> 29/10/2017</p>
+    <p><b>Time :</b> 18:00 </p>
+    </div>
+    <div class="col-4">
+    <p><b>Min Price : </b> <span th:text="${concert.min_price}"></span></p>
+    <p> <b>Max Price : </b> <span th:text="${concert.max_price}"></span></p>
+    <p><b>Rate : </b> <span th:text="${concert.rate}"></span></p>
+    </div>
+    </div>
+    <hr />
+    <div class="media comment" th:each="comment : ${concert.commentList}">
+  <a href="/profile/1"><img class="align-self-center mr-3 commenterPhoto" src="/fatihGuven.jpg" alt="Generic placeholder image"></img></a>
+  <div class="media-body" >
+    <a class="mt-0" href="/profile/1"><b>Fatih Güven</b></a>
+    <p th:text="${comment.comment}"></p>
+  </div>
+  <hr/>
+  
+</div>
+  </div>
+</div>
+<hr />
+</div>
+
+</div>
+            </div>
+		</div>
+	</div>
+</div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+</html>

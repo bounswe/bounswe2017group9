@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ListViewTutorial</string>
+    <string name="base_url">http://concerterservice-env.yzkzigt6vn.eu-central-1.elasticbeanstalk.com/</string>
 </resources>
