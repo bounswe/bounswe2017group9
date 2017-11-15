@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 5.7.20, for Linux (x86_64)
 --
--- Host: concerter-db.csosuob9ic2u.eu-central-1.rds.amazonaws.com    Database: concerter_db
+-- Host: localhost    Database: concerter_db
 -- ------------------------------------------------------
--- Server version	5.6.35-log
+-- Server version	5.7.20-0ubuntu0.16.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -26,8 +26,18 @@ CREATE TABLE `Artists` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Artists`
+--
+
+LOCK TABLES `Artists` WRITE;
+/*!40000 ALTER TABLE `Artists` DISABLE KEYS */;
+INSERT INTO `Artists` VALUES (19,'Embedded Artist'),(20,'Teoman');
+/*!40000 ALTER TABLE `Artists` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `Attendees`
@@ -51,6 +61,15 @@ CREATE TABLE `Attendees` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `Attendees`
+--
+
+LOCK TABLES `Attendees` WRITE;
+/*!40000 ALTER TABLE `Attendees` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Attendees` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Comments`
 --
 
@@ -65,11 +84,44 @@ CREATE TABLE `Comments` (
   `down_votes` int(11) NOT NULL DEFAULT '0',
   `comment` varchar(100) NOT NULL,
   `date_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `category` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_Comments_Users` (`commented_by`),
   CONSTRAINT `FK_Comments_Users` FOREIGN KEY (`commented_by`) REFERENCES `Users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Comments`
+--
+
+LOCK TABLES `Comments` WRITE;
+/*!40000 ALTER TABLE `Comments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Comments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Comments_categories`
+--
+
+DROP TABLE IF EXISTS `Comments_categories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Comments_categories` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `category` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Comments_categories`
+--
+
+LOCK TABLES `Comments_categories` WRITE;
+/*!40000 ALTER TABLE `Comments_categories` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Comments_categories` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `Concerts`
@@ -97,8 +149,17 @@ CREATE TABLE `Concerts` (
   CONSTRAINT `FK_Concerts_Artists` FOREIGN KEY (`artist`) REFERENCES `Artists` (`id`),
   CONSTRAINT `FK_Concerts_Location` FOREIGN KEY (`location`) REFERENCES `Locations` (`id`),
   CONSTRAINT `FK_Concerts_Users` FOREIGN KEY (`created_by`) REFERENCES `Users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Concerts`
+--
+
+LOCK TABLES `Concerts` WRITE;
+/*!40000 ALTER TABLE `Concerts` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Concerts` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `Locations`
@@ -114,8 +175,18 @@ CREATE TABLE `Locations` (
   `city` varchar(100) DEFAULT NULL,
   `address` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Locations`
+--
+
+LOCK TABLES `Locations` WRITE;
+/*!40000 ALTER TABLE `Locations` DISABLE KEYS */;
+INSERT INTO `Locations` VALUES (13,45.12312,63.43432,'Istanbul','Bebek Mah. Nispetiye Cad. Test Sokak'),(14,45.12312,63.43432,'Istanbul,Bebek','Istanbul,Bebek');
+/*!40000 ALTER TABLE `Locations` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `Notification_type`
@@ -130,6 +201,15 @@ CREATE TABLE `Notification_type` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Notification_type`
+--
+
+LOCK TABLES `Notification_type` WRITE;
+/*!40000 ALTER TABLE `Notification_type` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Notification_type` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `Notifications`
@@ -152,6 +232,15 @@ CREATE TABLE `Notifications` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `Notifications`
+--
+
+LOCK TABLES `Notifications` WRITE;
+/*!40000 ALTER TABLE `Notifications` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Notifications` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Relations`
 --
 
@@ -171,6 +260,15 @@ CREATE TABLE `Relations` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `Relations`
+--
+
+LOCK TABLES `Relations` WRITE;
+/*!40000 ALTER TABLE `Relations` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Relations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Report_types`
 --
 
@@ -183,6 +281,15 @@ CREATE TABLE `Report_types` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Report_types`
+--
+
+LOCK TABLES `Report_types` WRITE;
+/*!40000 ALTER TABLE `Report_types` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Report_types` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `Reports`
@@ -207,6 +314,15 @@ CREATE TABLE `Reports` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `Reports`
+--
+
+LOCK TABLES `Reports` WRITE;
+/*!40000 ALTER TABLE `Reports` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Reports` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Users`
 --
 
@@ -215,21 +331,30 @@ DROP TABLE IF EXISTS `Users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `facebook_id` varchar(100) DEFAULT NULL,
-  `google_id` varchar(100) DEFAULT NULL,
   `name` varchar(100) DEFAULT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(256) NOT NULL,
-  `followers` int(11) NOT NULL,
-  `followings` int(11) NOT NULL,
-  `photo_path` varchar(255) NOT NULL,
+  `followers` int(11) NOT NULL DEFAULT '0',
+  `followings` int(11) NOT NULL DEFAULT '0',
+  `photo_path` varchar(255) NOT NULL DEFAULT '',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `last_login` datetime DEFAULT NULL,
   `username` varchar(100) NOT NULL,
+  `spotify_id` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Users`
+--
+
+LOCK TABLES `Users` WRITE;
+/*!40000 ALTER TABLE `Users` DISABLE KEYS */;
+INSERT INTO `Users` VALUES (10,'Fatih Guven','fatihguven@gmail.com','654321',0,0,'localhost:8080/photo','2017-11-15 16:03:35','2017-11-15 16:03:35','2017-11-15 16:03:35','ffguven',NULL),(11,'Hilal Donmez','hilaldonmez@gmail.com','654321',0,0,'','2017-11-15 16:05:29','2017-11-15 16:05:29','2017-11-15 16:05:29','hdonmez',NULL),(15,'Doga Can Dorum','dogacan.dorum@hotmail.com','11235',0,0,'','2017-11-15 19:32:57','2017-11-15 19:32:57','2017-11-15 19:32:57','ddorum',NULL);
+/*!40000 ALTER TABLE `Users` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -240,4 +365,4 @@ CREATE TABLE `Users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-31 20:55:04
+-- Dump completed on 2017-11-15 19:40:27
