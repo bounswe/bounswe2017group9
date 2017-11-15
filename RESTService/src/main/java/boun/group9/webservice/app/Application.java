@@ -11,8 +11,8 @@ import boun.group9.webservice.helper.Database;
 
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer{
-	public static final String username = "controller";
-	public static final String password = "4519controller";
+	public static final String username = "root";
+	public static final String password = "121212";
 	public static Gson gson = new Gson();
 	public static final int MODE_GET = 0;
 	public static final int MODE_UPDATE = 1;

@@ -2,11 +2,13 @@ package boun.group9.backend.app.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
 
 import boun.group9.backend.app.Application;
 import boun.group9.backend.app.Application.STATUS;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,45 +22,41 @@ import boun.group9.backend.app.helper.UserOperations;
 
 import boun.group9.backend.app.helper.UserOperations;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class UserController {
 	private static STATUS status;
 	
-	@RequestMapping(value="/",method=RequestMethod.GET)
-	public String firstPage(Model model){
-		model.addAttribute("user",new Users());
-		return "sign-up";
+	@RequestMapping(value="/login",method=RequestMethod.GET)
+	public String login(Model model) {
+		Users user = new Users();
+		model.addAttribute("user",user);
+		return "login-signup";
 	}
-	
-	
-	//the user logs into the system.
-	@RequestMapping(value="/userprofile",method= RequestMethod.POST)
-	public String loginPage(@ModelAttribute Users user){
-		status = UserOperations.login(user);
-		System.out.println(status.toString());
-		if(status == STATUS.SUCCESS) {
-			return "user-profile";
-		}else {
-			return "error";
+	@RequestMapping(value="/login",method=RequestMethod.POST)
+	public ModelAndView login(@ModelAttribute Users user,HttpSession session,Model model) {
+		user = UserOperations.login(user);
+		session.setAttribute("loggedInUser",user);
+		if(user == null) {
+			return new ModelAndView("redirect:/login");
 		}
+		return new ModelAndView("redirect:/index");
 	}
-	
-	// The user signs up. 
-	@RequestMapping(value="/profile",method= RequestMethod.POST)
-	public String submitNewUser(@ModelAttribute Users user){
-		System.out.println(user.getEmail());
-		System.out.println(user.getPassword());
-		System.out.println(user.getUsername());
-		status = UserOperations.signUp(user);
-		System.out.println(status.toString());
-		if(status == STATUS.SUCCESS) {
-			return "user-profile";
-		}else {
-			return "error";
-		}
+	@RequestMapping(value="/logout",method=RequestMethod.GET)
+	public ModelAndView logout(HttpSession session) {
+		session.removeAttribute("loggedInUser");
+		return new ModelAndView("redirect:/login");
 	}
-	
+	@RequestMapping(value="/signup",method=RequestMethod.GET)
+	public String signup(Model model) {
+		return "login-signup";
+	}
+	@RequestMapping(value="/signup",method=RequestMethod.POST)
+	public ModelAndView signup(@ModelAttribute Users user) {
+		UserOperations.signUp(user);
+		return new ModelAndView("redirect:/login");
+	}
 	/*
 	@RequestMapping("/profile/{userID}")
 	public String profilePage(@PathVariable("userID") int userID,Model model) {

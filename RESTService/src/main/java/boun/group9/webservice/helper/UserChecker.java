@@ -14,14 +14,6 @@ public class UserChecker {
 			fieldQuery+="id,";
 			valuesQuery+=user.getId()+",";
 		}
-		if(user.getFacebook_id() != null) {
-			fieldQuery+="facebook_id,";
-			valuesQuery+="'"+user.getFacebook_id()+"',";
-		}
-		if(user.getGoogle_id() != null) {
-			fieldQuery+="google_id,";
-			valuesQuery+="'"+user.getGoogle_id()+"',";
-		}
 		if(user.getName() != null) {
 			fieldQuery+="name,";
 			valuesQuery+="'"+user.getName()+"',";

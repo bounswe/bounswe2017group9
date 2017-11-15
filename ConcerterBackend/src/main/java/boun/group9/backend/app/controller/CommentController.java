@@ -30,7 +30,7 @@ public class CommentController {
             return "error";
         }
     }
-
+    /*
     @RequestMapping("/getAllComments/{concertID}")
     public String getAllCommentsByConcertID(@PathVariable("concertID") int concertID, Model model) {
         ArrayList<Comments> resultList=CommentOperations.getCommentsByConcertID(concertID);
@@ -40,6 +40,6 @@ public class CommentController {
         model.addAttribute("commentList",resultList);
         return "comments";
     }
-
+*/
 
 }

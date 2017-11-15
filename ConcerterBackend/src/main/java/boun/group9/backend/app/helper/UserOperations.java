@@ -5,7 +5,9 @@ import boun.group9.backend.app.data.Users;
 
 import boun.group9.backend.app.Application.STATUS;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -16,9 +18,10 @@ public class UserOperations {
 		return null;
 	}
 
-	public static STATUS login(Users user) {
+	public static Users login(Users user) {
 		String json = Application.gson.toJson(user);
 		try {
+			String response;
 			URL url = new URL(Application.API_ENDPOINT + "/user");
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("POST");
@@ -30,15 +33,22 @@ public class UserOperations {
 			os.close();
 			connection.connect();
 			int status = connection.getResponseCode();
-			System.out.println("Response status: " + status);
+			if(status == 200) {
+				BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));	
+				response = br.readLine();
+				user = Application.gson.fromJson(response, Users.class);
+				user.setPassword("");
+				return user;
+			}else {
+				return null;
+			}
 		} catch (IOException ex) {
 			ex.printStackTrace();
-			return Application.STATUS.ERROR;
+			return null;
 		}
-		return Application.STATUS.SUCCESS;
 	}
 
-	public static STATUS signUp(Users user){
+	public static Users signUp(Users user){
 		String json = Application.gson.toJson(user);
 		try {
 			URL url = new URL(Application.API_ENDPOINT + "/new-user");
@@ -55,9 +65,9 @@ public class UserOperations {
 			System.out.println("Response status: " + status);
 		} catch (IOException ex) {
 			ex.printStackTrace();
-			return Application.STATUS.ERROR;
+			return null;
 		}
-		return Application.STATUS.SUCCESS;
+		return null;
 	}
 
 }

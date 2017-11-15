@@ -5,8 +5,7 @@ import java.util.Date;
 
 public class Users {
 	private int id;
-	private String facebook_id;
-	private String google_id;
+	private String spotify_id;
 	private String name;
 	private String email;
 	private String password;
@@ -23,17 +22,11 @@ public class Users {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getFacebook_id() {
-		return facebook_id;
+	public String getSpotify_id() {
+		return this.spotify_id;
 	}
-	public void setFacebook_id(String facebook_id) {
-		this.facebook_id = facebook_id;
-	}
-	public String getGoogle_id() {
-		return google_id;
-	}
-	public void setGoogle_id(String google_id) {
-		this.google_id = google_id;
+	public void setSpotify_id(String spotify_id) {
+		this.spotify_id = spotify_id;
 	}
 	public String getName() {
 		return name;

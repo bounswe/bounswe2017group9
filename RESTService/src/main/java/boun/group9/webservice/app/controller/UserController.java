@@ -17,7 +17,12 @@ import com.google.gson.JsonSyntaxException;
 import boun.group9.webservice.app.Application;
 import boun.group9.webservice.app.data.LoginUser;
 import boun.group9.webservice.app.data.Users;
+import boun.group9.webservice.exception.BadRequestException;
+import boun.group9.webservice.exception.IJsonSyntaxException;
+import boun.group9.webservice.exception.ISQLException;
+import boun.group9.webservice.exception.InternalServerException;
 import boun.group9.webservice.exception.NotSavedException;
+import boun.group9.webservice.exception.UserNotFoundException;
 import boun.group9.webservice.helper.Database;
 import boun.group9.webservice.helper.UserChecker;
 
@@ -49,13 +54,14 @@ public class UserController {
 			rs = Database.connect(query,Application.MODE_UPDATE);
 			return "OK.";
 		}catch(JsonSyntaxException ex) {
-			return "Invalid JSON.";
+			ex.printStackTrace();
+			throw new IJsonSyntaxException();
 		}catch(SQLException ex) {
 			ex.printStackTrace();
-			return "SQL error occured.";
+			throw new ISQLException();
 		}catch(NotSavedException ex) {
 			ex.printStackTrace();
-			return "Row cannot be saved.";
+			throw new InternalServerException();
 		}
 	}
 	@RequestMapping(value = "user",method = RequestMethod.POST)
@@ -69,8 +75,7 @@ public class UserController {
 			if(rs.next()) { // if a user is returned i.e. username and password is correct
 				user = new Users();
 				user.setId(rs.getInt("id"));
-				user.setFacebook_id(rs.getString("facebook_id"));
-				user.setGoogle_id(rs.getString("google_id"));
+				user.setSpotify_id(rs.getString("spotify_id"));
 				user.setName(rs.getString("name"));
 				user.setEmail(rs.getString("email"));
 				user.setFollowers(rs.getInt("followers"));
@@ -81,14 +86,14 @@ public class UserController {
 				user.setUpdated_at(rs.getTimestamp("updated_at"));
 				return Application.gson.toJson(user);
 			}else {
-				return "Nothing returned.";
+				throw new UserNotFoundException();
 			}
 		}catch(JsonSyntaxException ex) {
-			return "Invalid JSON Syntax.";
+			throw new IJsonSyntaxException();
 		}catch(SQLException ex) {
-			return "An SQL error occured.";
+			throw new ISQLException();
 		}catch(NotSavedException ex) {
-			return "Row cannot be saved.";
+			throw new InternalServerException();
 		}
 				finally {
 			Database.closeConnection();

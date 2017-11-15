@@ -5,6 +5,7 @@
 	<meta http-equiv="Content-Type" content="text/html;" charset="UTF-8" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"></link>
 	<link rel="stylesheet" href="/css/style.css"></link>
+	<link rel="stylesheet" href="/css/style1.css"></link>
 </head>
 <body>
 
@@ -29,11 +30,19 @@
         </div>
       </li>
       
-    </ul>
+    
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
+    <li class="nav-item">
+      	<a class="nav-link" href="/logout">Logout</a>
+      	
+      </li>
+      <li class="nav-item">
+      <a class="nav-link" th:text="${loggedInUser != null} ? ${loggedInUser.name} : 'Not logged in'" th:href="@{${loggedInUser != null} ? '/profile/'+${loggedInUser.id} : '#'}"></a>
+      </li>
+  	</ul>
   </div>
 </nav>
 
