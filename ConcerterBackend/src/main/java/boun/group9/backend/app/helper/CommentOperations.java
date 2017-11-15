@@ -1,10 +1,14 @@
 package boun.group9.backend.app.helper;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
-
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import boun.group9.backend.app.Application;
 import boun.group9.backend.app.Application.STATUS;
@@ -32,5 +36,111 @@ public class CommentOperations {
 			return Application.STATUS.ERROR;
 		}
 		return Application.STATUS.SUCCESS;
+	}
+	
+
+	//METODU OLUÅ�TURDUM.
+	public static ArrayList<Comments> getCommentsByConcertID(int concertID){
+
+		ArrayList<Comments> resultList;
+
+		String resultJson="";
+
+		try {
+			URL url = new URL(Application.API_ENDPOINT+"concerts/" + concertID + "/comments");
+			HttpURLConnection connection =(HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setDoInput(true);
+			connection.connect();
+			BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			resultJson = br.readLine();
+			resultList = new ArrayList<Comments>(Arrays.asList(Application.gson.fromJson(resultJson, Comments[].class)));
+
+			return resultList;
+		}catch(MalformedURLException ex) {
+			ex.printStackTrace();
+		}catch(IOException ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
+
+	//METODU OLUÅ�TURDUM.
+	public static STATUS deleteComment(int commentID , int userID){
+
+		try {
+			URL url = new URL(Application.API_ENDPOINT+ "/"+ userID + "/comments/" + commentID + "/deleteComment");
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("DELETE");
+			connection.setDoOutput(true);
+			connection.setRequestProperty("Content-Type", "application/json");
+			connection.connect();
+
+			int status = connection.getResponseCode();
+			if(status == 200) {
+
+				return Application.STATUS.SUCCESS;
+			
+			}
+			System.out.println(status);
+
+			System.out.println(status);
+
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			return Application.STATUS.ERROR;
+		}
+		return Application.STATUS.ERROR;
+	}
+
+	//METODU OLUÅ�TURDUM.
+	public static STATUS upVoteForComment(int commentID, int userID){
+
+		try {
+			URL url = new URL(Application.API_ENDPOINT+ "/"+userID +"/comments/" + commentID + "/upVote" );
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("PUT");
+			connection.setDoOutput(true);
+			connection.setRequestProperty("Content-Type", "application/json");
+			connection.connect();
+
+			int status = connection.getResponseCode();
+			if(status == 200) {
+
+				return Application.STATUS.SUCCESS;
+			
+			}
+			System.out.println(status);
+
+		}catch(IOException ex) {
+			ex.printStackTrace();
+			return Application.STATUS.ERROR;
+		}
+		return Application.STATUS.ERROR;
+	}
+	
+	//METODU OLUŞTURDUM.
+	public static STATUS downVoteForComment(int commentID, int userID) {
+		try {
+			URL url = new URL(Application.API_ENDPOINT+ "/" +userID + "/comments/" + commentID + "/downVote" );
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("PUT");
+			connection.setDoOutput(true);
+			connection.setRequestProperty("Content-Type", "application/json");
+			connection.connect();
+
+			int status = connection.getResponseCode();
+			System.out.println(status);
+			if(status == 200) {
+
+				return Application.STATUS.SUCCESS;
+			
+			}
+			
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			return Application.STATUS.ERROR;
+		}
+		return Application.STATUS.ERROR;
 	}
 }

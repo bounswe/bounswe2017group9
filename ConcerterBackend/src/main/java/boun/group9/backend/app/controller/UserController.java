@@ -38,6 +38,7 @@ public class UserController {
 	public ModelAndView login(@ModelAttribute Users user,HttpSession session,Model model) {
 		user = UserOperations.login(user);
 		session.setAttribute("loggedInUser",user);
+		
 		if(user == null) {
 			return new ModelAndView("redirect:/login");
 		}
@@ -55,6 +56,7 @@ public class UserController {
 	@RequestMapping(value="/signup",method=RequestMethod.POST)
 	public ModelAndView signup(@ModelAttribute Users user) {
 		UserOperations.signUp(user);
+		System.out.println(user.getEmail());
 		return new ModelAndView("redirect:/login");
 	}
 	/*

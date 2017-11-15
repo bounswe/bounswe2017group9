@@ -1,18 +1,19 @@
 package boun.group9.backend.app.controller;
 
-import boun.group9.backend.app.Application;
-import boun.group9.backend.app.data.Comments;
-import boun.group9.backend.app.data.Concerts;
-import boun.group9.backend.app.helper.CommentOperations;
-import boun.group9.backend.app.helper.ConcertOperations;
-import org.springframework.ui.Model;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.ArrayList;
+import boun.group9.backend.app.Application;
+import boun.group9.backend.app.data.Comments;
+import boun.group9.backend.app.data.Users;
+import boun.group9.backend.app.helper.CommentOperations;
 
+@Controller
 public class CommentController {
 
     private static Application.STATUS status;
@@ -41,5 +42,53 @@ public class CommentController {
         return "comments";
     }
 */
+    
+
+    //METODU OLUÅ�TURDUM.
+    @RequestMapping(value = "/comments/{commentID}/deleteComment", method=RequestMethod.GET)
+    public String deleteComment( @PathVariable("commentID") int commentID , HttpSession session){
+    	
+    	Users user = (Users)session.getAttribute("loggedInUser");
+    	int userID = user.getId();
+    	System.out.println("asdasdas");
+        status = CommentOperations.deleteComment(commentID, userID);
+        System.out.println(status);
+        if(status == Application.STATUS.SUCCESS){
+            return "deneme";
+        }else{
+            return "error";
+        }
+
+    }
+    
+    //METODU OLUÅ�TURDUM.
+    @RequestMapping(value = "/comments/{commentID}/upVote", method = RequestMethod.GET)
+    public String likeComment(@PathVariable("commentID") int commentID , HttpSession session){
+
+    	Users user = (Users)session.getAttribute("loggedInUser");
+    	int userID = user.getId();
+        status = CommentOperations.upVoteForComment(commentID, userID);
+        System.out.println(status);
+        if (status == Application.STATUS.SUCCESS){
+            return "deneme";
+        }else{
+            return "error";
+        }
+    }
+    
+    //METODU OLUŞTURDUM.
+    @RequestMapping(value = "/comments/{commentID}/downVote" , method = RequestMethod.GET)
+    public String unlikeComment(@PathVariable("commentID") int commentID, HttpSession session) {
+
+    	Users user = (Users)session.getAttribute("loggedInUser");
+    	int userID = user.getId();
+    	status = CommentOperations.downVoteForComment(commentID,userID);
+    	if(status == Application.STATUS.SUCCESS) {
+    		return "deneme"; 
+    	}else {
+    		return "error";
+    	}
+    }
+
 
 }
