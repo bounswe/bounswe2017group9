@@ -79,6 +79,27 @@ body{
 .concert-listing-container .card .card-image .card-img-top{
     width:100%;
 }
+.card-line{
+    text-align: center;
+}
+.card-inner-line{
+    height: 2px;
+    background-color: #da4456;
+    width:100%;
+    border-radius: 5px;
+}
+.concert-comment{
+    margin-top: 20px;
+}
+.comment-class-ambiance{
+    display: inline-block;
+    height:10px;
+    width:100px;
+    background-color: navy;
+    right: 0px;
+    border-radius: 5px;
+}
+
 
 /*
    Past Concerts Section

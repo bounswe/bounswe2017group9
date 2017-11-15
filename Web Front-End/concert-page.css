@@ -1,0 +1,16 @@
+.card-last-line{
+    height: 2px;
+    background-color: #888888;
+    width:100%;
+    border-radius: 5px;
+}
+.create-comment{
+    margin-top: 5px;
+}
+.comment-line{
+    width:100%;
+}
+.form-control-dropdown{
+    display: inline-block;
+    width:50%;
+}
