@@ -40,6 +40,8 @@ public class CommentController {
         model.addAttribute("commentList",resultList);
         return "comments";
     }
+<<<<<<< Updated upstream
 */
+
 
 }
