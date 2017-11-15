@@ -25,32 +25,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class UserController {
 	private static STATUS status;
 	
-	
-	@RequestMapping(value="/login",method=RequestMethod.GET)
-	public String LoginUser(Model model) {
+	@RequestMapping(value="/",method=RequestMethod.GET)
+	public String firstPage(Model model){
 		model.addAttribute("user",new Users());
-		return "login";
+		return "sign-up";
 	}
 	
-	@RequestMapping(value="/profilepage",method= RequestMethod.POST)
+	
+	//the user logs into the system.
+	@RequestMapping(value="/userprofile",method= RequestMethod.POST)
 	public String loginPage(@ModelAttribute Users user){
 		status = UserOperations.login(user);
 		System.out.println(status.toString());
 		if(status == STATUS.SUCCESS) {
-			return "profile";
+			return "user-profile";
 		}else {
 			return "error";
 		}
 	}
 	
-
-	@RequestMapping(value="/signUp",method=RequestMethod.GET)
-	public String newUser(Model model) {
-		model.addAttribute("user",new Users());
-		return "signUp";
-	}
-	
-	@RequestMapping(value="/signUp",method= RequestMethod.POST)
+	// The user signs up. 
+	@RequestMapping(value="/profile",method= RequestMethod.POST)
 	public String submitNewUser(@ModelAttribute Users user){
 		System.out.println(user.getEmail());
 		System.out.println(user.getPassword());
@@ -58,7 +53,7 @@ public class UserController {
 		status = UserOperations.signUp(user);
 		System.out.println(status.toString());
 		if(status == STATUS.SUCCESS) {
-			return "profile";
+			return "user-profile";
 		}else {
 			return "error";
 		}
