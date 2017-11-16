@@ -5,8 +5,7 @@ import java.util.Date;
 
 public class Users {
 	private int id;
-	private String facebook_id;
-	private String google_id;
+	
 	private String name;
 	private String email;
 	private String password;
@@ -17,23 +16,19 @@ public class Users {
 	private Date updated_at;
 	private Date last_login;
 	private String username;
+	public Users() {
+		
+	}
+	public Users(Spotify_user spotifyUser) {
+		this.name = spotifyUser.getDisplay_name();
+		this.email = spotifyUser.getEmail();
+		this.photo_path = spotifyUser.getImages().get(0).getUrl();
+	}
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
-	}
-	public String getFacebook_id() {
-		return facebook_id;
-	}
-	public void setFacebook_id(String facebook_id) {
-		this.facebook_id = facebook_id;
-	}
-	public String getGoogle_id() {
-		return google_id;
-	}
-	public void setGoogle_id(String google_id) {
-		this.google_id = google_id;
 	}
 	public String getName() {
 		return name;

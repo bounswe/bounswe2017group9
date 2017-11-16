@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import boun.group9.backend.app.data.Concerts;
 import boun.group9.backend.app.data.SpotifyTokenBody;
+import boun.group9.backend.app.data.Spotify_user;
 import boun.group9.backend.app.data.Users;
 import boun.group9.backend.app.helper.ConcertOperations;
 import boun.group9.backend.app.helper.UserOperations;
@@ -44,10 +45,12 @@ public class UserController {
 		return redirectView;
 	}
 	@RequestMapping(value="/spotify-code")
-	public String getSpotifyCode(Model model,@RequestParam(value="code",required=true) String code) {
+	public ModelAndView getSpotifyCode(Model model,@RequestParam(value="code",required=true) String code, HttpSession session) {
 		System.out.println(code);
 		String response;
 		SpotifyTokenBody stb = new SpotifyTokenBody();
+		Spotify_user spotifyUser;
+		Users user;
 		try {
 			String clientString = Application.SPOTIFY_CLIENT_ID+":"+Application.SPOTIFY_CLIENT_SECRET;
 			String parameters = "grant_type=authorization_code&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fspotify-code&code="+code;
@@ -80,13 +83,18 @@ public class UserController {
 			while((currentLine=br.readLine()) != null) {
 				response+=currentLine;
 			}
+			System.out.println(response);
+			spotifyUser = Application.gson.fromJson(response, Spotify_user.class);
+			user = new Users(spotifyUser);
+			session.setAttribute("loggedInUser", user);
+			session.setAttribute("spotifyToken",stb);
 			model.addAttribute("response",response);
 			System.out.println(br.readLine());
 		}catch(Exception ex) {
 			ex.printStackTrace();
-			return "error";
+			return new ModelAndView("redirect:/error");
 		}
-		return "sample";
+		return new ModelAndView("redirect:/me");
 	}
 	@RequestMapping(value="/spotify-token")
 	public String getSpotifyToken(@RequestBody String body) {
@@ -130,7 +138,36 @@ public class UserController {
 		return "profile";
 	}
 	*/
-	
+	@RequestMapping("/me")
+	public String myProfile(HttpSession session,Model model) {
+		SpotifyTokenBody stb = (SpotifyTokenBody)session.getAttribute("spotifyToken");
+		Users user = (Users)session.getAttribute("loggedInUser");
+		System.out.println(user.getName());
+		System.out.println(user.getEmail());
+		System.out.println(user.getPhoto_path());
+		try {
+			URL url = new URL(Application.SPOTIFY_DEFAULT_HOST+"/v1/me/playlists");
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setRequestProperty("Authorization", stb.getToken_type()+" "+stb.getAccess_token());
+			connection.setDoInput(true);
+			connection.connect();
+			BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			String response = "";
+			String playlists="";
+			while((response=br.readLine()) != null) {
+				playlists+=response;
+			}
+			model.addAttribute("playlists",playlists);
+			System.out.println(playlists);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		
+		model.addAttribute("user",user);
+		return "me";
+	}
 	@RequestMapping("/profile/{userID}/attending")
 	public String attendingProfilePage(@PathVariable("userID") int userID, Model model) {
 		Users user = UserOperations.getUser(userID);
