@@ -30,7 +30,7 @@ public class RecommendationsController {
 	@RequestMapping(value="recommendations/{userID}",method=RequestMethod.GET)
 	public String getRecommendations(@PathVariable(value="userID") int userID) throws JsonParseException, JsonMappingException, IOException  {
 		String query;
-		ResultSet rs,rs2,rs3;
+		ResultSet rs;
 		int followings,concert_id,status,score;
 		score=0;
 		Map<Integer, Integer> recommendations=new HashMap<Integer, Integer>();
