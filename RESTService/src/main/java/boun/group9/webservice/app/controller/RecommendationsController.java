@@ -35,7 +35,7 @@ public class RecommendationsController {
 		score=0;
 		Map<Integer, Integer> recommendations=new HashMap<Integer, Integer>();
 		//query="SELECT following_id FROM Relations WHERE follower_id="+userID;
-		query="SELECT Attendees.concert_id As concert_id, Attendees.status As status FROM Relations INNER JOIN Attendees ON Attendees.id=Relations.following_id INNER JOIN Concerts ON Concerts.id=Attendees.concert_id  WHERE Relations.follower_id="+userID+" AND Concerts.date_time < now() AND Attendees.status != 2";
+		query="SELECT Attendees.concert_id As concert_id, Attendees.status As status FROM Relations INNER JOIN Attendees ON Attendees.id=Relations.following_id INNER JOIN Concerts ON Concerts.id=Attendees.concert_id  WHERE Relations.follower_id="+userID+" AND Concerts.date_time > now() AND Attendees.status != 2";
 		try {
 			/*rs = Database.connect(query, Application.MODE_GET);
 			while(rs.next()) {
