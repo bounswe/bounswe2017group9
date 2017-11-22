@@ -1,9 +1,9 @@
 package boun.group9.webservice.app.data;
 
-public class SementicTags {
+public class SemanticTags {
 	private String id;			//wikidata id
 	private String label;		//wikidata label
-	private String search;		//search word for sementic tag
+	private String search;		//search word for semantic tag
 	private String description;	//wikidata description
 	public String getId() {
 		return id;

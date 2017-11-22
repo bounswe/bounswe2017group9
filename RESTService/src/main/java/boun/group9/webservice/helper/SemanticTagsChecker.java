@@ -1,9 +1,9 @@
 package boun.group9.webservice.helper;
 
-import boun.group9.webservice.app.data.SementicTags;
+import boun.group9.webservice.app.data.SemanticTags;
 
-public class SementicTagsChecker {
-	public static String insertSementicTagsQuery(SementicTags tag) {
+public class SemanticTagsChecker {
+	public static String insertSementicTagsQuery(SemanticTags tag) {
 		String query="INSERT INTO SementicTags (id,label,search,description) VALUES (";
 		query+=tag.getId()+", ";
 		query+=tag.getLabel()+", ";

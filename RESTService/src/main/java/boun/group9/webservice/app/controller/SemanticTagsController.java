@@ -14,26 +14,26 @@ import com.google.gson.JsonSyntaxException;
 
 import boun.group9.webservice.app.Application;
 import boun.group9.webservice.app.data.Concerts;
-import boun.group9.webservice.app.data.SementicTags;
+import boun.group9.webservice.app.data.SemanticTags;
 import boun.group9.webservice.app.data.Users;
 import boun.group9.webservice.exception.IJsonSyntaxException;
 import boun.group9.webservice.exception.ISQLException;
 import boun.group9.webservice.exception.InternalServerException;
 import boun.group9.webservice.exception.NotSavedException;
 import boun.group9.webservice.helper.Database;
-import boun.group9.webservice.helper.SementicTagsChecker;
+import boun.group9.webservice.helper.SemanticTagsChecker;
 import boun.group9.webservice.helper.UserChecker;
 
 @RestController
-public class SementicTagsController {
+public class SemanticTagsController {
 	@RequestMapping(value="new-sementictag",method=RequestMethod.POST)
 	public String newSementicTag(@RequestBody String body) {
-		SementicTags tag;
+		SemanticTags tag;
 		String query;
 		ResultSet rs;
 		try {
-			tag = Application.gson.fromJson(body, SementicTags.class);
-			query = SementicTagsChecker.insertSementicTagsQuery(tag);
+			tag = Application.gson.fromJson(body, SemanticTags.class);
+			query = SemanticTagsChecker.insertSementicTagsQuery(tag);
 			System.out.println(query);
 			rs = Database.connect(query,Application.MODE_UPDATE);
 			return "OK.";
@@ -54,12 +54,12 @@ public class SementicTagsController {
 		String query="SELECT * FROM SementicTags;";
 		System.out.println(query);
 		ResultSet rs;
-		SementicTags tag;
-		ArrayList<SementicTags> tagList = new ArrayList<SementicTags>();
+		SemanticTags tag;
+		ArrayList<SemanticTags> tagList = new ArrayList<SemanticTags>();
 		try {
 			rs = Database.connect(query, Application.MODE_GET);
 			while(rs.next()) {
-				tag = new SementicTags();
+				tag = new SemanticTags();
 				tag.setId(rs.getString("id"));
 				tag.setLabel(rs.getString("label"));
 				tag.setSearch(rs.getString("search"));
@@ -83,11 +83,11 @@ public class SementicTagsController {
 		String query="SELECT * FROM SementicTags WHERE id=\""+tagID+"\";";
 		System.out.println(query);
 		ResultSet rs;
-		SementicTags tag;
+		SemanticTags tag;
 		try {
 			rs = Database.connect(query, Application.MODE_GET);
 			if(rs.next()) {
-				tag = new SementicTags();
+				tag = new SemanticTags();
 				tag.setId(rs.getString("id"));
 				tag.setLabel(rs.getString("label"));
 				tag.setSearch(rs.getString("search"));
