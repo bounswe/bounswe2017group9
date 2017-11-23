@@ -48,4 +48,25 @@ public class CommentChecker {
 		}
 		return result;
 	}
+
+
+	//METODU OLUŞTURDUM.
+	public static String deleteComment(int commentID , int userID){
+
+		String query = "DELETE FROM comments WHERE comments.id = " + commentID + " AND comments.commented_by = " + userID+ ";" ;
+		return query;
+	}
+
+	//METODU OLUŞTURDUM.
+	public static String likeComment(int commentID, int userID){
+		String query = "Update comments SET up_votes = up_votes + 1 WHERE comments.id = "+ commentID + " AND comments.commented_by = " + userID+ ";";
+		return query;
+	}
+
+	//METODU OLUŞTURDUM.
+	public static String unlikeComment(int commentID, int userID){
+		String query = "Update comments SET down_votes = down_votes + 1 WHERE comments.id = "+ commentID + " AND comments.commented_by = " + userID+ ";";
+		return query;
+	}
+
 }
