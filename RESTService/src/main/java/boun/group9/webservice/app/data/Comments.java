@@ -9,6 +9,13 @@ public class Comments {
 	private int down_votes;
 	private String comment;
 	private int category;
+
+	public int getCategory(){
+		return category;
+	}
+	public void setCategory(int category){
+		this.category=category;
+	}
 	public int getId() {
 		return id;
 	}
