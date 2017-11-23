@@ -28,13 +28,12 @@ public class CommentController {
 	}
 
 
-	//METODU OLUŞTURDUM.
-	@RequestMapping(value="{userID}/comments/{commentID}/deleteComment")
-	public String deleteComment(@PathVariable(value="commentID") int commentID, @PathVariable(value="userID") int userID){
-		String query = CommentChecker.deleteComment(commentID, userID);
+	@RequestMapping(value="comments/{commentID}/deleteComment")
+	public String deleteComment(@PathVariable(value="commentID") int commentID){
+		String query = CommentChecker.deleteComment(commentID);
 		try {
-
-			Database.connect(query, Application.MODE_DELETE);
+			System.out.println(query);
+			Database.connect(query, Application.MODE_UPDATE);
 			return "Deleted.";
 		}catch(SQLException ex) {
 			ex.printStackTrace();
@@ -45,10 +44,10 @@ public class CommentController {
 		}
 	}
 
-	//METODU OLUŞTURDUM.
-	@RequestMapping(value="{userID}/comments/{commentID}/upVote")
-	public String likeComment(@PathVariable("commentID") int commentID, @PathVariable(value="userID") int userID){
-		String query = CommentChecker.likeComment(commentID,userID);
+
+	@RequestMapping(value="comments/{commentID}/upVote")
+	public String likeComment(@PathVariable("commentID") int commentID){
+		String query = CommentChecker.likeComment(commentID);
 
 		try {
 			Database.connect(query, Application.MODE_UPDATE);
@@ -62,10 +61,10 @@ public class CommentController {
 		}
 	}
 
-	//METODU OLUŞTURDUM.
-	@RequestMapping(value="{userID}/comments/{commentID}/downVote")
-	public String unlikeComment(@PathVariable("commentID") int commentID, @PathVariable(value="userID") int userID){
-		String query = CommentChecker.unlikeComment(commentID,userID);
+
+	@RequestMapping(value="comments/{commentID}/downVote")
+	public String unlikeComment(@PathVariable("commentID") int commentID){
+		String query = CommentChecker.unlikeComment(commentID);
 
 		try {
 			Database.connect(query, Application.MODE_UPDATE);
@@ -78,6 +77,7 @@ public class CommentController {
 			return "Not updateted.";
 		}
 	}
+
 
 
 }
