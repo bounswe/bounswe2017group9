@@ -1,16 +1,32 @@
 package boun.group9.webservice.app.controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;  
+import org.json.simple.JSONValue;  
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 
 import boun.group9.webservice.app.Application;
 import boun.group9.webservice.app.data.ConcertTags;
@@ -24,6 +40,7 @@ import boun.group9.webservice.exception.NotSavedException;
 import boun.group9.webservice.helper.Database;
 import boun.group9.webservice.helper.SemanticTagsChecker;
 import boun.group9.webservice.helper.UserChecker;
+
 
 @RestController
 public class SemanticTagsController {
@@ -154,6 +171,62 @@ public class SemanticTagsController {
 			ex.printStackTrace();
 			return "Not saved.";
 		}
+		return jsonString;
+	}
+	@RequestMapping(value="searchWikidata/{search}",method=RequestMethod.GET)
+	public String getSementicTagsFromWikidata(@PathVariable(value="search") String search) {
+		String jsonString="";
+		ArrayList<SemanticTags> tagList = new ArrayList<SemanticTags>();
+		SemanticTags tag;
+		try {
+
+			URL url = new URL("https://www.wikidata.org/w/api.php?action=wbsearchentities&search="+search+"&language=en&format=json");
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("GET");
+			conn.setRequestProperty("Accept", "application/json");
+
+			if (conn.getResponseCode() != 200) {
+				throw new RuntimeException("Failed : HTTP error code : "
+						+ conn.getResponseCode());
+			}
+
+			BufferedReader br = new BufferedReader(new InputStreamReader(
+				(conn.getInputStream())));
+
+			String output="";
+			String line;
+			while ((line = br.readLine()) != null) {
+				output += line;
+			}
+			Object obj=JSONValue.parse(output);  
+		    JSONObject jsonObject = (JSONObject) obj;  
+		    
+		    jsonString =  jsonObject.get("search").toString(); 
+		    JSONArray result= (JSONArray) jsonObject.get("search");
+		    Iterator i = result.iterator();
+		    while (i.hasNext()) {
+		    		JSONObject innerObj = (JSONObject) i.next();
+		    		tag=new SemanticTags();
+		    		tag.setId(innerObj.get("id").toString());
+		    		tag.setLabel(innerObj.get("label").toString());
+		    		tag.setSearch(search);
+		    		tag.setDescription(innerObj.get("description").toString());
+		    		tagList.add(tag);
+		    	    
+		    	    }
+
+		    jsonString = Application.gson.toJson(tagList);
+			conn.disconnect();
+
+		  } catch (MalformedURLException e) {
+
+			e.printStackTrace();
+
+		  } catch (IOException e) {
+
+			e.printStackTrace();
+
+		  }
 		return jsonString;
 	}
 }
