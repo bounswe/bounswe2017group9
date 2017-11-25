@@ -16,6 +16,7 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
+import org.json.simple.JSONArray;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,6 +27,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import boun.group9.webservice.app.Application;
+import boun.group9.webservice.app.data.Concerts;
 import boun.group9.webservice.exception.NotSavedException;
 import boun.group9.webservice.helper.Database;
 
@@ -88,7 +90,21 @@ public class RecommendationsController {
 			                              (e1, e2) ->e1, LinkedHashMap::new));
 		//Map<Integer, Integer> newMap = new TreeMap<Integer, Integer>(Collections.emptySortedMap());
 		//newMap.putAll(recommendations);
-		String json = new ObjectMapper().writeValueAsString(newMap);
+		//JSONArray n=new JSONArray();
+		String json="";
+		ArrayList<Concerts> resultList=new ArrayList<Concerts>();
+		try {
+			
+			for(int key:  newMap.keySet() ) {
+				Concerts temp=new Concerts();
+				String resultJson=new ConcertController().getConcert(key);
+				temp=Application.gson.fromJson(resultJson, Concerts.class);
+				resultList.add(temp);
+				//System.out.println(resultJson);
+			}
+			json=Application.gson.toJson(resultList);
+		}catch(java.lang.NullPointerException ex){}
+		//json = new ObjectMapper().writeValueAsString(n);
 		return json;
 	}
 	@RequestMapping(value="recommendations2/{userID}",method=RequestMethod.GET)
@@ -146,7 +162,20 @@ public class RecommendationsController {
 			                              (e1, e2) ->e1, LinkedHashMap::new));
 		//Map<Integer, Integer> newMap = new TreeMap<Integer, Integer>(Collections.emptySortedMap());
 		//newMap.putAll(recommendations);
-		String json = new ObjectMapper().writeValueAsString(newMap);
+		String json="";
+		ArrayList<Concerts> resultList=new ArrayList<Concerts>();
+		try {
+			
+			for(int key:  newMap.keySet() ) {
+				Concerts temp=new Concerts();
+				String resultJson=new ConcertController().getConcert(key);
+				temp=Application.gson.fromJson(resultJson, Concerts.class);
+				resultList.add(temp);
+				//System.out.println(resultJson);
+			}
+			json=Application.gson.toJson(resultList);
+		}catch(java.lang.NullPointerException ex){}
+		//String json = new ObjectMapper().writeValueAsString(newMap);
 		return json;
 	}
 }
