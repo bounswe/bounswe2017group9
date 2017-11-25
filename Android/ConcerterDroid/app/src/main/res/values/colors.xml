@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#727b84</color>
+    <color name="colorPrimaryDark">#5b636a</color>
+    <color name="colorAccent">#bd4246</color>
+    <color name="textColorPrimary">#bd4246</color>
+    <color name="light_Grey">#b0c4de</color>#1ed760
+    <color name="spotifyGreen">#1ed760</color>
+    <color name="facebookBlue">#3b5998</color>
+</resources>

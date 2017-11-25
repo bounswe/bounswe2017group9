@@ -1,0 +1,71 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.cmpe451.group9.concerterdroid.Fragments.SearchFragment">
+
+    <LinearLayout
+        android:id="@+id/searchAreas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="40dp"
+        android:layout_alignParentTop="true"
+        >
+
+        <EditText
+            android:id="@+id/s_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Concert Name"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/s_artist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Artist"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/s_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Location"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/s_datetime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="DateTime"
+            android:inputType="datetime" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_search"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/searchAreas"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/colorAccent"
+        android:drawableStart="@android:drawable/ic_menu_search"
+        android:text="Search"
+        android:textAllCaps="false" />
+
+</RelativeLayout>
