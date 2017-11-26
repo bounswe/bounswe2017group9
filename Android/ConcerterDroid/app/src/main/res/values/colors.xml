@@ -7,4 +7,5 @@
     <color name="light_Grey">#b0c4de</color>#1ed760
     <color name="spotifyGreen">#1ed760</color>
     <color name="facebookBlue">#3b5998</color>
+    <color name="commentBack">#edf2f7</color>
 </resources>

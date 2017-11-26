@@ -15,12 +15,15 @@ import java.util.List;
 
 public class MyCommentRecyclerViewAdapter extends RecyclerView.Adapter<MyCommentRecyclerViewAdapter.ViewHolder> {
 
+    //TODO After implementing shared preferences fix this.
+    boolean registered = true;
+    //After implementing shared preferences fix this.
+
     private final List<Comment> comment_list;
-//    private final OnListFragmentInteractionListener mListener;
+    int votes;
 
     public MyCommentRecyclerViewAdapter(List<Comment> items) {
         comment_list = items;
-//        mListener = listener;   -   , OnListFragmentInteractionListener listener
     }
 
     @Override
@@ -38,21 +41,32 @@ public class MyCommentRecyclerViewAdapter extends RecyclerView.Adapter<MyComment
             holder.ivOwner.setImageResource(R.drawable.user);// TODO After achieving image upload, fill this part with the one from the API.
             holder.tvOwner.setText("Rudolph Sweden");// TODO Using API get the user/owner name. (The user which is owner of the comment.)
             holder.tvContent.setText(holder.comment.getContent());
+            votes = 21;//TODO get this from API
+            String sign =  (votes > 0) ? "+" : "";
+            holder.tvVote.setText(sign +  votes);
 //            holder.ivOwner.setImageResource(R.drawable.ic_placeholder);
 
+            if(registered){//TODO PUSH new votes value.
+                           //TODO make everyone vote only one vote.
+                holder.ivUpVote.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        votes++;
+                        String sign =  (votes > 0) ? "+" : "";
+                        holder.tvVote.setText(sign +  votes);
+                    }
+                });
+                holder.ivDownVote.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        votes--;
+                        String sign =  (votes > 0) ? "+" : "";
+                        holder.tvVote.setText(sign +  votes);
+                    }
+                });
+            }
         }
 
-
-//        holder.mView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (null != mListener) {
-//                    // Notify the active callbacks interface (the activity, if the
-//                    // fragment is attached to one) that an item has been selected.
-//                    mListener.onListFragmentInteraction(holder.mItem);
-//                }
-//            }
-//        });
     }
 
     @Override
@@ -65,6 +79,9 @@ public class MyCommentRecyclerViewAdapter extends RecyclerView.Adapter<MyComment
         public final TextView tvOwner;
         public final ImageView ivOwner;
         public final TextView tvContent;
+        public TextView tvVote;
+        public final ImageView ivUpVote;
+        public final ImageView ivDownVote;
         public Comment comment;
 
         public ViewHolder(View view) {
@@ -73,6 +90,9 @@ public class MyCommentRecyclerViewAdapter extends RecyclerView.Adapter<MyComment
             ivOwner = (ImageView) view.findViewById(R.id.iv_owner);
             tvOwner = (TextView) view.findViewById(R.id.tv_owner);
             tvContent = (TextView) view.findViewById(R.id.tv_content);
+            tvVote = (TextView) view.findViewById(R.id.tv_vote);
+            ivUpVote = (ImageView) view.findViewById(R.id.iv_upvote);
+            ivDownVote = (ImageView) view.findViewById(R.id.iv_downvote);
         }
     }
 }

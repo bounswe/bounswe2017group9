@@ -11,11 +11,11 @@
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/title_home" />
-    
+
 
     <item
         android:id="@+id/navigation_login"
         android:icon="@drawable/ic_person_24dp"
-        android:title="Login/Sign up" />
+        android:title="User" />
 
 </menu>

@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.cmpe451.group9.concerterdroid.Fragments.ListConcertsFragment;
+import com.cmpe451.group9.concerterdroid.Fragments.LoginSwitchFragment;
 import com.cmpe451.group9.concerterdroid.Fragments.SearchFragment;
 import com.cmpe451.group9.concerterdroid.Fragments.UserAccountsFragment;
 
@@ -27,7 +28,7 @@ public class theFragmentPagerAdapter extends FragmentPagerAdapter {
             return new ListConcertsFragment();//The list of concerts
 
         }else {
-            return new UserAccountsFragment();//Login/Sign-up
+            return new LoginSwitchFragment();//Login/Sign-up
         }
     }
 

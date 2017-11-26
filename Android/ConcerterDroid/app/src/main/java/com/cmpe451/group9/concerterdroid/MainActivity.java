@@ -20,6 +20,19 @@ public class MainActivity extends AppCompatActivity implements ListConcertsFragm
     BottomNavigationView navigation;
     ViewPager viewPager;
 
+    public boolean isRegist() {
+        return regist;
+    }
+
+    //TODO after shared preferences:
+    boolean regist = true;
+
+    public void setRegist(boolean regist) {
+        this.regist = regist;
+    }
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +109,8 @@ public class MainActivity extends AppCompatActivity implements ListConcertsFragm
         //When a concert is clicked from the list, open concert page in a new activity called "ConcertPageActivity".
         Intent interno = new Intent(this, ConcertPageActivity.class);
         interno.putExtra("concertInfo", (Serializable) item);
+        //TODO delete this extra boolean "registered" after applying Shared Preferences.
+        interno.putExtra("registered",  regist);
         startActivity(interno);
 
     }
