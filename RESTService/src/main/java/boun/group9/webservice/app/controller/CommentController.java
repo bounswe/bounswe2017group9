@@ -1,6 +1,7 @@
 package boun.group9.webservice.app.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.springframework.web.bind.annotation.*;
 
@@ -28,9 +29,9 @@ public class CommentController {
 	}
 
 
-	@RequestMapping(value="comments/{commentID}/deleteComment")
-	public String deleteComment(@PathVariable(value="commentID") int commentID){
-		String query = CommentChecker.deleteComment(commentID);
+	@RequestMapping(value="{userID}/comments/{commentID}/deleteComment")
+	public String deleteComment(@PathVariable(value="commentID") int commentID , @PathVariable(value = "userID") int userID){
+		String query = CommentChecker.deleteComment(commentID, userID);
 		try {
 			System.out.println(query);
 			Database.connect(query, Application.MODE_UPDATE);
@@ -78,6 +79,16 @@ public class CommentController {
 		}
 	}
 
+
+
+		@RequestMapping(value = "concerts/{concertID}/comments/{commentCategory}", method = RequestMethod.GET)
+	public String getCommentsByCategory(@PathVariable("commentCategory") int category, @PathVariable("concertID") int concertID){
+
+		ArrayList<Comments> commentList = CommentChecker.getCommentsByCategory(concertID , category);
+		String jsonString = Application.gson.toJson(commentList);
+
+		return jsonString;
+	}
 
 
 }
