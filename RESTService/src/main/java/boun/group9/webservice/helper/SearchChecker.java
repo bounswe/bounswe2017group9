@@ -1,8 +1,5 @@
 package boun.group9.webservice.helper;
 
-import boun.group9.webservice.app.Application;
-import boun.group9.webservice.app.data.Comments;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -19,10 +16,9 @@ public class SearchChecker {
         String query = "select id as Users_id from users WHERE name Like CONCAT('%',\"" + input + "\",'%') or username Like CONCAT('%',\"" + input+  "\",'%');";
         return  query;
     }
-
     public static String advancedSearchPrice(int min , int max){
         String query = "select id as Concerts_id from concerts where (concerts.min_price between "+ min  +" and " + max + ") OR (concerts.max_price between "+ min +" and " + max + ") OR ( " +
-                 min + " between concerts.min_price and concerts.max_price ) OR ( " +max + " between concerts.min_price and concerts.max_price);";
+                min + " between concerts.min_price and concerts.max_price ) OR ( " +max + " between concerts.min_price and concerts.max_price);";
         System.out.println(query);
         return query;
     }
@@ -41,5 +37,4 @@ public class SearchChecker {
         return query;
     }
 }
-
 
