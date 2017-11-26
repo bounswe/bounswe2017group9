@@ -3,6 +3,7 @@ package boun.group9.webservice.helper;
 import boun.group9.webservice.app.data.Relations;
 
 public class RelationChecker {
+    /*
     public static String followQuery(Relations relations){
         java.util.Date date = new java.util.Date();
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -27,7 +28,7 @@ public class RelationChecker {
         return query;
 
     }
-
+*/
     public static String follow(int followerID, int followingID){
         java.util.Date date = new java.util.Date();
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
