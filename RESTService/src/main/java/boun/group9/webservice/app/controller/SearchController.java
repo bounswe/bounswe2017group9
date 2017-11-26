@@ -1,25 +1,25 @@
 package boun.group9.webservice.app.controller;
 
 import boun.group9.webservice.app.Application;
+import boun.group9.webservice.app.data.Artists;
 import boun.group9.webservice.app.data.Concerts;
+import boun.group9.webservice.app.data.Locations;
 import boun.group9.webservice.app.data.Users;
 import boun.group9.webservice.exception.NotSavedException;
 import boun.group9.webservice.helper.Database;
 import boun.group9.webservice.helper.SearchChecker;
 import boun.group9.webservice.helper.UserChecker;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 @RestController
 public class SearchController {
+
     @RequestMapping(value="basicsearchuser/{username}",method= RequestMethod.GET)
     public String basicSearchUser(@PathVariable(value="username") String username) {
         String jsonString;
@@ -34,10 +34,10 @@ public class SearchController {
             System.out.println(query);
             rs = Database.connect(query, Application.MODE_GET);
             while(rs.next()) {
-                user=new Users();
-                userQuery = UserChecker.getUser(rs.getInt("Users_id"));
-                System.out.println(userQuery);
-                rsuser = Database.connect(userQuery, Application.MODE_GET);
+            user=new Users();
+            userQuery = UserChecker.getUser(rs.getInt("Users_id"));
+            System.out.println(userQuery);
+            rsuser = Database.connect(userQuery, Application.MODE_GET);
                 while(rsuser.next()) {
                     user.setId(rsuser.getInt("Users_id"));
                     user.setEmail(rsuser.getString("Users_email"));
@@ -69,14 +69,13 @@ public class SearchController {
         ResultSet rs;
         Concerts concert;
         int concert_id=0;
-        ConcertController controller=new ConcertController();
         ArrayList<Concerts> concertList=new ArrayList<Concerts>();
         try{
             query=SearchChecker.basicSearchQueryConcert(concertinfo);
             rs = Database.connect(query, Application.MODE_GET);
             while(rs.next()) {
                 concert_id=rs.getInt("Concerts_id");
-                jsonString=controller.getConcert(concert_id);
+                jsonString=ConcertController.getConcert(concert_id);
                 System.out.println(jsonString);
                 concert=Application.gson.fromJson(jsonString, Concerts.class);
                 concertList.add(concert);
@@ -85,10 +84,10 @@ public class SearchController {
         }catch(SQLException ex) {
             System.out.println("SQL Exception occured");
             ex.printStackTrace();
-            return "SQL Error occured.";
+        return "SQL Error occured.";
         }catch(NotSavedException ex) {
             ex.printStackTrace();
-            return "Not saved.";
+        return "Not saved.";
         }
         return jsonString;
     }
@@ -183,7 +182,6 @@ public class SearchController {
 
             /*
             SimpleDateFormat s = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
-
             Date startDate = s.parse(start);
             Date endDate = s.parse(end);
 */
@@ -214,4 +212,3 @@ public class SearchController {
 
 
 }
-
