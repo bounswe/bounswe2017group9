@@ -27,8 +27,17 @@ public class RelationChecker {
         System.out.println(query);
         return query;
 
+    }*/
+    public static String getFollowers(int followingID){
+        String query=  "Select follower_id from Relations Where following_id="+followingID+";";
+        return query;
     }
-*/
+    public static String getFollowings(int followerID){
+        String query=  "Select following_id from Relations Where follower_id="+followerID+";";
+        return query;
+    }
+
+
     public static String follow(int followerID, int followingID){
         java.util.Date date = new java.util.Date();
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
