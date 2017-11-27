@@ -10,7 +10,7 @@ import com.google.gson.Gson;
 import boun.group9.webservice.helper.Database;
 
 @SpringBootApplication
-
+public class Application extends SpringBootServletInitializer{
 	public static final String username = "root";
 	public static final String password = "";
 
