@@ -21,6 +21,19 @@ public class CommentChecker {
 		System.out.println(query);
 		return query;
 	}
+
+	public static String insertCommentQuerywithCategory(String jsonString) {
+		Comments comment = Application.gson.fromJson(jsonString, Comments.class);
+		String query = "INSERT INTO Comments (comment,commented_by,concert_id,category) VALUES ( ";
+		query+="'"+comment.getComment()+"',";
+		query+=comment.getCommented_by()+",";
+		query+=comment.getConcert_id()+",";
+		query+=comment.getCategory()+")";
+
+		System.out.println(query);
+		return query;
+	}
+
 	public static ArrayList<Comments> getCommentList(int concertID){
 		ArrayList<Comments> result = new ArrayList<Comments>();
 		Comments comment;
@@ -68,7 +81,6 @@ public class CommentChecker {
 		String query = "Update comments SET down_votes = down_votes + 1 WHERE comments.id = "+ commentID + ";";
 		return query;
 	}
-
 	public static ArrayList<Comments> getCommentsByCategory(int concertID, int category){
 		ArrayList<Comments> result = new ArrayList<Comments>();
 		Comments comment;
@@ -102,6 +114,5 @@ public class CommentChecker {
 		}
 		return result;
 	}
-
 
 }
