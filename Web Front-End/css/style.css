@@ -91,11 +91,43 @@ body{
 .concert-comment{
     margin-top: 20px;
 }
-.comment-class-ambiance{
+.comment-class-scene{
     display: inline-block;
     height:10px;
     width:100px;
     background-color: navy;
+    right: 0px;
+    border-radius: 5px;
+}
+.comment-class-artist{
+    display: inline-block;
+    height:10px;
+    width:100px;
+    background-color: palegreen;
+    right: 0px;
+    border-radius: 5px;
+}
+.comment-class-sound{
+    display: inline-block;
+    height:10px;
+    width:100px;
+    background-color: pink;
+    right: 0px;
+    border-radius: 5px;
+}
+.comment-class-audience{
+    display: inline-block;
+    height:10px;
+    width:100px;
+    background-color: hotpink;
+    right: 0px;
+    border-radius: 5px;
+}
+.comment-class-staff{
+    display: inline-block;
+    height:10px;
+    width:100px;
+    background-color: coral;
     right: 0px;
     border-radius: 5px;
 }
@@ -108,15 +140,15 @@ body{
     padding:15px;
 }
 .past-concert #past-concert-title{
-    color: #B0C4DE;
-    font-size: 25px;
+    color: #000000;
+    font-size: 22px;
     margin: 10px;
-    font-family: rubikblack;
+    font-family: rubikmedium;
 }
 
 .past-concert #past-concert-title:hover{
      text-decoration: none;
-     color: #ffffff;
+     color: #bd4147;
  }
 .past-concert{
     text-align: center;

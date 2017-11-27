@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class Relations {
 	private int id;
-	private int follower_id;
-	private int following_id;
+	private int follower_id; //takip eden
+	private int following_id; //takip edilen
 	private Date created_at;
 	public int getId() {
 		return id;
