@@ -1,5 +1,10 @@
 package boun.group9.backend.app.controller;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
@@ -8,26 +13,94 @@ import javax.websocket.server.PathParam;
 import boun.group9.backend.app.Application;
 import boun.group9.backend.app.Application.STATUS;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import boun.group9.backend.app.data.Concerts;
+import boun.group9.backend.app.data.SpotifyTokenBody;
+import boun.group9.backend.app.data.Spotify_user;
 import boun.group9.backend.app.data.Users;
 import boun.group9.backend.app.helper.ConcertOperations;
 import boun.group9.backend.app.helper.UserOperations;
 
 import boun.group9.backend.app.helper.UserOperations;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 public class UserController {
 	private static STATUS status;
-	
+	@RequestMapping(value="/request-spotify-login",method=RequestMethod.POST)
+	public RedirectView requestSpotifyLogin() {
+		RedirectView redirectView = new RedirectView();
+		redirectView.setUrl("https://accounts.spotify.com/en/authorize?client_id=bb34cac7478d4bc483f7711e0873b8b4&scope=user-read-email&response_type=code&redirect_uri=http:%2F%2Flocalhost:8080%2Fspotify-code");
+		return redirectView;
+	}
+	@RequestMapping(value="/spotify-code")
+	public ModelAndView getSpotifyCode(Model model,@RequestParam(value="code",required=true) String code, HttpSession session) {
+		System.out.println(code);
+		String response;
+		SpotifyTokenBody stb = new SpotifyTokenBody();
+		Spotify_user spotifyUser;
+		Users user;
+		try {
+			String clientString = Application.SPOTIFY_CLIENT_ID+":"+Application.SPOTIFY_CLIENT_SECRET;
+			String parameters = "grant_type=authorization_code&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fspotify-code&code="+code;
+			URL url = new URL(Application.SPOTIFY_DEFAULT_AUTHENTICATION_HOST+"/api/token");
+			HttpURLConnection connection= (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("POST");
+			connection.setRequestProperty("Authorization","Basic "+Base64.encodeBase64String(clientString.getBytes()));
+			connection.setRequestProperty("grant_type", "authorization_code");
+			connection.setRequestProperty("code", code);
+			connection.setRequestProperty("redirect_uri","http%3A%2F%2Flocalhost%3A8080/spotify-code");
+			System.out.println(Base64.encodeBase64String(clientString.getBytes()));
+			
+			connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+			connection.setDoOutput(true);
+			OutputStream os = connection.getOutputStream();
+			os.write(parameters.getBytes());
+			os.close();
+			connection.connect();
+			BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			response = br.readLine();
+			stb = Application.gson.fromJson(response, SpotifyTokenBody.class);
+			url = new URL(Application.SPOTIFY_DEFAULT_HOST+"/v1/me");
+			connection = (HttpURLConnection)url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setRequestProperty("Authorization", stb.getToken_type()+" "+stb.getAccess_token());
+			connection.connect();
+			br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			String currentLine;
+			response = "";
+			while((currentLine=br.readLine()) != null) {
+				response+=currentLine;
+			}
+			System.out.println(response);
+			spotifyUser = Application.gson.fromJson(response, Spotify_user.class);
+			user = new Users(spotifyUser);
+			session.setAttribute("loggedInUser", user);
+			session.setAttribute("spotifyToken",stb);
+			model.addAttribute("response",response);
+			System.out.println(br.readLine());
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			return new ModelAndView("redirect:/error");
+		}
+		return new ModelAndView("redirect:/me");
+	}
+	@RequestMapping(value="/spotify-token")
+	public String getSpotifyToken(@RequestBody String body) {
+		System.out.println(body);
+		return "index";
+	}
 	@RequestMapping(value="/login",method=RequestMethod.GET)
 	public String login(Model model) {
 		Users user = new Users();
@@ -67,7 +140,36 @@ public class UserController {
 		return "profile";
 	}
 	*/
-	
+	@RequestMapping("/me")
+	public String myProfile(HttpSession session,Model model) {
+		SpotifyTokenBody stb = (SpotifyTokenBody)session.getAttribute("spotifyToken");
+		Users user = (Users)session.getAttribute("loggedInUser");
+		System.out.println(user.getName());
+		System.out.println(user.getEmail());
+		System.out.println(user.getPhoto_path());
+		try {
+			URL url = new URL(Application.SPOTIFY_DEFAULT_HOST+"/v1/me/playlists");
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setRequestProperty("Authorization", stb.getToken_type()+" "+stb.getAccess_token());
+			connection.setDoInput(true);
+			connection.connect();
+			BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			String response = "";
+			String playlists="";
+			while((response=br.readLine()) != null) {
+				playlists+=response;
+			}
+			model.addAttribute("playlists",playlists);
+			System.out.println(playlists);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		
+		model.addAttribute("user",user);
+		return "me";
+	}
 	@RequestMapping("/profile/{userID}/attending")
 	public String attendingProfilePage(@PathVariable("userID") int userID, Model model) {
 		Users user = UserOperations.getUser(userID);
