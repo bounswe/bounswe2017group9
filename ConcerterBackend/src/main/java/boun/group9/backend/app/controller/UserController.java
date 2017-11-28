@@ -38,6 +38,7 @@ import org.springframework.web.servlet.view.RedirectView;
 @Controller
 public class UserController {
 	private static STATUS status;
+	
 	@RequestMapping(value="/request-spotify-login",method=RequestMethod.POST)
 	public RedirectView requestSpotifyLogin() {
 		RedirectView redirectView = new RedirectView();
@@ -111,7 +112,6 @@ public class UserController {
 	public ModelAndView login(@ModelAttribute Users user,HttpSession session,Model model) {
 		user = UserOperations.login(user);
 		session.setAttribute("loggedInUser",user);
-		
 		if(user == null) {
 			return new ModelAndView("redirect:/login");
 		}
@@ -129,17 +129,17 @@ public class UserController {
 	@RequestMapping(value="/signup",method=RequestMethod.POST)
 	public ModelAndView signup(@ModelAttribute Users user) {
 		UserOperations.signUp(user);
-		System.out.println(user.getEmail());
 		return new ModelAndView("redirect:/login");
 	}
-	/*
+	
 	@RequestMapping("/profile/{userID}")
 	public String profilePage(@PathVariable("userID") int userID,Model model) {
-		//Users user = UserOperations.getUser(userID);
-		//model.addAttribute(user);
+		Users user = UserOperations.getUser(userID);
+		System.out.println(user.getName());
+		model.addAttribute(user);
 		return "profile";
 	}
-	*/
+	
 	@RequestMapping("/me")
 	public String myProfile(HttpSession session,Model model) {
 		SpotifyTokenBody stb = (SpotifyTokenBody)session.getAttribute("spotifyToken");
@@ -198,5 +198,7 @@ public class UserController {
 		model.addAttribute("concertList",thinkingConcertList);
 		return "profile";
 	}
+	
+	
 	
 }

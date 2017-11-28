@@ -2,6 +2,7 @@ package boun.group9.backend.app.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.springframework.stereotype.Controller;
@@ -23,16 +24,18 @@ import boun.group9.backend.app.helper.CommentOperations;
 @Controller
 public class ConcertController {
 	private static STATUS status;
-//	@RequestMapping(value="/new-comment",method=RequestMethod.POST)
-//	public ModelAndView newComment(@ModelAttribute Comments newComment) {
-//		newComment.setCommented_by(7);
-//		System.out.println(newComment.getComment());
-//		System.out.println(newComment.getConcert_id());
-//		System.out.println(newComment.getCommented_by());
-//		String jsonString = Application.gson.toJson(newComment);
-//		status = CommentOperations.createComment(newComment);
-//		return new ModelAndView("redirect:/index");
-//	}
+	/*
+	@RequestMapping(value="/new-comment",method=RequestMethod.POST)
+	public ModelAndView newComment(@ModelAttribute Comments newComment) {
+		//newComment.setCommented_by(7);
+		System.out.println(newComment.getComment());
+		System.out.println(newComment.getConcert_id());
+		System.out.println(newComment.getCommented_by());
+		String jsonString = Application.gson.toJson(newComment);
+		status = CommentOperations.createComment(newComment);
+		return new ModelAndView("redirect:/index");
+	}
+	*/
 	@RequestMapping("/concert/{concertID}")
 	public String concertPage(@PathVariable("concertID") int concertID,Model model) {
 		Concerts concert = ConcertOperations.getConcert(concertID);
@@ -61,4 +64,12 @@ public class ConcertController {
 		}
 		
 	}
+	
+	@RequestMapping("/concert/{concertID}/comments")
+	public String getAllComments(@PathVariable("concertID") int concertID,Model model) {
+		ArrayList<Comments> commentList = ConcertOperations.getAllComments(concertID);
+		model.addAttribute("commentList",commentList);
+		return "concert";
+	}
+	
 }

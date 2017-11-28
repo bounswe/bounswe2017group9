@@ -1,51 +1,52 @@
 package boun.group9.backend.app.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import boun.group9.backend.app.Application;
 import boun.group9.backend.app.data.Comments;
+import boun.group9.backend.app.data.Concerts;
 import boun.group9.backend.app.data.Users;
 import boun.group9.backend.app.helper.CommentOperations;
-
+import boun.group9.backend.app.helper.ConcertOperations;
 @Controller
 public class CommentController {
 
     private static Application.STATUS status;
-    @RequestMapping(value="/new-comment",method= RequestMethod.POST)
-    public String submitNewComment(@ModelAttribute Comments comment) {
-        System.out.println(comment.getCommented_by());
-        System.out.println(comment.getComment());
-        System.out.println(comment.getDown_votes());
-        System.out.println(comment.getUp_votes());
-        System.out.println(comment.getConcert_id());
-        status = CommentOperations.createComment(comment);
+    
+    @RequestMapping(value="/newcomment/{category}",method= RequestMethod.POST)
+    public ModelAndView NewComment(@PathVariable("category") int category,@ModelAttribute Comments newComment,HttpSession session) {
+    	Users user = (Users)session.getAttribute("loggedInUser");  	
+    	if(user==null){
+    		return new ModelAndView("/login");
+    	}
+    	newComment.setCommented_by(user.getId());
+    	newComment.setCategory(category);
+    	System.out.println(newComment.getId());;
+        System.out.println(newComment.getCommented_by());
+        System.out.println(newComment.getComment());
+        System.out.println(newComment.getDown_votes());
+        System.out.println(newComment.getUp_votes());
+        System.out.println(newComment.getConcert_id());
+        System.out.println(newComment.getCategory());
+        status = CommentOperations.createCommentwithCategory(newComment);
         if(status == Application.STATUS.SUCCESS) {
-            return "concert";
+        	return new ModelAndView("redirect:/index");
         }else {
-            return "error";
+        	return new ModelAndView("redirect:/error");
         }
     }
-    /*
-    @RequestMapping("/getAllComments/{concertID}")
-    public String getAllCommentsByConcertID(@PathVariable("concertID") int concertID, Model model) {
-        ArrayList<Comments> resultList=CommentOperations.getCommentsByConcertID(concertID);
-        Concerts concert=ConcertOperations.getConcert(concertID);
-        model.addAttribute("page","1");
-        model.addAttribute("concert",concert);
-        model.addAttribute("commentList",resultList);
-        return "comments";
-    }
-<<<<<<< Updated upstream
-*/
     
-
-    //METODU OLUÅ�TURDUM.
+  
     @RequestMapping(value = "/comments/{commentID}/deleteComment", method=RequestMethod.GET)
     public String deleteComment( @PathVariable("commentID") int commentID , HttpSession session){
     	
@@ -62,7 +63,7 @@ public class CommentController {
 
     }
     
-    //METODU OLUÅ�TURDUM.
+    
     @RequestMapping(value = "/comments/{commentID}/upVote", method = RequestMethod.GET)
     public String likeComment(@PathVariable("commentID") int commentID , HttpSession session){
 
@@ -77,7 +78,7 @@ public class CommentController {
         }
     }
     
-    //METODU OLUŞTURDUM.
+    
     @RequestMapping(value = "/comments/{commentID}/downVote" , method = RequestMethod.GET)
     public String unlikeComment(@PathVariable("commentID") int commentID, HttpSession session) {
 
@@ -106,6 +107,8 @@ public class CommentController {
         model.addAttribute("commentList",resultList);
         return "redirect/:concert";
     }
+    
+
     
 
 }
