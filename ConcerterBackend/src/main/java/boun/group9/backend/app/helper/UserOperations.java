@@ -1,6 +1,7 @@
 package boun.group9.backend.app.helper;
 
 import boun.group9.backend.app.Application;
+import boun.group9.backend.app.data.Concerts;
 import boun.group9.backend.app.data.Users;
 
 import boun.group9.backend.app.Application.STATUS;
@@ -10,12 +11,28 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 public class UserOperations {
 	public static Users getUser(int userID) {
+			String resultJson="";
+			try {
+				URL url = new URL(Application.API_ENDPOINT+"/getUser/"+userID);
+				HttpURLConnection connection =(HttpURLConnection) url.openConnection();
+				connection.setRequestMethod("GET");
+				connection.setDoInput(true);
+				connection.connect();
+				BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+				resultJson = br.readLine();
+				return Application.gson.fromJson(resultJson, Users.class);
+			}catch(MalformedURLException ex) {
+				ex.printStackTrace();
+			}catch(IOException ex) {
+				ex.printStackTrace();
+			}
+			return null;
 		
-		return null;
 	}
 
 	public static Users login(Users user) {

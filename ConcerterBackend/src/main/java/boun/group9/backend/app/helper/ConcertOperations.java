@@ -174,7 +174,7 @@ public class ConcertOperations {
 		return null;
 	}
 	public static STATUS createConcert(Concerts concert) {
-		concert.setCreated_by_id(7);
+		//concert.setCreated_by_id(7);
 		concert.setArtist(new Artists(concert.getArtist_name()));
 		concert.setLocation(new Locations(45.12312,63.43432,concert.getLocation_name(),concert.getLocation_name()));
 		Date date;
@@ -208,4 +208,29 @@ public class ConcertOperations {
 		}
 		return Application.STATUS.SUCCESS;
 	}
+	public static ArrayList<Comments> getAllComments(int concertID){
+		
+		String resultJson="";
+		ArrayList<Comments> commentList=new ArrayList<Comments>();
+		try{
+		
+		URL url = new URL(Application.API_ENDPOINT+"/concerts/"+concertID+"/comments");
+		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+		connection.setRequestMethod("GET");
+		connection.setDoInput(true);
+		connection.connect();
+		BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+		resultJson = br.readLine();
+		commentList = new ArrayList<Comments> (Arrays.asList(Application.gson.fromJson(resultJson, Comments[].class)));
+		return commentList;
+	}catch(MalformedURLException ex) {
+		ex.printStackTrace();
+	}catch(IOException ex) {
+		ex.printStackTrace();
+	}
+	return null;
+	
+	}
+	
+	
 }
