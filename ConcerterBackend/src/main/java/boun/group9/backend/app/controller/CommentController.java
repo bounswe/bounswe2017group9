@@ -55,7 +55,7 @@ public class CommentController {
         status = CommentOperations.deleteComment(commentID, userID);
         System.out.println(status);
         if(status == Application.STATUS.SUCCESS){
-            return "deneme";
+            return "redirect/:concert";
         }else{
             return "error";
         }
@@ -71,7 +71,7 @@ public class CommentController {
         status = CommentOperations.upVoteForComment(commentID, userID);
         System.out.println(status);
         if (status == Application.STATUS.SUCCESS){
-            return "deneme";
+            return "redirect/:concert";
         }else{
             return "error";
         }
@@ -85,12 +85,27 @@ public class CommentController {
     	int userID = user.getId();
     	status = CommentOperations.downVoteForComment(commentID,userID);
     	if(status == Application.STATUS.SUCCESS) {
-    		return "deneme"; 
+    		return "redirect/:concert"; 
     	}else {
     		return "error";
     	}
     }
 
-
+    @RequestMapping(value = "/concerts/{concertID}/comments/{commentCategory}", method = RequestMethod.GET)
+    public String getCommentsByCategory(Model model ,@PathVariable("concertID") int concertID, @PathVariable("commentCategory") int category) {
+        ArrayList<Comments> resultList;
+        resultList = CommentOperations.getCommentsByCategory(concertID, category);
+        Concerts concert= ConcertOperations.getConcert(concertID);
+        
+        for(Comments c : resultList) {
+            System.out.println(c.getId() + " , " + c.getCategory());
+        }
+        
+        model.addAttribute("page","1");
+        model.addAttribute("concert", concert);
+        model.addAttribute("commentList",resultList);
+        return "redirect/:concert";
+    }
+    
 
 }
