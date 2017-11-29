@@ -36,5 +36,43 @@ public class SearchChecker {
         System.out.println(query);
         return query;
     }
+
+
+     public static String advancedSearchGeneral(Date startDate , Date endDate , String location , int minPrice , int maxPrice){
+
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
+
+        String query = "select id as Concerts_id from concerts WHERE ";
+
+        if(startDate != null && endDate != null) {
+            String q = " (concerts.date_time between \"" + sdf.format(startDate)+ "\"  and \"" + sdf.format(endDate)+ "\") AND";
+            query += q ;
+        }else if(startDate != null && endDate == null) {
+            String q = " (concerts.date_time between \"" + sdf.format(startDate)+ "\"  and now() ) AND";
+            query += q;
+        }else if(startDate == null && endDate != null){
+            startDate.setTime(1990-01-01);
+            String q = " (concerts.date_time between \"" + sdf.format(startDate)+ "\"  and \"" + sdf.format(endDate)+ "\") AND";
+            query += q;
+        }
+
+        if(location != null && minPrice != 0 && maxPrice != 0) {
+            String q = " (concerts.location IN ( select id from locations where city Like CONCAT('%', \"" + location + "\" ,'%'))) AND";
+            query += q;
+        }else {
+            String q = " (concerts.location IN ( select id from locations where city Like CONCAT('%', \"" + location + "\" ,'%')));";
+            query += q;
+        }
+
+        if(minPrice != 0 && maxPrice != 0) {
+            String q = " ((concerts.min_price between "+ minPrice  +" and " + maxPrice + ") OR (concerts.max_price between "+ minPrice +" and " + maxPrice + ") OR ( " +
+                    minPrice + " between concerts.min_price and concerts.max_price ) OR ( " +maxPrice + " between concerts.min_price and concerts.max_price));";
+            query += q;
+        }
+
+        System.out.println(query);
+
+        return query;
+    }
 }
 

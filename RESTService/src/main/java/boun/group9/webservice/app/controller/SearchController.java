@@ -209,6 +209,47 @@ public class SearchController {
         return jsonString;
     }
 
+    @RequestMapping(value = "advancedSearch/{startDate}/{endDate}/{min}/{max}/{location}")
+    public String advancedSearchGeneral(@PathVariable(value = "min") int minPrice ,@PathVariable(value = "max") int maxPrice ,
+                                        @PathVariable(value = "location") String location ,
+                                        @PathVariable(value = "startDate") @DateTimeFormat(pattern = "YYYY-MM-dd HH:mm:ss") String start,
+                                        @PathVariable(value = "endDate") @DateTimeFormat(pattern = "YYYY-MM-dd HH:mm:ss") String end){
 
+        String jsonString;
+        String query;
+        ResultSet rs;
+        Concerts concert;
+        int concert_id=0;
+
+        ConcertController controller=new ConcertController();
+        ArrayList<Concerts> concertList=new ArrayList<Concerts>();
+        try{
+
+                java.text.DateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");
+                java.util.Date startDate = format.parse(start);
+                java.util.Date endDate = format.parse(end);
+
+            query=SearchChecker.advancedSearchGeneral(startDate,endDate , location , minPrice , maxPrice);
+            rs = Database.connect(query, Application.MODE_GET);
+            while(rs.next()) {
+                concert_id=rs.getInt("Concerts_id");
+                jsonString=controller.getConcert(concert_id);
+                System.out.println(jsonString);
+                concert=Application.gson.fromJson(jsonString, Concerts.class);
+                concertList.add(concert);
+            }
+            jsonString = Application.gson.toJson(concertList);
+        }catch(SQLException ex) {
+            System.out.println("SQL Exception occured");
+            ex.printStackTrace();
+            return "SQL Error occured.";
+        }catch(Exception ex) {
+            ex.printStackTrace();
+            return "Not saved.";
+        }
+        return jsonString;
+
+
+    }
 
 }

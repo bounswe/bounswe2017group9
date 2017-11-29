@@ -120,5 +120,25 @@ public class SearchOperations {
 		return null;
 	}
 
+	public static ArrayList<Concerts> advancedSearchGeneral(String start,  String end , int minPrice ,int maxPrice , String location){
+		String resultJson="";
+		ArrayList<Concerts> resultList;
+		try {
+			URL url = new URL(Application.API_ENDPOINT+"/advancedSearch/"+ start + "/" + end + "/" + minPrice+ "/" + maxPrice+ "/" + location );
+			HttpURLConnection connection =(HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setDoInput(true);
+			connection.connect();
+			BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			resultJson = br.readLine();
+			resultList = new ArrayList<Concerts>(Arrays.asList(Application.gson.fromJson(resultJson,Concerts[].class)));
+			return resultList;
+		}catch(MalformedURLException ex) {
+			ex.printStackTrace();
+		}catch(IOException ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
 
 }
