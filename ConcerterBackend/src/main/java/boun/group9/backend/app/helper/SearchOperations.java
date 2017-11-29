@@ -119,4 +119,24 @@ public class SearchOperations {
 		}
 		return null;
 	}
+	public static ArrayList<Concerts> advancedSearch(int minPrice, int maxPrice, String location, String startDate,  String endDate){
+		String resultJson="";
+		ArrayList<Concerts> resultList;
+		try {
+			URL url = new URL(Application.API_ENDPOINT+"/advancedSearchDate/" + minPrice + "/" + maxPrice + "/" + location + "/" + startDate + "/" + endDate );
+			HttpURLConnection connection =(HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setDoInput(true);
+			connection.connect();
+			BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			resultJson = br.readLine();
+			resultList = new ArrayList<Concerts>(Arrays.asList(Application.gson.fromJson(resultJson,Concerts[].class)));
+			return resultList;
+		}catch(MalformedURLException ex) {
+			ex.printStackTrace();
+		}catch(IOException ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
 }

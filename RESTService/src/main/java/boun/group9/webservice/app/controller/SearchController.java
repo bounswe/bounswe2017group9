@@ -208,6 +208,61 @@ public class SearchController {
         }
         return jsonString;
     }
+    @RequestMapping(value = "advancedSearch/{minPrice}/{maxPrice}/{location}/{startDate}/{endDate}", method = RequestMethod.GET)
+    public String advancedSearch(@PathVariable(value = "minPrice") int minPrice, @PathVariable(value = "maxPrice") int maxPrice,
+    						     @PathVariable(value = "location") String location,
+    							 @PathVariable(value = "start") @DateTimeFormat(pattern = "YYYY-MM-dd HH:mm:ss") String startDate,
+                                 @PathVariable(value = "end") @DateTimeFormat(pattern = "YYYY-MM-dd HH:mm:ss") String endDate){
+        /*Date start = new Date("Jan 14,1970 5:50:50");
+        Date end = new Date("Jan 14,2000 5:50:50");
+        */
+        System.out.println(startDate);
+        System.out.println(endDate);
+
+        String jsonString;
+        String query;
+        ResultSet rs;
+        Concerts concert;
+        int concert_id=0;
+
+
+
+        ConcertController controller=new ConcertController();
+        ArrayList<Concerts> concertList=new ArrayList<Concerts>();
+        try{
+
+            java.text.DateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date _startDate = format.parse(startDate);
+            java.util.Date _endDate = format.parse(endDate);
+
+            /*
+            SimpleDateFormat s = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
+            Date startDate = s.parse(start);
+            Date endDate = s.parse(end);
+*/
+            System.out.println(_startDate);
+            System.out.println(_endDate);
+
+            query=SearchChecker.advancedSearch(minPrice, maxPrice, location, _startDate, _endDate);
+            rs = Database.connect(query, Application.MODE_GET);
+            while(rs.next()) {
+                concert_id=rs.getInt("Concerts_id");
+                jsonString=controller.getConcert(concert_id);
+                System.out.println(jsonString);
+                concert=Application.gson.fromJson(jsonString, Concerts.class);
+                concertList.add(concert);
+            }
+            jsonString = Application.gson.toJson(concertList);
+        }catch(SQLException ex) {
+            System.out.println("SQL Exception occured");
+            ex.printStackTrace();
+            return "SQL Error occured.";
+        }catch(Exception ex) {
+            ex.printStackTrace();
+            return "Not saved.";
+        }
+        return jsonString;
+    }
 
 
 

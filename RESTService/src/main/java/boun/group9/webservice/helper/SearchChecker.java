@@ -36,5 +36,14 @@ public class SearchChecker {
         System.out.println(query);
         return query;
     }
+    public static String advancedSearch(int minPrice, int maxPrice, String location, Date startDate, Date endDate) {
+    	SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
+    	
+    	String query = "select id as Concerts_id from concerts Where ((concerts.min_price between "+ minPrice  + " and " + maxPrice + ") OR (concerts.max_price between "+ minPrice +" and " + maxPrice + ") OR ( " + 
+                minPrice + " between concerts.min_price and concerts.max_price ) OR ( " +maxPrice + " between concerts.min_price and concerts.max_price)) and concerts.location IN ( select id from locations where city Like CONCAT('%', \""
+                + location + "\", '%')) and concerts.date_time between \"" + sdf.format(startDate) + "\" and \"" + sdf.format(endDate) + "\";";
+    	
+    	return query;
+    }
 }
 

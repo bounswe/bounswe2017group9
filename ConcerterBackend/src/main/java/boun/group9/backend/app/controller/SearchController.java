@@ -61,4 +61,16 @@ public class SearchController {
         model.addAttribute("concertList",concert);
         return "deneme";
     }
+    @RequestMapping("/advancedSearch/{minPrice}/{maxPrice}/{location}/{startDate}/{endDate}")
+    public String advancedSearch(@PathVariable("minPrice") int minPrice, 
+    							 @PathVariable("maxPrice") int maxPrice, @PathVariable("location") String location,
+    							@PathVariable("startDate") String startDate, @PathVariable("endDate") String endDate , Model model) {
+        ArrayList<Concerts> concert = SearchOperations.advancedSearch(minPrice, maxPrice, location, startDate, endDate);
+        for (int i = 0; i < concert.size(); i++) {
+            System.out.println(concert.get(i).getName());
+        }
+        model.addAttribute("concertList",concert);
+        return "deneme";
+    }
+    
 }
