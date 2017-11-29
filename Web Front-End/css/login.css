@@ -1,140 +1,102 @@
-/*
-    Header section
- */
-header{
-    font-family: rubikregular;
-    background-color: #66be9f;
+
+.panel-login {
+    margin-top: 50px;s
+	border-color: #ccc;
+}
+.login-heading{
+    padding: 10px;
+}
+.register-heading{
+    padding: 10px;
 }
 
-.card-s{
-    margin-left: 50px;
+.panel-login>.panel-heading {
+	color: #00415d;
+	background-color: #fff;
+	border-color: #fff;
+	text-align:center;
 }
-.logo{
-    text-align: center;
+.panel-login>.panel-heading a{
+	text-decoration: none;
+	color: #666;
+	font-weight: bold;
+	font-size: 15px;
+	-webkit-transition: all 0.1s linear;
+	-moz-transition: all 0.1s linear;
+	transition: all 0.1s linear;
 }
-.search-bar{
-    vertical-align: middle;
+.panel-login>.panel-heading a.active{
+	color: #029f5b;
+	font-size: 18px;
 }
-
-.logo p{
-    font-family: rubikmedium;
-    display: inline-block;
-    color: #bd4147;
-    font-size: large;
+.panel-login>.panel-heading hr{
+	margin-top: 10px;
+	margin-bottom: 0px;
+	clear: both;
+	border: 0;
+	height: 1px;
+	background-image: -webkit-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.15),rgba(0, 0, 0, 0));
+	background-image: -moz-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+	background-image: -ms-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+	background-image: -o-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
 }
-.login-button {
-    background-color: #bd4147 !important;
-    border-color: #ba4040 !important;
+.panel-login input[type="text"],.panel-login input[type="email"],.panel-login input[type="password"] {
+	height: 45px;
+	border: 1px solid #ddd;
+	font-size: 16px;
+	-webkit-transition: all 0.1s linear;
+	-moz-transition: all 0.1s linear;
+	transition: all 0.1s linear;
 }
-
-.registration-button{
-    margin: 5px;
+.panel-login input:hover,
+.panel-login input:focus {
+	outline:none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	border-color: #ccc;
 }
-/*
-
-Generic Body styles applied to all body elements
-
- */
-body{
-    font-family: rubikregular;
+.btn-login {
+	background-color: #59B2E0;
+	outline: none;
+	color: #fff;
+	font-size: 14px;
+	height: auto;
+	font-weight: normal;
+	padding: 14px 0;
+	text-transform: uppercase;
+	border-color: #59B2E6;
 }
-
-/*
-    Side Menu Section
-
- */
-.side-menu{
-    padding: 0;
+.btn-login:hover,
+.btn-login:focus {
+	color: #fff;
+	background-color: #53A3CD;
+	border-color: #53A3CD;
 }
-.side-menu .list-group-item{
-    background-color: rgba(189, 65, 71, 0.38);
-    padding: 16px;
+.forgot-password {
+	text-decoration: underline;
+	color: #888;
 }
-.side-menu .list-group-item:hover{
-    background-color: rgba(189, 65, 71, 1.75);
-    color: #cccccc;
-}
-/*
-    Home Page Main Concert Listing Section
-
- */
-.concert-listing-dropdown-button{
-    text-align: right;
-}
-
-.concert-listing{
-    padding:0;
-}
-.concert-listing-container{
-    padding: 50px;
-    padding-top: 0;
-}
-.concert-listing-container .card .card-image{
-    width:100%;
-}
-.concert-listing-container .card .card-image .card-img-top{
-    width:100%;
-}
-
-/*
-   Past Concerts Section
- */
-.past-concert{
-    padding:15px;
+.forgot-password:hover,
+.forgot-password:focus {
+	text-decoration: underline;
+	color: #666;
 }
 
-.past-concert #past-concert-title{
-    color: #66be9f;
-    font-size: 25px;
-    margin: 10px;
-    font-family: rubikblack;
+.btn-register {
+	background-color: #1CB94E;
+	outline: none;
+	color: #fff;
+	font-size: 14px;
+	height: auto;
+	font-weight: normal;
+	padding: 14px 0;
+	text-transform: uppercase;
+	border-color: #1CB94A;
 }
-
-.past-concert #past-concert-title:hover{
-     text-decoration: none;
-     color: #ffffff;
- }
-
-
-
-.past-concert{
-    text-align: center;
-    border-left: 1px solid #800808;
-    background-color: #1d2124;
-}
-.past-concert .card{
-    width:100% !important;
-    margin-top: 10px;
-}
-
-.past-concert .card .card-price{
-    left: 0px;
-    display: inline-block;
-}
-.past-concert .card .card-attendees{
-    right: 0px;
-    display: inline-block;
- }
-
-.past-concert .card .list-group-item{
-    padding: 3px;
-    font-size: small;
-}
-
-.past-concert .card .card-title{
-    margin:0px;
-}
-.past-concert .card .card-detailed-info{
-    text-align: center;
-}
-.past-concert .card .card-detailed-info .card-attendees{
-    float: right;
-    color: #6c757d;
-}
-.past-concert .card ul li i{
-    color: #bd4147;
-}
-
-.past-concert .list-group-item{
-    background-color: rgba(189, 65, 71, 0.38);
+.btn-register:hover,
+.btn-register:focus {
+	color: #fff;
+	background-color: #1CA347;
+	border-color: #1CA347;
 }
