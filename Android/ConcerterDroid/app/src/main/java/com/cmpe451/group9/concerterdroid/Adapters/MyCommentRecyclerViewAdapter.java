@@ -1,5 +1,8 @@
 package com.cmpe451.group9.concerterdroid.Adapters;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,15 +18,24 @@ import java.util.List;
 
 public class MyCommentRecyclerViewAdapter extends RecyclerView.Adapter<MyCommentRecyclerViewAdapter.ViewHolder> {
 
-    //TODO After implementing shared preferences fix this.
-    boolean registered = true;
-    //After implementing shared preferences fix this.
+
+    //SharedPreferences about login
+    Context activity;
+
+    boolean registered;
 
     private final List<Comment> comment_list;
     int votes;
 
-    public MyCommentRecyclerViewAdapter(List<Comment> items) {
+    public MyCommentRecyclerViewAdapter(List<Comment> items, Context activity) {
         comment_list = items;
+        this.activity = activity;
+
+        SharedPreferences checkReg = activity.getSharedPreferences("concertGoer", 0);
+        if(checkReg == null)
+            registered = false;
+        else
+            registered = checkReg.getBoolean("login_state", false);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.cmpe451.group9.concerterdroid;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,9 +32,14 @@ public class ConcertPageActivity extends AppCompatActivity {
         Intent i = getIntent();
         Concert concert = (Concert) i.getSerializableExtra("concertInfo");
 
+
         boolean registered;
-        //TODO get the value of registered (boolean) from Shared Preferences
-        registered= (i.getBooleanExtra("registered", false) );
+
+        SharedPreferences checkReg = getSharedPreferences("concertGoer", 0);
+        if(checkReg == null)
+            registered = false;
+        else
+            registered = checkReg.getBoolean("login_state", false);
 
         //Layout objects:
         TextView tvName;

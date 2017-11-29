@@ -6,16 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.cmpe451.group9.concerterdroid.Fragments.UserAccountsFragment"
+    tools:context="com.cmpe451.group9.concerterdroid.Fragments.LoginSignupFragment"
     android:paddingBottom="20dp"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
     android:paddingTop="40dp">
 
 
-
     <EditText
-        android:id="@+id/tv_email"
+        android:id="@+id/edit_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -23,7 +22,7 @@
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/tv_password"
+        android:id="@+id/edit_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"

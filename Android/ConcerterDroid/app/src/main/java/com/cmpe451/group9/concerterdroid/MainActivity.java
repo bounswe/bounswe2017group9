@@ -1,12 +1,14 @@
 package com.cmpe451.group9.concerterdroid;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.cmpe451.group9.concerterdroid.Adapters.theFragmentPagerAdapter;
 import com.cmpe451.group9.concerterdroid.Classes.Concert;
@@ -18,26 +20,21 @@ public class MainActivity extends AppCompatActivity implements ListConcertsFragm
 
     MenuItem prevMenuItem;
     BottomNavigationView navigation;
-    ViewPager viewPager;
+    public ViewPager viewPager;
 
-    public boolean isRegist() {
-        return regist;
-    }
-
-    //TODO after shared preferences:
-    boolean regist = true;
-
-    public void setRegist(boolean regist) {
-        this.regist = regist;
-    }
-
-
+    boolean regist;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SharedPreferences checkReg = getSharedPreferences("concertGoer", 0);
+        if(checkReg == null)
+            regist = false;
+        else
+            regist = checkReg.getBoolean("login_state", false);
 
         //Concerter logo on ActionBar
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -109,8 +106,6 @@ public class MainActivity extends AppCompatActivity implements ListConcertsFragm
         //When a concert is clicked from the list, open concert page in a new activity called "ConcertPageActivity".
         Intent interno = new Intent(this, ConcertPageActivity.class);
         interno.putExtra("concertInfo", (Serializable) item);
-        //TODO delete this extra boolean "registered" after applying Shared Preferences.
-        interno.putExtra("registered",  regist);
         startActivity(interno);
 
     }
