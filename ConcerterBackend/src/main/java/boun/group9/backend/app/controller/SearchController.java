@@ -20,7 +20,7 @@ public class SearchController {
 			System.out.println(concert.get(i).getName());
 		}
 		model.addAttribute("concertList",concert);
-		return "error";
+		return "redirect/:basicSearch";
 	}
 	@RequestMapping("/basicsearchuser/{name}")
 	public String basicSearchUser(@PathVariable("name") String name,Model model) {
@@ -29,7 +29,7 @@ public class SearchController {
 			System.out.println(users.get(i).getName());
 		}
 		model.addAttribute("userList",users);
-		return "error";
+		return "redirect/:basicSearch";
 	}
 
 	 @RequestMapping("/advancedSearchPrice/{min}/{max}")
@@ -39,7 +39,7 @@ public class SearchController {
 	            System.out.println(concert.get(i).getName());
 	        }
 	        model.addAttribute("concertList",concert);
-	        return "deneme";
+	        return "redirect/:advancedSearch";
 	    }
 	    
 	    @RequestMapping("/advancedSearchLocation/{location}")
@@ -49,7 +49,7 @@ public class SearchController {
 	            System.out.println(concert.get(i).getName());
 	        }
 	        model.addAttribute("concertList",concert);
-	        return "deneme";
+	        return "redirect/:advancedSearch";
 	    }
 	    
 	    @RequestMapping("/advancedSearchDate/{startDate}/{endDate}")
@@ -59,7 +59,40 @@ public class SearchController {
 	            System.out.println(concert.get(i).getName());
 	        }
 	        model.addAttribute("concertList",concert);
-	        return "deneme";
+	        return "redirect/:advancedSearch";
 	    }
+
+	    @RequestMapping("advancedSearch/{startDate}/{endDate}/{min}/{max}/{location}")
+		public String advancedSearchGeneral(@PathVariable(value = "min") int minPrice ,@PathVariable(value = "max") int maxPrice ,
+            @PathVariable(value = "location") String location ,
+            @PathVariable(value = "startDate") String start,
+            @PathVariable(value = "endDate") String end , Model model) {
+		
+		/*
+		if(end == null) {
+			DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+			java.util.Date dateobj = new java.util.Date();
+			end = df.format(dateobj);
+			System.out.println(end);
+		}
+		if(start == null) {
+			DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+			java.util.Date dateobj = new java.util.Date(1900-00-00);
+			end = df.format(dateobj);
+			System.out.println(end);
+		}
+		if(location == null) {
+			location = "";
+		}
+		*/
+		
+		
+		ArrayList<Concerts> concert = SearchOperations.advancedSearchGeneral(start, end , minPrice , maxPrice, location );
+		for (int i = 0; i < concert.size(); i++) {
+			System.out.println(concert.get(i).getName());
+		}
+		model.addAttribute("concertList",concert);
+		return "redirect/:advancedSearch";
+	}
 	
 }
