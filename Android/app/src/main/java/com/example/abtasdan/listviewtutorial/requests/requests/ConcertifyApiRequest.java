@@ -3,6 +3,7 @@ package com.example.abtasdan.listviewtutorial.requests.requests;
 import com.example.abtasdan.listviewtutorial.modals.Concert;
 import com.example.abtasdan.listviewtutorial.modals.CreatedBy;
 import com.example.abtasdan.listviewtutorial.modals.requests.LoginReq;
+import com.example.abtasdan.listviewtutorial.modals.requests.SearchResult;
 
 
 import java.util.ArrayList;
@@ -21,6 +22,8 @@ public interface ConcertifyApiRequest {
     @GET("/concerts")
     void getConcerts(@Query("user_id") long user_id, Callback<ArrayList<Concert>> projectCallback);
 
+    @GET("/basic-search")
+    void search(@Query("searchKey") String searchKey, Callback<SearchResult> searchResultCallback);
     //
 
 

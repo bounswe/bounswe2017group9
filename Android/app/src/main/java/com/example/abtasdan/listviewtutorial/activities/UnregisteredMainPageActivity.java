@@ -1,6 +1,8 @@
 package com.example.abtasdan.listviewtutorial.activities;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
@@ -23,7 +25,7 @@ import retrofit.RetrofitError;
 import retrofit.android.AndroidLog;
 import retrofit.client.Response;
 
-public class UnregisteredMainPageActivity extends AppCompatActivity {
+public class UnregisteredMainPageActivity extends Activity {
 
 
 
@@ -35,12 +37,24 @@ public class UnregisteredMainPageActivity extends AppCompatActivity {
     ListView lvConcerts;
     private RestAdapter restAdapter;
     private ConcertifyApiRequest concertifyApiRequest;
-
+    public static final String MyPREFERENCES = "MyPrefs" ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_unregistered_main_page);
         ButterKnife.bind(this);
+        SharedPreferences prefs = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
+        String restoredText = prefs.getString("name", null);
+        if (restoredText != null) {
+            String name = prefs.getString("name", "No name defined");//"No name defined" is the default value.
+            long id = prefs.getLong("id", 0); //0 is the default value.
+            if(id !=0 ){
+                finish();
+                Intent intent = new Intent(UnregisteredMainPageActivity.this,MainActivity.class);
+                startActivity(intent);
+            }
+
+        }
 
 
         RetrofitHttpClient client = new RetrofitHttpClient();

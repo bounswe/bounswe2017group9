@@ -1,5 +1,6 @@
 package com.example.abtasdan.listviewtutorial.activities;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
@@ -9,7 +10,7 @@ import com.example.abtasdan.listviewtutorial.R;
 
 import butterknife.BindView;
 
-public class SignUpActivity extends AppCompatActivity {
+public class SignUpActivity extends Activity {
 
     @BindView(R.id.et_email)
     EditText emailText;

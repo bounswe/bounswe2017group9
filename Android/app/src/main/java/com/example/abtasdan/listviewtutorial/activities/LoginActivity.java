@@ -1,6 +1,8 @@
 package com.example.abtasdan.listviewtutorial.activities;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -25,7 +27,7 @@ import retrofit.client.Response;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends Activity {
 
     @BindView(R.id.btn_login_main)
     Button btnMainMenu;
@@ -38,6 +40,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private RestAdapter restAdapter;
     private ConcertifyApiRequest concertifyApiRequest;
+
+    public static final String MyPREFERENCES = "MyPrefs" ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
     public void onViewClicked() {
         login();
 
-//        finish();
+        finish();
     }
     @OnClick(R.id.btn_login_spotify)
     public void  onClicked(){
@@ -111,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
 
         }else {
 
-            LoginReq loginReq = new LoginReq();
+            final LoginReq loginReq = new LoginReq();
 
             loginReq.setEmail(mail);
             loginReq.setPassword(password);
@@ -120,6 +124,17 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void success(CreatedBy loginResponse, Response response) {
                     Log.e("loginservice", "success");
+                    SharedPreferences.Editor editor = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE).edit();
+                    editor.putString("mail", loginResponse.getEmail().toString());
+                    editor.putLong("id", loginResponse.getId());
+                    editor.putString("photo_path",loginResponse.getPhoto_path().toString());
+                    editor.putString("created_at",loginResponse.getCreated_at().toString());
+                    editor.putString("updated_at",loginResponse.getUpdated_at().toString());
+                    editor.putString("last_login",loginResponse.getLast_login().toString());
+                    editor.putString("name",loginResponse.getName().toString());
+                    editor.putInt("followers",loginResponse.getFollowers());
+                    editor.putInt("followings",loginResponse.getFollowings());
+                    editor.apply();
 
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);

@@ -2,13 +2,17 @@ package com.example.abtasdan.listviewtutorial.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.abtasdan.listviewtutorial.R;
 import com.example.abtasdan.listviewtutorial.adapters.ConcertAdapter;
 import com.example.abtasdan.listviewtutorial.modals.Concert;
+import com.example.abtasdan.listviewtutorial.modals.requests.SearchResult;
 import com.example.abtasdan.listviewtutorial.requests.requests.ConcertifyApiRequest;
 import com.example.abtasdan.listviewtutorial.requests.requests.RetrofitHttpClient;
 
@@ -32,9 +36,16 @@ public class MainActivity extends Activity {
     TextView tvHome;
     @BindView(R.id.tv_logout)
     TextView tvLogout;
+    @BindView(R.id.et_search)
+    EditText etSearch;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.btn_search)
+    Button search;
+
     private RestAdapter restAdapter;
     private ConcertifyApiRequest concertifyApiRequest;
-
+    public static final String MyPREFERENCES = "MyPrefs" ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,6 +125,35 @@ public class MainActivity extends Activity {
             }
         });
     }
+
+    private void search(String searchKey) {
+        concertifyApiRequest.search(searchKey, new Callback<SearchResult>() {
+            @Override
+            public void success(SearchResult searchResult, Response response) {
+
+                ConcertAdapter concertAdapter = new ConcertAdapter(MainActivity.this, searchResult.getConcerts(), false);
+                lvConcerts.setAdapter(concertAdapter);
+
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
+    }
+
+    @OnClick(R.id.btn_search)
+    public void onClickSerch(){
+       if(etSearch.getText().toString().isEmpty()){
+           tvTitle.setText("Concerts");
+       }else{
+           tvTitle.setText("Search");
+           search(etSearch.getText().toString());
+
+       }
+    }
     @OnClick(R.id.tv_profile_main)
     public void onClickProfile(){
         Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
@@ -126,7 +166,14 @@ public class MainActivity extends Activity {
     }
     @OnClick(R.id.tv_logout)
     public void onViewClicked() {
+        SharedPreferences.Editor editor = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE).edit();
 
+        editor.putString("name",null);
+
+        editor.apply();
+
+        Intent intent = new Intent(MainActivity.this, UnregisteredMainPageActivity.class);
+        startActivity(intent);
         finish();
 
     }

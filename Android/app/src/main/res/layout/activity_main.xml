@@ -59,7 +59,27 @@
              android:background="@color/colorAccent"
              android:layout_height="wrap_content" />
       </LinearLayout>
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+         <EditText
+
+             android:id="@+id/et_search"
+             android:layout_width="232dp"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="10dp"
+
+             />
+         <Button
+             android:id="@+id/btn_search"
+             android:layout_marginLeft="10dp"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Search" />
+      </LinearLayout>
+
       <TextView
+          android:id="@+id/tv_title"
           android:textSize="30sp"
           android:text="CONCERTS"
           android:layout_width="match_parent"

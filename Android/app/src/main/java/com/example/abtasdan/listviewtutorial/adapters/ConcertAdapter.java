@@ -69,7 +69,7 @@ public class ConcertAdapter extends BaseAdapter {
     }
 
     private void fillViews(Concert concert, ViewHolder holder) {
-        Glide.with(context).load("https://vikolo.com/wp-content/uploads/2017/03/Lana-Del-Rey.jpg").into(holder.ivImage);
+        Glide.with(context).load(concert.getImage_path()).into(holder.ivImage);
         holder.tvArtist.setText(concert.getArtist().getName());
 
         if (preLogin) {
