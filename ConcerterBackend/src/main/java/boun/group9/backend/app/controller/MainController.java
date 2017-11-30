@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import boun.group9.backend.app.data.Comments;
 import boun.group9.backend.app.data.Concerts;
+import boun.group9.backend.app.data.Search;
 import boun.group9.backend.app.data.Users;
 import boun.group9.backend.app.helper.ConcertOperations;
 
@@ -29,6 +30,7 @@ public class MainController {
 		model.addAttribute("concertList",concertList);
 		Users user = (Users)session.getAttribute("loggedInUser");
 		model.addAttribute("loggedInUser",user);
+		model.addAttribute("search",new Search());
 		return "index";
 	}
 }

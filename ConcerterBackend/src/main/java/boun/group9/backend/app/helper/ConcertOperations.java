@@ -151,8 +151,11 @@ public class ConcertOperations {
 			connection.connect();
 			BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			resultJson = br.readLine();
+			System.out.println(resultJson);
 			resultList = new ArrayList<Concerts>(Arrays.asList(Application.gson.fromJson(resultJson, Concerts[].class)));
+			System.out.println(resultList.get(0).getDate_time());
 			for(Concerts oneConcert : resultList) {
+				oneConcert.setDate_str(oneConcert.getDate_time().toString());
 				ArrayList<Comments> commentList;
 				Comments comment;
 				url = new URL(Application.API_ENDPOINT+"/concerts/"+oneConcert.getId()+"/comments");
@@ -186,9 +189,8 @@ public class ConcertOperations {
 			ex.printStackTrace();
 			System.out.println("Data is not well formatted.");
 		}
-		concert.setImage_path("not stated");
 		String json = Application.gson.toJson(concert);
-		
+		System.out.println(json);
 		try {
 			URL url = new URL(Application.API_ENDPOINT+"/concerts");
 			HttpURLConnection connection = (HttpURLConnection)url.openConnection();

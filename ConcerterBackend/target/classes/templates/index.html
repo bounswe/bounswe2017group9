@@ -19,7 +19,7 @@
     <ul class="navbar-nav mr-auto">
       
       <li class="nav-item">
-        <a class="nav-link" href="/profile/1">Profile</a>
+      <a class="nav-link" th:text="${loggedInUser != null} ? ${loggedInUser.name} : 'Not logged in'" th:href="@{${loggedInUser != null} ? '/profile/'+${loggedInUser.id} : '#'}"></a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -31,17 +31,15 @@
       </li>
       
     
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>
+    <form class="form-inline my-2 my-lg-0" th:Action="@{/basic-search}" th:object="${search}" method="post">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" th:field="*{searchKey}"></input>
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
     <li class="nav-item">
       	<a class="nav-link" href="/logout">Logout</a>
       	
       </li>
-      <li class="nav-item">
-      <a class="nav-link" th:text="${loggedInUser != null} ? ${loggedInUser.name} : 'Not logged in'" th:href="@{${loggedInUser != null} ? '/profile/'+${loggedInUser.id} : '#'}"></a>
-      </li>
+      
   	</ul>
   </div>
 </nav>
@@ -50,7 +48,10 @@
 <div class="row" th:each="concert : ${concertList}">
 <div class="col-8 offset-2">
 <div class="card border-success">
-  <img class="card-img-top" src="/1.jpg" alt="Card image cap"></img>
+<div class="crop">
+<img class="card-img-top" th:src="${concert.image_path}" alt="Card image cap"></img>
+</div>
+  
   <div class="card-body">
     <a class="card-title" th:href="@{~/concert/{id}(id=${concert.id})}" th:text="${concert.name}"></a>
     <a href="#" class="btn btn-success">Attending</a>
@@ -63,8 +64,7 @@
     </div>
     <div class="col-4">
     <p><b>Location : </b> <span th:text="${concert.location.city}"> </span></p>
-    <p><b>Date :</b> 29/10/2017</p>
-    <p><b>Time :</b> 18:00 </p>
+    <p><b>Date :</b><span th:text="${concert.date_str}"></span></p>
     </div>
     <div class="col-4">
     <p><b>Min Price : </b> <span th:text="${concert.min_price}"></span></p>

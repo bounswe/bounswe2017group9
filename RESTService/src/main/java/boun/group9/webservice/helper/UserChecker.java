@@ -1,11 +1,31 @@
 package boun.group9.webservice.helper;
 
+import java.sql.ResultSet;
+
+import boun.group9.webservice.app.Application;
 import boun.group9.webservice.app.data.Users;
 
 public class UserChecker {
-	public static String getUser(int userID){
-		String query = "select Users.spotify_id as Users_spotify_id  ,  Users.id as Users_id , Users.name as Users_name, Users.email as Users_email, Users.followers as Users_followers , Users.followings as Users_followings, Users.photo_path as Users_photo_path, Users.username as Users_username from users where id = "+ userID+";" ;
-		return query;
+	public static Users getUser(int userID){
+		String query = "SELECT * FROM Users WHERE id="+userID+";";
+		Users user = new Users();
+		ResultSet rs;
+		try {
+			rs = Database.connect(query, Application.MODE_GET);
+			if(rs.next()) {
+				user.setId(rs.getInt("id"));
+				user.setSpotify_id(rs.getString("id"));
+				user.setName(rs.getString("name"));
+				user.setUsername(rs.getString("username"));
+				user.setEmail(rs.getString("email"));
+				user.setFollowers(rs.getInt("followers"));
+				user.setFollowings(rs.getInt("followings"));
+				user.setPhoto_path(rs.getString("photo_path"));
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return user;
 	}
 	// bu userID  birini follow ederse
 	public static String follow(int userID){

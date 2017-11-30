@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,6 +21,7 @@ import boun.group9.backend.app.data.Artists;
 import boun.group9.backend.app.data.Comments;
 import boun.group9.backend.app.data.Concerts;
 import boun.group9.backend.app.data.Locations;
+import boun.group9.backend.app.data.Users;
 import boun.group9.backend.app.helper.ConcertOperations;
 import boun.group9.backend.app.helper.CommentOperations;
 @Controller
@@ -48,7 +51,8 @@ public class ConcertController {
 		return "new-concert";
 	}
 	@RequestMapping(value="/new-concert",method=RequestMethod.POST)
-	public String submitNewConcert(@ModelAttribute Concerts concert) {
+	public ModelAndView submitNewConcert(@ModelAttribute Concerts concert,HttpSession session) {
+		Users user = (Users) session.getAttribute("loggedInUser");
 		System.out.println(concert.getName());
 		System.out.println(concert.getArtist_name());
 		System.out.println(concert.getLocation_name());
@@ -56,13 +60,14 @@ public class ConcertController {
 		System.out.println(concert.getTime_str());
 		System.out.println(concert.getMin_price());
 		System.out.println(concert.getMax_price());
+		System.out.println(concert.getImage_path());
+		concert.setCreated_by_id(user.getId());
 		status = ConcertOperations.createConcert(concert);
 		if(status == STATUS.SUCCESS) {
-			return "index";
+			return new ModelAndView("redirect:/index");
 		}else {
-			return "error";
+			return new ModelAndView("redirect:/error");
 		}
-		
 	}
 	
 	@RequestMapping("/concert/{concertID}/comments")

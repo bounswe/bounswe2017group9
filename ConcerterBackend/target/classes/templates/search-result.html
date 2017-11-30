@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>ConcerterBackend Test</title>
+	<meta http-equiv="Content-Type" content="text/html;" charset="UTF-8" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"></link>
+	<link rel="stylesheet" href="/css/style.css"></link>
+	<link rel="stylesheet" href="/css/style1.css"></link>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light">
+  <a class="navbar-brand" href="index">Concerter</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      
+      <li class="nav-item">
+      <a class="nav-link" th:text="${loggedInUser != null} ? ${loggedInUser.name} : 'Not logged in'" th:href="@{${loggedInUser != null} ? '/profile/'+${loggedInUser.id} : '#'}"></a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Concerts
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/new-concert">Create Concert</a>
+        </div>
+      </li>
+      
+    
+    <form class="form-inline my-2 my-lg-0" th:Action="@{/basic-search}" th:object="${search}" method="post">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    <li class="nav-item">
+      	<a class="nav-link" href="/logout">Logout</a>
+      	
+      </li>
+      
+  	</ul>
+  </div>
+</nav>
+
+<div class="container">
+<h1>Concerts</h1>
+<div class="row" th:each="concert : ${concertList}">
+<div class="col-8 offset-2">
+<div class="card border-success">
+<div class="crop">
+<img class="card-img-top" th:src="${concert.image_path}" alt="Card image cap"></img>
+</div>
+  
+  <div class="card-body">
+    <a class="card-title" th:href="@{~/concert/{id}(id=${concert.id})}" th:text="${concert.name}"></a>
+    <a href="#" class="btn btn-success">Attending</a>
+    <a href="#" class="btn btn-warning">Maybe</a>
+    <hr />
+    <div class="row">
+    <div class="col-4">
+    <p><b>Artist : </b> <span th:text="${concert.artist.name}"></span></p>
+    <p><b>Created By :</b> <span th:text="${concert.created_by.name}"></span> </p>
+    </div>
+    <div class="col-4">
+    <p><b>Location : </b> <span th:text="${concert.location.city}"> </span></p>
+    <p><b>Date :</b><span th:text="${concert.date_str}"></span></p>
+    </div>
+    <div class="col-4">
+    <p><b>Min Price : </b> <span th:text="${concert.min_price}"></span></p>
+    <p> <b>Max Price : </b> <span th:text="${concert.max_price}"></span></p>
+    <p><b>Rate : </b> <span th:text="${concert.rate}"></span></p>
+    </div>
+    </div>
+    <hr />
+    <div class="media comment" th:each="comment : ${concert.commentList}">
+  <a href="/profile/1"><img class="align-self-center mr-3 commenterPhoto" src="/fatihGuven.jpg" alt="Generic placeholder image"></img></a>
+  <div class="media-body" >
+    <a class="mt-0" href="/profile/1"><b>Fatih Güven</b></a>
+    <p th:text="${comment.comment}"></p>
+  </div>
+  <hr/>
+  
+</div>
+<form action="#" th:action="@{/new-comment}" th:object="${newComment}" method="post">
+<div class="media-body">
+  
+  	<input type="text" placeholder="Comment" th:field="*{comment}"></input>
+  	<input type="hidden" th:value="${concert.id}" th:id="concert_id" th:name="concert_id"></input>
+  </div>
+  <div class="media-body">
+  	<button class="btn btn-outline-success" type="submit">Comment</button>
+  </div>
+  </form>
+  </div>
+</div>
+<hr />
+</div>
+	
+</div>
+<h1>Users:</h1>
+<div class="row" th:each="user : ${userList}">
+<div class="col-8 offset-2">
+<img th:src="${user.photo_path}" class="found-user"></img>
+<a th:href="${'profile/'+user.id}"><span th:text="${user.name}"></span></a>
+<hr />
+</div>
+	
+</div>
+	</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+</html>

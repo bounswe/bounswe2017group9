@@ -2,6 +2,13 @@
 	margin-bottom:0rem;
 	font-size:12px;
 }
+.found-user{
+	width:100px;
+}
+.crop{
+	height:250px;
+	overflow:hidden;
+}
 .btn-info{
 	margin-top:2%;
 }

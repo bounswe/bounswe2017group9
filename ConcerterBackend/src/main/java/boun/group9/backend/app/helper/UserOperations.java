@@ -18,13 +18,14 @@ public class UserOperations {
 	public static Users getUser(int userID) {
 			String resultJson="";
 			try {
-				URL url = new URL(Application.API_ENDPOINT+"/getUser/"+userID);
+				URL url = new URL(Application.API_ENDPOINT+"/user/"+userID);
 				HttpURLConnection connection =(HttpURLConnection) url.openConnection();
 				connection.setRequestMethod("GET");
 				connection.setDoInput(true);
 				connection.connect();
 				BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 				resultJson = br.readLine();
+				System.out.println(resultJson);
 				return Application.gson.fromJson(resultJson, Users.class);
 			}catch(MalformedURLException ex) {
 				ex.printStackTrace();
@@ -40,10 +41,12 @@ public class UserOperations {
 		try {
 			String response;
 			URL url = new URL(Application.API_ENDPOINT + "/user");
+			System.out.println(Application.API_ENDPOINT + "/user");
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("POST");
 			connection.setDoOutput(true);
 			connection.setRequestProperty("Content-Type", "application/json");
+			System.out.println(json);
 			byte[] jsonBytes = json.getBytes("UTF-8");
 			OutputStream os = connection.getOutputStream();
 			os.write(jsonBytes);

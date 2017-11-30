@@ -73,7 +73,10 @@ public class Concerts {
 		return date_time;
 	}
 	public void setDate_time(Timestamp date_time) {
-		this.date_time = new Date(date_time.getTime());
+		if(date_time != null) {
+			this.date_time = new Date(date_time.getTime());
+		}
+		
 	}
 	public int getMin_price() {
 		return min_price;

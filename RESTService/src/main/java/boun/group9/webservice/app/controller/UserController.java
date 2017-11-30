@@ -161,37 +161,11 @@ public class UserController {
 		}
 	}
 
-	@RequestMapping(value="getUser/{userID}",method= RequestMethod.GET)
+	@RequestMapping(value="user/{userID}",method= RequestMethod.GET)
 	public static String getUser(@PathVariable(value = "userID") int userID){
-		Users user;
-		String query = UserChecker.getUser(userID);
-		try {
-			System.out.println(query);
-			ResultSet rs = Database.connect(query,Application.MODE_GET);
-			if(rs.next()) { // if a user is returned i.e. username and password is correct
-				user = new Users();
-				user.setId(rs.getInt("Users_id"));
-				user.setSpotify_id(rs.getString("Users_spotify_id"));
-				user.setName(rs.getString("Users_name"));
-				user.setUsername(rs.getString("Users_username"));
-				user.setEmail(rs.getString("Users_email"));
-				user.setFollowers(rs.getInt("Users_followers"));
-				user.setFollowings(rs.getInt("Users_followings"));
-				user.setPhoto_path(rs.getString("Users_photo_path"));
-				return Application.gson.toJson(user);
-			}else {
-				throw new UserNotFoundException();
-			}
-		}catch(JsonSyntaxException ex) {
-			throw new IJsonSyntaxException();
-		}catch(SQLException ex) {
-			throw new ISQLException();
-		}catch(NotSavedException ex) {
-			throw new InternalServerException();
-		}
-		finally {
-			Database.closeConnection();
-		}
+		Users user = UserChecker.getUser(userID);
+		return Application.gson.toJson(user);
+		
 
 	}
 

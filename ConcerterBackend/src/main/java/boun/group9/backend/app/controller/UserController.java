@@ -113,6 +113,7 @@ public class UserController {
 		user = UserOperations.login(user);
 		session.setAttribute("loggedInUser",user);
 		if(user == null) {
+			System.out.println("user is null.");
 			return new ModelAndView("redirect:/login");
 		}
 		return new ModelAndView("redirect:/index");
@@ -136,7 +137,7 @@ public class UserController {
 	public String profilePage(@PathVariable("userID") int userID,Model model) {
 		Users user = UserOperations.getUser(userID);
 		System.out.println(user.getName());
-		model.addAttribute(user);
+		model.addAttribute("user",user);
 		return "profile";
 	}
 	
