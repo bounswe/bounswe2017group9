@@ -18,7 +18,7 @@
 //import retrofit.mime.TypedOutput;
 //
 ///**
-// * Created by umutkina on 04/08/14.
+// * Created by abtasdan on 01/11/17.
 // */
 //public class JacksonConverter implements Converter {
 //    private static final String MIME_TYPE = "application/json; charset=UTF-8";

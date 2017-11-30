@@ -1,14 +1,19 @@
 package com.example.abtasdan.listviewtutorial.requests.requests;
 
 import com.example.abtasdan.listviewtutorial.modals.Concert;
+import com.example.abtasdan.listviewtutorial.modals.CreatedBy;
+import com.example.abtasdan.listviewtutorial.modals.requests.LoginReq;
 
 
 import java.util.ArrayList;
 
 import retrofit.Callback;
+import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.Query;
-
+import retrofit.http.POST;
+import retrofit.http.Field;
+import retrofit.http.FormUrlEncoded;
 
 public interface ConcertifyApiRequest {
 
@@ -19,9 +24,8 @@ public interface ConcertifyApiRequest {
     //
 
 
-//    @POST("/projects/log/attempt-project-pledge")
-//    @FormUrlEncoded
-//    void projectPledge(@Field("projectId") long projectId, @Field("rewardId") long rewardId, Callback<Response> projectCallback);
+    @POST("/user")
+    void login(@Body LoginReq loginReq, Callback<CreatedBy> projectCallback);
 //
 //    @POST("/projects/log/view-project-page")
 //    @FormUrlEncoded
