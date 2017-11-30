@@ -22,6 +22,7 @@ import boun.group9.backend.app.data.Artists;
 import boun.group9.backend.app.data.Comments;
 import boun.group9.backend.app.data.Concerts;
 import boun.group9.backend.app.data.Locations;
+import boun.group9.backend.app.data.Users;
 public class ConcertOperations {
 	public static ArrayList<Concerts> getAttendingConcerts(int userID){
 		String resultJson="";
@@ -233,6 +234,18 @@ public class ConcertOperations {
 	return null;
 	
 	}
-	
+	public static STATUS attendConcert(Users user, int id) {
+		try {
+			URL url = new URL(Application.API_ENDPOINT+"/concert/"+id+"/attendee"+user.getId());
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("POST");
+			connection.setDoInput(true);
+			connection.connect();
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			return Application.STATUS.ERROR;
+		}
+		return Application.STATUS.SUCCESS;
+	}
 	
 }

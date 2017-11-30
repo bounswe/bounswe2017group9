@@ -76,5 +76,14 @@ public class ConcertController {
 		model.addAttribute("commentList",commentList);
 		return "concert";
 	}
-	
+	@RequestMapping(value="/attend/{id}",method=RequestMethod.POST)
+	public ModelAndView attendConcert(@PathVariable int id,HttpSession session) {
+		Users user = (Users)session.getAttribute("loggedInUser");
+		Application.STATUS status = ConcertOperations.attendConcert(user,id);
+		if(status == Application.STATUS.SUCCESS) {
+			return new ModelAndView("redirect:/index");
+		}else {
+			return new ModelAndView("redirect:/error");
+		}
+	}
 }

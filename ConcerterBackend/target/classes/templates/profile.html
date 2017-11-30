@@ -51,14 +51,23 @@
 				<!-- END SIDEBAR USER TITLE -->
 				<!-- SIDEBAR BUTTONS -->
 				<div class="profile-userbuttons">
-					<button type="button" class="btn btn-success btn-sm">Follow</button>
+					<form th:Action="@{${'/follow/' + user.id}}" method="POST">
+						<button type="submit" class="btn btn-success btn-sm">Follow</button>
+					</form>
+					
+				</div>
+				<div class="profile-userbuttons">
+					<form th:Action="@{${'/unfollow/'+user.id}}" method="POST">
+						<button type="submit" class="btn btn-success btn-sm">Unfollow</button>
+					</form>
+					
 				</div>
 				<!-- END SIDEBAR BUTTONS -->
 				<!-- SIDEBAR MENU -->
 				<div class="nav flex-column nav-pills profile-usermenu" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-  					<a href="/profile/7/attending" class="btn btn-info">Attending Concerts</a>
-  					<a href="/profile/7/thinking" class="btn btn-info">Thinking Concerts</a>
-  					<a href="/profile/7/attended" class="btn btn-info">Attended Concerts</a>
+  					<a th:href="${'/profile/'+user.id+'/attending'}" class="btn btn-info">Attending Concerts</a>
+  					<a th:href="${'/profile/'+user.id+'/thinking'}" class="btn btn-info">Thinking Concerts</a>
+  					<a th:href="${'/profile/'+user.id+'/attended'}" class="btn btn-info">Attended Concerts</a>
 				</div>
 
 				<!-- END MENU -->

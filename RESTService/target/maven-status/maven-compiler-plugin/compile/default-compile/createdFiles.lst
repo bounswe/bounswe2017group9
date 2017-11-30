@@ -1,3 +1,4 @@
+boun/group9/webservice/helper/RecommendationChecker.class
 boun/group9/webservice/app/data/Concerts.class
 boun/group9/webservice/helper/FileChecker.class
 boun/group9/webservice/app/data/Comments.class
@@ -8,6 +9,7 @@ boun/group9/webservice/app/data/Artists.class
 boun/group9/webservice/helper/ImageUpload.class
 boun/group9/webservice/helper/LocationChecker.class
 boun/group9/webservice/helper/Database.class
+boun/group9/webservice/app/controller/RecommendationController.class
 boun/group9/webservice/app/controller/SemanticTagsController.class
 boun/group9/webservice/app/controller/RecommendationsController.class
 boun/group9/webservice/exception/BadRequestException.class

@@ -230,4 +230,9 @@ public class ConcertController {
 		}
 		return "Saved.";
 	}
+	@RequestMapping(value="concert/{concertID}/attendee/{userID}",method=RequestMethod.POST)
+	public String attendConcert(@PathVariable int concertID, @PathVariable int userID) {
+		ConcertChecker.attend(concertID,userID);
+		return "OK.";
+	}
 }

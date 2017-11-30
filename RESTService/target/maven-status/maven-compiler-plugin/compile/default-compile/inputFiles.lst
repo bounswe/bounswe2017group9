@@ -14,6 +14,7 @@
 /home/ffguven/Documents/isGuc/CMPE451/bounswe2017group9/RESTService/src/main/java/boun/group9/webservice/helper/LocationChecker.java
 /home/ffguven/Documents/isGuc/CMPE451/bounswe2017group9/RESTService/src/main/java/boun/group9/webservice/app/Application.java
 /home/ffguven/Documents/isGuc/CMPE451/bounswe2017group9/RESTService/src/main/java/boun/group9/webservice/helper/RelationChecker.java
+/home/ffguven/Documents/isGuc/CMPE451/bounswe2017group9/RESTService/src/main/java/boun/group9/webservice/helper/RecommendationChecker.java
 /home/ffguven/Documents/isGuc/CMPE451/bounswe2017group9/RESTService/src/main/java/boun/group9/webservice/exception/BadRequestException.java
 /home/ffguven/Documents/isGuc/CMPE451/bounswe2017group9/RESTService/src/main/java/boun/group9/webservice/app/controller/CommentController.java
 /home/ffguven/Documents/isGuc/CMPE451/bounswe2017group9/RESTService/src/main/java/boun/group9/webservice/app/controller/SearchController.java
@@ -39,3 +40,4 @@
 /home/ffguven/Documents/isGuc/CMPE451/bounswe2017group9/RESTService/src/main/java/boun/group9/webservice/app/controller/UserController.java
 /home/ffguven/Documents/isGuc/CMPE451/bounswe2017group9/RESTService/src/main/java/boun/group9/webservice/app/data/Users.java
 /home/ffguven/Documents/isGuc/CMPE451/bounswe2017group9/RESTService/src/main/java/boun/group9/webservice/app/data/Locations.java
+/home/ffguven/Documents/isGuc/CMPE451/bounswe2017group9/RESTService/src/main/java/boun/group9/webservice/app/controller/RecommendationController.java
