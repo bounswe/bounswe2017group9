@@ -3,16 +3,14 @@ package com.example.abtasdan.listviewtutorial.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.abtasdan.listviewtutorial.R;
 import com.example.abtasdan.listviewtutorial.adapters.ConcertAdapter;
 import com.example.abtasdan.listviewtutorial.modals.Concert;
-import com.example.abtasdan.listviewtutorial.modals.requests.SearchResult;
 import com.example.abtasdan.listviewtutorial.requests.requests.ConcertifyApiRequest;
 import com.example.abtasdan.listviewtutorial.requests.requests.RetrofitHttpClient;
 
@@ -27,30 +25,36 @@ import retrofit.RetrofitError;
 import retrofit.android.AndroidLog;
 import retrofit.client.Response;
 
+public class UnregisteredMainPageActivity extends Activity {
 
-public class MainActivity extends Activity {
 
-    @BindView(R.id.lv_concerts)
+
+    @BindView(R.id.btn_login)
+    Button btnLogin;
+    @BindView(R.id.btn_sign_up)
+    Button btnSignUp;
+    @BindView(R.id.lv_concerts_unregistered)
     ListView lvConcerts;
-    @BindView(R.id.tv_home)
-    TextView tvHome;
-    @BindView(R.id.tv_logout)
-    TextView tvLogout;
-    @BindView(R.id.et_search)
-    EditText etSearch;
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
-    @BindView(R.id.btn_search)
-    Button search;
-
     private RestAdapter restAdapter;
     private ConcertifyApiRequest concertifyApiRequest;
     public static final String MyPREFERENCES = "MyPrefs" ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_unregistered_main_page);
         ButterKnife.bind(this);
+        SharedPreferences prefs = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
+        String restoredText = prefs.getString("name", null);
+        if (restoredText != null) {
+            String name = prefs.getString("name", "No name defined");//"No name defined" is the default value.
+            long id = prefs.getLong("id", 0); //0 is the default value.
+            if(id !=0 ){
+                finish();
+                Intent intent = new Intent(UnregisteredMainPageActivity.this,MainActivity.class);
+                startActivity(intent);
+            }
+
+        }
 
 
         RetrofitHttpClient client = new RetrofitHttpClient();
@@ -100,20 +104,27 @@ public class MainActivity extends Activity {
         concertifyApiRequest = restAdapter.create(ConcertifyApiRequest.class);
         refreshItems();
 
-
     }
 
-    @OnClick(R.id.tv_home)
-    public void refresh() {
-        refreshItems();
+
+    @OnClick(R.id.btn_login)
+    public void clickLogin(){
+        Intent intent = new Intent(UnregisteredMainPageActivity.this,LoginActivity.class);
+        startActivity(intent);
     }
 
+    @OnClick(R.id.btn_sign_up)
+    public void clickSignUp(){
+        Intent intent = new Intent(UnregisteredMainPageActivity.this,SignUpActivity.class);
+        startActivity(intent);
+
+    }
     private void refreshItems() {
         int userId = 7;
         concertifyApiRequest.getConcerts(userId, new Callback<ArrayList<Concert>>() {
             @Override
             public void success(ArrayList<Concert> concerts, Response response) {
-                ConcertAdapter concertAdapter = new ConcertAdapter(MainActivity.this, concerts, false);
+                ConcertAdapter concertAdapter = new ConcertAdapter(UnregisteredMainPageActivity.this, concerts, false);
                 lvConcerts.setAdapter(concertAdapter);
             }
 
@@ -126,55 +137,8 @@ public class MainActivity extends Activity {
         });
     }
 
-    private void search(String searchKey) {
-        concertifyApiRequest.search(searchKey, new Callback<SearchResult>() {
-            @Override
-            public void success(SearchResult searchResult, Response response) {
-
-                ConcertAdapter concertAdapter = new ConcertAdapter(MainActivity.this, searchResult.getConcerts(), false);
-                lvConcerts.setAdapter(concertAdapter);
 
 
-            }
 
-            @Override
-            public void failure(RetrofitError error) {
 
-            }
-        });
-    }
-
-    @OnClick(R.id.btn_search)
-    public void onClickSerch(){
-       if(etSearch.getText().toString().isEmpty()){
-           tvTitle.setText("Concerts");
-       }else{
-           tvTitle.setText("Search");
-           search(etSearch.getText().toString());
-
-       }
-    }
-    @OnClick(R.id.tv_profile_main)
-    public void onClickProfile(){
-        Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
-        startActivity(intent);
-    }
-    @OnClick(R.id.tv_explore_main)
-    public void onClickExplore(){
-        Intent intent = new Intent(MainActivity.this,RecommendationActivity.class);
-        startActivity(intent);
-    }
-    @OnClick(R.id.tv_logout)
-    public void onViewClicked() {
-        SharedPreferences.Editor editor = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE).edit();
-
-        editor.putString("name",null);
-
-        editor.apply();
-
-        Intent intent = new Intent(MainActivity.this, UnregisteredMainPageActivity.class);
-        startActivity(intent);
-        finish();
-
-    }
 }

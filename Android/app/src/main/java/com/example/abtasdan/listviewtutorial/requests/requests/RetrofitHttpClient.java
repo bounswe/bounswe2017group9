@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 import retrofit.client.Request;
 import retrofit.client.UrlConnectionClient;
 
+
 public class RetrofitHttpClient extends UrlConnectionClient {
 
     private static final int CONNECT_TIMEOUT_MILLIS = 60 * 1000; // 30s
