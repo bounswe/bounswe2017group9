@@ -78,7 +78,7 @@
 			   <div class="row">
 <div class="col-8 offset-2">
 <div class="card border-success">
-  <img class="card-img-top" src="/1.jpg" alt="Card image cap"></img>
+  <img class="card-img-top" th:src="${concert.image_path}" alt="Card image cap"></img>
   <div class="card-body">
     <a class="card-title" th:href="@{~/concert/{id}(id=${concert.id})}" th:text="${concert.name}"></a>
     <a href="#" class="btn btn-success">Attending</a>
@@ -91,8 +91,7 @@
     </div>
     <div class="col-4">
     <p><b>Location : </b> <span th:text="${concert.location.city}"> </span></p>
-    <p><b>Date :</b> 29/10/2017</p>
-    <p><b>Time :</b> 18:00 </p>
+    <p><b>Date :</b> <span th:text="${concert.date_str}"></span></p>
     </div>
     <div class="col-4">
     <p><b>Min Price : </b> <span th:text="${concert.min_price}"></span></p>

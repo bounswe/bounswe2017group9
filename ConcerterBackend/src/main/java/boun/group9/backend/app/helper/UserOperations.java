@@ -15,6 +15,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class UserOperations {
+	
 	public static Users getUser(int userID) {
 			String resultJson="";
 			try {
@@ -72,22 +73,29 @@ public class UserOperations {
 		String json = Application.gson.toJson(user);
 		try {
 			URL url = new URL(Application.API_ENDPOINT + "/new-user");
+			System.out.println("URL: "+Application.API_ENDPOINT + "/new-user");
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("POST");
+			connection.setDoInput(true);
 			connection.setDoOutput(true);
 			connection.setRequestProperty("Content-Type", "application/json");
+			System.out.println("Signup json:"+json);
 			byte[] jsonBytes = json.getBytes("UTF-8");
 			OutputStream os = connection.getOutputStream();
 			os.write(jsonBytes);
 			os.close();
 			connection.connect();
+			BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			json = br.readLine();
+			System.out.println("Return json:"+json);
+			user = Application.gson.fromJson(json, Users.class);
 			int status = connection.getResponseCode();
 			System.out.println("Response status: " + status);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			return null;
 		}
-		return null;
+		return user;
 	}
 
 }

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import boun.group9.backend.app.data.Attend;
 import boun.group9.backend.app.data.Comments;
 import boun.group9.backend.app.data.Concerts;
 import boun.group9.backend.app.data.Search;
@@ -26,11 +27,14 @@ public class MainController {
 	@RequestMapping("/index")
 	public String index(Model model,HttpSession session) {
 		ArrayList<Concerts> concertList = ConcertOperations.getAllActiveConcerts();
+		ArrayList<Concerts> recommendConcertList = ConcertOperations.getRecommendedConcerts((Users)session.getAttribute("loggedInUser"));
 		model.addAttribute("newComment",new Comments());
 		model.addAttribute("concertList",concertList);
+		model.addAttribute("recommendConcertList",recommendConcertList);
 		Users user = (Users)session.getAttribute("loggedInUser");
 		model.addAttribute("loggedInUser",user);
 		model.addAttribute("search",new Search());
+		model.addAttribute("attend",new Attend());
 		return "index";
 	}
 }

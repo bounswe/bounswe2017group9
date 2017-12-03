@@ -43,12 +43,20 @@ public class UserController {
 		Users user;
 		String query;
 		ResultSet rs;
+		String json;
 		try {
 			user = Application.gson.fromJson(body, Users.class);
-			query = UserChecker.insertUserQuery(user);
-			System.out.println(query);
-			rs = Database.connect(query,Application.MODE_UPDATE);
-			return "OK.";
+			if(user.getSpotify_id() == null || user.getSpotify_id() == "") { // if it's regular signup
+				query = UserChecker.insertUserQuery(user);
+				System.out.println(query);
+				rs = Database.connect(query,Application.MODE_UPDATE);
+				return "OK.";
+			}else { // if it's spotify signup
+				user = UserChecker.insertSpotifyUser(user);
+				json = Application.gson.toJson(user);
+				return json;
+			}
+			
 		}catch(JsonSyntaxException ex) {
 			ex.printStackTrace();
 			throw new IJsonSyntaxException();

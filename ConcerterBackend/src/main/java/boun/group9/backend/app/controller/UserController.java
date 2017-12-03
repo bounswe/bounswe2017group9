@@ -87,15 +87,14 @@ public class UserController {
 			System.out.println(response);
 			spotifyUser = Application.gson.fromJson(response, Spotify_user.class);
 			user = new Users(spotifyUser);
-			session.setAttribute("loggedInUser", user);
+			user = UserOperations.signUp(user);
 			session.setAttribute("spotifyToken",stb);
-			model.addAttribute("response",response);
-			System.out.println(br.readLine());
+			session.setAttribute("loggedInUser",user);
 		}catch(Exception ex) {
 			ex.printStackTrace();
 			return new ModelAndView("redirect:/error");
 		}
-		return new ModelAndView("redirect:/me");
+		return new ModelAndView("redirect:/index");
 	}
 	@RequestMapping(value="/spotify-token")
 	public String getSpotifyToken(@RequestBody String body) {
@@ -140,7 +139,6 @@ public class UserController {
 		model.addAttribute("user",user);
 		return "profile";
 	}
-	
 	@RequestMapping("/me")
 	public String myProfile(HttpSession session,Model model) {
 		SpotifyTokenBody stb = (SpotifyTokenBody)session.getAttribute("spotifyToken");

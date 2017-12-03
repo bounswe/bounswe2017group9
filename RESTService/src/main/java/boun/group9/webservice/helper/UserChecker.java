@@ -6,6 +6,28 @@ import boun.group9.webservice.app.Application;
 import boun.group9.webservice.app.data.Users;
 
 public class UserChecker {
+	public static Users insertSpotifyUser(Users user) {
+		String query = "SELECT * FROM Users WHERE spotify_id="+user.getSpotify_id()+";";
+		ResultSet rs;
+		try {
+			rs = Database.connect(query, Application.MODE_GET);
+			if(rs.next()) {
+				user.setName(rs.getString("name"));
+				user.setEmail(rs.getString("email"));
+				user.setSpotify_id(rs.getString("spotify_id"));
+				user.setPhoto_path(rs.getString("photo_path"));
+				return user;
+			}else {
+				query = "INSERT INTO Users (name,email,photo_path,spotify_id) VALUES('"+user.getName()+"','"+user.getEmail()+"','"+user.getPhoto_path()+"','"+user.getSpotify_id()+"');";
+				rs = Database.connect(query, Application.MODE_UPDATE);
+				System.out.println(query);
+				return user;
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
 	public static Users getUser(int userID){
 		String query = "SELECT * FROM Users WHERE id="+userID+";";
 		Users user = new Users();
