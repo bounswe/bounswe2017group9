@@ -28,6 +28,9 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/new-concert">Create Concert</a>
         </div>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/advanced-search">Advanced Search</a>
+        </div>
       </li>
       
     
@@ -140,11 +143,20 @@
   <hr/>
   
 </div>
-<form action="#" th:action="@{/new-comment}" th:object="${newComment}" method="post">
+<form th:action="@{/new-comment}" th:object="${newComment}" method="post">
 <div class="media-body">
   
   	<input type="text" placeholder="Comment" th:field="*{comment}"></input>
+  	
   	<input type="hidden" th:value="${concert.id}" th:id="concert_id" th:name="concert_id"></input>
+  </div>
+  <div class="media-body">
+  <select th:field="*{category}" name="category" id="category">
+  		<option th:value="1">Costume</option>
+  		<option th:value="2">Music</option>
+  		<option th:value="3">Place</option>
+  		<option th:value="4">Foods</option>
+  	</select>
   </div>
   <div class="media-body">
   	<button class="btn btn-outline-success" type="submit">Comment</button>

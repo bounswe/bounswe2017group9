@@ -7,20 +7,29 @@ import boun.group9.webservice.app.data.Users;
 
 public class UserChecker {
 	public static Users insertSpotifyUser(Users user) {
+		java.util.Date date = new java.util.Date();
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String currentTime = sdf.format(date);
 		String query = "SELECT * FROM Users WHERE spotify_id="+user.getSpotify_id()+";";
 		ResultSet rs;
 		try {
 			rs = Database.connect(query, Application.MODE_GET);
 			if(rs.next()) {
+				user.setId(rs.getInt("id"));
 				user.setName(rs.getString("name"));
 				user.setEmail(rs.getString("email"));
 				user.setSpotify_id(rs.getString("spotify_id"));
 				user.setPhoto_path(rs.getString("photo_path"));
 				return user;
 			}else {
-				query = "INSERT INTO Users (name,email,photo_path,spotify_id) VALUES('"+user.getName()+"','"+user.getEmail()+"','"+user.getPhoto_path()+"','"+user.getSpotify_id()+"');";
+				query = "INSERT INTO Users (name,email,photo_path,spotify_id,created_at,updated_at,last_login) VALUES('"+user.getName()+"','"+user.getEmail()+"','"+user.getPhoto_path()+"','"+user.getSpotify_id()+"','"+currentTime+"','"+currentTime+"','"+currentTime+"');";
 				rs = Database.connect(query, Application.MODE_UPDATE);
 				System.out.println(query);
+				query = "SELECT * FROM Users WHERE spotify_id="+user.getSpotify_id()+";";
+				rs = Database.connect(query, Application.MODE_GET);
+				if(rs.next()) { 
+					user.setId(rs.getInt("id"));
+				}
 				return user;
 			}
 		}catch(Exception ex) {

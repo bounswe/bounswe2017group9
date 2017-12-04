@@ -26,8 +26,18 @@ CREATE TABLE `Artists` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Artists`
+--
+
+LOCK TABLES `Artists` WRITE;
+/*!40000 ALTER TABLE `Artists` DISABLE KEYS */;
+INSERT INTO `Artists` VALUES (45,'Kursat Basar'),(46,'Test Artist');
+/*!40000 ALTER TABLE `Artists` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `Attendees`
@@ -47,8 +57,18 @@ CREATE TABLE `Attendees` (
   KEY `FK_Attendees_Users` (`user_id`),
   CONSTRAINT `FK_Attendees_Concerts` FOREIGN KEY (`concert_id`) REFERENCES `Concerts` (`id`),
   CONSTRAINT `FK_Attendees_Users` FOREIGN KEY (`user_id`) REFERENCES `Users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Attendees`
+--
+
+LOCK TABLES `Attendees` WRITE;
+/*!40000 ALTER TABLE `Attendees` DISABLE KEYS */;
+INSERT INTO `Attendees` VALUES (10,20,1,48,NULL),(11,21,1,48,NULL);
+/*!40000 ALTER TABLE `Attendees` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `Comments`
@@ -73,6 +93,15 @@ CREATE TABLE `Comments` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `Comments`
+--
+
+LOCK TABLES `Comments` WRITE;
+/*!40000 ALTER TABLE `Comments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Comments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Comments_categories`
 --
 
@@ -83,8 +112,18 @@ CREATE TABLE `Comments_categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Comments_categories`
+--
+
+LOCK TABLES `Comments_categories` WRITE;
+/*!40000 ALTER TABLE `Comments_categories` DISABLE KEYS */;
+INSERT INTO `Comments_categories` VALUES (1,'Costume'),(2,'Music'),(3,'Place'),(4,'Foods');
+/*!40000 ALTER TABLE `Comments_categories` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `Concerts`
@@ -112,8 +151,18 @@ CREATE TABLE `Concerts` (
   CONSTRAINT `FK_Concerts_Artists` FOREIGN KEY (`artist`) REFERENCES `Artists` (`id`),
   CONSTRAINT `FK_Concerts_Location` FOREIGN KEY (`location`) REFERENCES `Locations` (`id`),
   CONSTRAINT `FK_Concerts_Users` FOREIGN KEY (`created_by`) REFERENCES `Users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Concerts`
+--
+
+LOCK TABLES `Concerts` WRITE;
+/*!40000 ALTER TABLE `Concerts` DISABLE KEYS */;
+INSERT INTO `Concerts` VALUES (20,'Kursat Basar Orkestrasi ve Jale',48,45,38,'2017-12-10 15:00:00',10,100,0,0,'http://www.wts.com.tr/images/konserler-wts.jpg'),(21,'Test Concert',48,46,39,'2018-12-17 16:00:00',20,120,0,0,'https://sc-events.s3.amazonaws.com/4315318/main.jpg');
+/*!40000 ALTER TABLE `Concerts` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `Locations`
@@ -129,8 +178,18 @@ CREATE TABLE `Locations` (
   `city` varchar(100) DEFAULT NULL,
   `address` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Locations`
+--
+
+LOCK TABLES `Locations` WRITE;
+/*!40000 ALTER TABLE `Locations` DISABLE KEYS */;
+INSERT INTO `Locations` VALUES (38,45.12312,63.43432,'Trump Kultur Merkezi','Trump Kultur Merkezi'),(39,45.12312,63.43432,'Beykoz','Beykoz');
+/*!40000 ALTER TABLE `Locations` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `Notification_type`
@@ -145,6 +204,15 @@ CREATE TABLE `Notification_type` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Notification_type`
+--
+
+LOCK TABLES `Notification_type` WRITE;
+/*!40000 ALTER TABLE `Notification_type` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Notification_type` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `Notifications`
@@ -167,6 +235,15 @@ CREATE TABLE `Notifications` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `Notifications`
+--
+
+LOCK TABLES `Notifications` WRITE;
+/*!40000 ALTER TABLE `Notifications` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Notifications` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Relations`
 --
 
@@ -186,6 +263,15 @@ CREATE TABLE `Relations` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `Relations`
+--
+
+LOCK TABLES `Relations` WRITE;
+/*!40000 ALTER TABLE `Relations` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Relations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Report_types`
 --
 
@@ -198,6 +284,15 @@ CREATE TABLE `Report_types` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Report_types`
+--
+
+LOCK TABLES `Report_types` WRITE;
+/*!40000 ALTER TABLE `Report_types` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Report_types` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `Reports`
@@ -222,6 +317,15 @@ CREATE TABLE `Reports` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `Reports`
+--
+
+LOCK TABLES `Reports` WRITE;
+/*!40000 ALTER TABLE `Reports` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Reports` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Users`
 --
 
@@ -233,8 +337,8 @@ CREATE TABLE `Users` (
   `name` varchar(100) DEFAULT NULL,
   `email` varchar(256) NOT NULL,
   `password` varchar(256) DEFAULT NULL,
-  `followers` int(11) NOT NULL DEFAULT '0',
-  `followings` int(11) NOT NULL DEFAULT '0',
+  `followers` int(11) DEFAULT '0',
+  `followings` int(11) DEFAULT '0',
   `photo_path` varchar(255) NOT NULL DEFAULT '',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -242,8 +346,18 @@ CREATE TABLE `Users` (
   `username` varchar(100) DEFAULT NULL,
   `spotify_id` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Users`
+--
+
+LOCK TABLES `Users` WRITE;
+/*!40000 ALTER TABLE `Users` DISABLE KEYS */;
+INSERT INTO `Users` VALUES (48,'Fatih Güven','fatih.guven@hotmail.com',NULL,0,0,'https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/12042817_10206845907799008_1170828127403682503_n.jpg?oh=0690ae3394ceb9d99b87b10dc5063031&oe=5A9B890B','2017-12-04 20:22:53','2017-12-04 20:22:53','2017-12-04 20:22:53',NULL,'11128938007');
+/*!40000 ALTER TABLE `Users` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -254,4 +368,4 @@ CREATE TABLE `Users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-03 18:52:55
+-- Dump completed on 2017-12-04 23:48:21

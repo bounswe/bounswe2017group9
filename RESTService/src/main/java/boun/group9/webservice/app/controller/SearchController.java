@@ -1,6 +1,7 @@
 package boun.group9.webservice.app.controller;
 
 import boun.group9.webservice.app.Application;
+import boun.group9.webservice.app.data.AdvancedSearch;
 import boun.group9.webservice.app.data.Artists;
 import boun.group9.webservice.app.data.BasicSearch;
 import boun.group9.webservice.app.data.Concerts;
@@ -36,8 +37,9 @@ public class SearchController {
     }
     @RequestMapping(value="advanced-search",method=RequestMethod.POST)
     public String advancedSearch(@RequestBody String body) {
-    	
-    	return null;
+    	AdvancedSearch as = Application.gson.fromJson(body, AdvancedSearch.class);
+    	ArrayList<Concerts> concertList = SearchChecker.advancedSearch(as);
+    	return Application.gson.toJson(concertList);
     }
 
 }

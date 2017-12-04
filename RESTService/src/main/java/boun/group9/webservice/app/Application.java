@@ -12,7 +12,7 @@ import boun.group9.webservice.helper.Database;
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer{
 	public static String username="root";
-	public static String password="12121212";
+	public static String password="121212";
 
 	public static Gson gson = new Gson();
 	public static final int MODE_GET = 0;
