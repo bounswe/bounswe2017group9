@@ -176,7 +176,6 @@ public class UserController {
 		model.addAttribute("page","1");
 		model.addAttribute("user",user);
 		model.addAttribute("concertList",attendingConcertList);
-		System.out.println("Concert id:"+attendingConcertList.get(0).getId());
 		return "profile";
 	}
 	@RequestMapping("/profile/{userID}/attended")
