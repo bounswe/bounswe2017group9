@@ -9,8 +9,8 @@ public class NewUserObject {
     String email;
     String password;
     String username;
-    long followers;
-    long followings;
+    int followers;
+    int followings;
     String photoPath;
 
     public String getName() {
@@ -45,19 +45,19 @@ public class NewUserObject {
         this.username = username;
     }
 
-    public long getFollowers() {
+    public int getFollowers() {
         return followers;
     }
 
-    public void setFollowers(long followers) {
+    public void setFollowers(int followers) {
         this.followers = followers;
     }
 
-    public long getFollowings() {
+    public int getFollowings() {
         return followings;
     }
 
-    public void setFollowings(long followings) {
+    public void setFollowings(int followings) {
         this.followings = followings;
     }
 

@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="2"
-    tools:context="com.example.abtasdan.listviewtutorial.activities.SignUpActivity">
+    tools:context="com.example.abtasdan.listviewtutorial.activities.CreateConcertActivity">
     <LinearLayout
         android:layout_weight="1"
         android:layout_width="match_parent"
@@ -18,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Sign Up to Concerter"
+            android:text="Create a Concert"
             android:textSize="30sp" />
         <LinearLayout
             android:layout_width="wrap_content"
@@ -29,11 +27,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="   Name    "
+                android:text="     Name     "
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/et_nameSignUp"
+                android:id="@+id/et_create_name"
                 android:layout_width="232dp"
                 android:maxWidth="232dp"
                 android:layout_height="wrap_content" />
@@ -48,11 +46,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Username"
+                android:text="Artist Name"
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/et_username"
+                android:id="@+id/et_create_artist_name"
                 android:layout_width="232dp"
                 android:maxWidth = "232dp"
                 android:layout_height="wrap_content"
@@ -69,11 +67,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="    Email    "
+                android:text="      City        "
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/et_emailSignUp"
+                android:id="@+id/et_create_city"
                 android:layout_width="232dp"
                 android:maxWidth = "232dp"
                 android:layout_height="wrap_content"
@@ -89,11 +87,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="Password"
+                android:text="    Adress     "
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/et_passwordSignUp"
+                android:id="@+id/et_create_address"
                 android:layout_width="232dp"
                 android:maxWidth="232dp"
                 android:layout_height="wrap_content" />
@@ -107,11 +105,66 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="Photo Path"
+                android:text="      Date       "
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/et_photoSignUp"
+                android:id="@+id/et_create_date"
+                android:layout_width="232dp"
+                android:maxWidth="232dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="   Min Price  "
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_create_min_price"
+                android:layout_width="232dp"
+                android:maxWidth="232dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="  Max Price  "
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_create_max_price"
+                android:layout_width="232dp"
+                android:maxWidth="232dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="     Photo     "
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_create_photo"
                 android:layout_width="232dp"
                 android:maxWidth="232dp"
                 android:layout_height="wrap_content" />
@@ -120,17 +173,10 @@
 
 
         <Button
-            android:id="@+id/btn_signUP_2"
+            android:id="@+id/btn_create_concert"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign Up" />
+            android:text="Create Concert" />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btn_login_spotify"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="LOGIN WITH SPOTIFY" />
 
 </LinearLayout>

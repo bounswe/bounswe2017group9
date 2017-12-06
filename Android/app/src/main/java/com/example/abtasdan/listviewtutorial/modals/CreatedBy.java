@@ -5,7 +5,7 @@ package com.example.abtasdan.listviewtutorial.modals;
  */
 
 public class CreatedBy {
-    long id;
+    int id;
     String name;
     String email;
     int followers;
@@ -15,7 +15,7 @@ public class CreatedBy {
     String updated_at;
     String last_login;
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -61,7 +61,7 @@ public class CreatedBy {
     public String getEmail() {
         return email;
     }
-    public long getId() {
+    public int getId() {
         return id;
     }
     public int getFollowers() {

@@ -46,8 +46,7 @@ import java.util.Map;
 public class Utils {
 
 
-    // public static final String BASE_IMAGE_URL =
-    // "http://cardgusto.solidict.com/";
+
     public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
 

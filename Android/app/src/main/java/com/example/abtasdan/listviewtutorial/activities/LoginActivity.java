@@ -98,9 +98,10 @@ public class LoginActivity extends Activity {
 
     @OnClick(R.id.btn_login_main)
     public void onViewClicked() {
+
         login();
 
-        finish();
+      //  finish();
     }
     @OnClick(R.id.btn_login_spotify)
     public void  onClicked(){
@@ -126,7 +127,7 @@ public class LoginActivity extends Activity {
                     Log.e("loginservice", "success");
                     SharedPreferences.Editor editor = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE).edit();
                     editor.putString("mail", loginResponse.getEmail().toString());
-                    editor.putLong("id", loginResponse.getId());
+                    editor.putInt("idName", loginResponse.getId());
                     editor.putString("photo_path",loginResponse.getPhoto_path().toString());
                     editor.putString("created_at",loginResponse.getCreated_at().toString());
                     editor.putString("updated_at",loginResponse.getUpdated_at().toString());
@@ -136,6 +137,7 @@ public class LoginActivity extends Activity {
                     editor.putInt("followings",loginResponse.getFollowings());
                     editor.apply();
 
+                    finish();
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
 

@@ -21,7 +21,6 @@
          <TextView
              android:id="@+id/tv_home"
              android:gravity="center"
-
              android:layout_weight="1"
              android:textSize="20sp"
              android:layout_marginTop="5dp"
@@ -67,7 +66,7 @@
              android:id="@+id/et_search"
              android:layout_width="232dp"
              android:layout_height="wrap_content"
-             android:layout_marginLeft="10dp"
+             android:layout_marginLeft="20dp"
 
              />
          <Button
@@ -75,9 +74,15 @@
              android:layout_marginLeft="10dp"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:text="Search" />
-      </LinearLayout>
+             android:text="     Search    " />
 
+      </LinearLayout>
+      <Button
+          android:id="@+id/btn_create"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:text="      Create New Concert      " />
       <TextView
           android:id="@+id/tv_title"
           android:textSize="30sp"

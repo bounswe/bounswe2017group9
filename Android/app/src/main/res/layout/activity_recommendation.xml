@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
-                android:id="@+id/tv_home"
+                android:id="@+id/tv_home_recom"
                 android:gravity="center"
 
                 android:layout_weight="1"
@@ -29,6 +29,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />
             <TextView
+                android:id="@+id/tv_profile_recom"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:textSize="20sp"
@@ -38,6 +39,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />
             <TextView
+                android:id="@+id/tv_explore_recom"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:textSize="20sp"
@@ -47,7 +49,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />
             <TextView
-                android:id="@+id/tv_logout"
+                android:id="@+id/tv_logout_recom"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:textSize="20sp"
@@ -72,8 +74,8 @@
     </LinearLayout>
 
     <ListView
-        android:layout_marginTop="20dp"
         android:id="@+id/lv_recomendation"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
