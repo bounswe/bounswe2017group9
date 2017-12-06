@@ -21,5 +21,14 @@ import java.util.ArrayList;
 
 @RestController
 public class RelationController {
-
+	@RequestMapping(value="follow",method=RequestMethod.POST)
+	public String follow(@RequestParam int follower, @RequestParam int following) {
+		RelationChecker.follow(follower,following);
+		return "OK.";
+	}
+	@RequestMapping(value="unfollow",method=RequestMethod.POST)
+	public String unfollow(@RequestParam int follower, @RequestParam int following) {
+		RelationChecker.unfollow(follower,following);
+		return "OK.";
+	}
 }

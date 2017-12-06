@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,35 +20,23 @@ import boun.group9.backend.app.helper.RelationOperations;
 @Controller
 public class RelationController {
     private static Application.STATUS status;
-	@RequestMapping(value="/follow",method=RequestMethod.PUT)
-	public ModelAndView follow(@ModelAttribute Users followinguser,HttpSession session) {
-		Users user = (Users)session.getAttribute("loggedInUser"); //bu zaten follower yapacak user
-		if(user==null){
-			return new ModelAndView("/login");
-		}
-		//System.out.println(followinguser.getName());
-		status = RelationOperations.follow(user.getId(), followinguser);		
-		//status = RelationOperations.follow(11, followinguser);
-		if(status == STATUS.SUCCESS) {
-			return new ModelAndView("redirect:/profile");
+	@RequestMapping(value="/follow/{followingID}",method=RequestMethod.POST)
+	public ModelAndView follow(@PathVariable int followingID,HttpSession session) {
+		Application.STATUS status = RelationOperations.follow(followingID, session);
+		if(status == Application.STATUS.SUCCESS) {
+			return new ModelAndView("redirect:/index");
 		}else {
-			return new ModelAndView("redirect:/profile");
+			return new ModelAndView("redirect:/error");
 		}
 	}
 	
-	@RequestMapping(value="/unfollow",method=RequestMethod.PUT)
-	public ModelAndView unfollow(@ModelAttribute Users followinguser,HttpSession session) {
-		Users user = (Users)session.getAttribute("loggedInUser"); //bu zaten follower yapacak user
-		if(user == null){
-			return new ModelAndView("/login");
-		}
-		//System.out.println(followinguser.getName());
-		status = RelationOperations.follow(user.getId(), followinguser);		
-		//status = RelationOperations.unfollow(11, followinguser);
-		if(status == STATUS.SUCCESS) {
-			return new ModelAndView("redirect:/profile");
+	@RequestMapping(value="/unfollow/{followingID}",method=RequestMethod.POST)
+	public ModelAndView unfollow(@PathVariable int followingID, HttpSession session) {
+		Application.STATUS status = RelationOperations.unfollow(followingID, session);
+		if(status == Application.STATUS.SUCCESS) {
+			return new ModelAndView("redirect:/index");
 		}else {
-			return new ModelAndView("redirect:/profile");
+			return new ModelAndView("redirect:/error");
 		}
 	}
 

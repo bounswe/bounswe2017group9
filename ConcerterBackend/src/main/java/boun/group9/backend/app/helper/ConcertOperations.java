@@ -22,7 +22,41 @@ import boun.group9.backend.app.data.Artists;
 import boun.group9.backend.app.data.Comments;
 import boun.group9.backend.app.data.Concerts;
 import boun.group9.backend.app.data.Locations;
+import boun.group9.backend.app.data.Users;
 public class ConcertOperations {
+	public static ArrayList<Concerts> getRecommendedConcerts(Users user){
+		String resultJson;
+		ArrayList<Concerts> resultList = new ArrayList<Concerts>();
+		try {
+			URL url = new URL(Application.API_ENDPOINT+"/recommend/"+user.getId()+";");
+			HttpURLConnection connection =(HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("POST");
+			connection.setDoInput(true);
+			connection.connect();
+			BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			resultJson = br.readLine();
+			resultList = new ArrayList<Concerts>(Arrays.asList(Application.gson.fromJson(resultJson, Concerts[].class)));
+			for(Concerts oneConcert : resultList) {
+				ArrayList<Comments> commentList;
+				Comments comment;
+				url = new URL(Application.API_ENDPOINT+"/concerts/"+oneConcert.getId()+"/comments");
+				connection = (HttpURLConnection) url.openConnection();
+				connection.setRequestMethod("GET");
+				connection.setDoInput(true);
+				connection.connect();
+				br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+				resultJson = br.readLine();
+				commentList = new ArrayList<Comments> (Arrays.asList(Application.gson.fromJson(resultJson, Comments[].class)));
+				oneConcert.setCommentList(commentList);
+			}
+			return resultList;
+		}catch(MalformedURLException ex) {
+			ex.printStackTrace();
+		}catch(IOException ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
 	public static ArrayList<Concerts> getAttendingConcerts(int userID){
 		String resultJson="";
 		ArrayList<Concerts> resultList;
@@ -151,9 +185,9 @@ public class ConcertOperations {
 			connection.connect();
 			BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			resultJson = br.readLine();
-			System.out.println(resultJson);
+			//System.out.println(resultJson);
 			resultList = new ArrayList<Concerts>(Arrays.asList(Application.gson.fromJson(resultJson, Concerts[].class)));
-			System.out.println(resultList.get(0).getDate_time());
+			//System.out.println(resultList.get(0).getDate_time());
 			for(Concerts oneConcert : resultList) {
 				oneConcert.setDate_str(oneConcert.getDate_time().toString());
 				ArrayList<Comments> commentList;
@@ -233,6 +267,22 @@ public class ConcertOperations {
 	return null;
 	
 	}
-	
+	public static STATUS attendConcert(Users user, int id) {
+		try {
+			String resultJson;
+			URL url = new URL(Application.API_ENDPOINT+"/concert/"+id+"/attendee/"+user.getId());
+			System.out.println(Application.API_ENDPOINT+"/concert/"+id+"/attendee/"+user.getId());
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("POST");
+			connection.setDoInput(true);
+			connection.connect();
+			BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			resultJson = br.readLine();
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			return Application.STATUS.ERROR;
+		}
+		return Application.STATUS.SUCCESS;
+	}
 	
 }

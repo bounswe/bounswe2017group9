@@ -26,7 +26,7 @@ CREATE TABLE `Artists` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -35,7 +35,7 @@ CREATE TABLE `Artists` (
 
 LOCK TABLES `Artists` WRITE;
 /*!40000 ALTER TABLE `Artists` DISABLE KEYS */;
-INSERT INTO `Artists` VALUES (19,'Embedded Artist'),(20,'Teoman');
+INSERT INTO `Artists` VALUES (45,'Kursat Basar'),(46,'Test Artist'),(47,'Test Artist'),(48,'Pentagram');
 /*!40000 ALTER TABLE `Artists` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -57,7 +57,7 @@ CREATE TABLE `Attendees` (
   KEY `FK_Attendees_Users` (`user_id`),
   CONSTRAINT `FK_Attendees_Concerts` FOREIGN KEY (`concert_id`) REFERENCES `Concerts` (`id`),
   CONSTRAINT `FK_Attendees_Users` FOREIGN KEY (`user_id`) REFERENCES `Users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,6 +66,7 @@ CREATE TABLE `Attendees` (
 
 LOCK TABLES `Attendees` WRITE;
 /*!40000 ALTER TABLE `Attendees` DISABLE KEYS */;
+INSERT INTO `Attendees` VALUES (10,20,1,48,NULL),(11,21,1,48,NULL),(12,21,1,51,NULL),(13,23,1,51,NULL),(14,23,1,48,NULL);
 /*!40000 ALTER TABLE `Attendees` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,7 +89,7 @@ CREATE TABLE `Comments` (
   PRIMARY KEY (`id`),
   KEY `FK_Comments_Users` (`commented_by`),
   CONSTRAINT `FK_Comments_Users` FOREIGN KEY (`commented_by`) REFERENCES `Users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -111,7 +112,7 @@ CREATE TABLE `Comments_categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -120,6 +121,7 @@ CREATE TABLE `Comments_categories` (
 
 LOCK TABLES `Comments_categories` WRITE;
 /*!40000 ALTER TABLE `Comments_categories` DISABLE KEYS */;
+INSERT INTO `Comments_categories` VALUES (1,'Costume'),(2,'Music'),(3,'Place'),(4,'Foods');
 /*!40000 ALTER TABLE `Comments_categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -141,7 +143,7 @@ CREATE TABLE `Concerts` (
   `max_price` int(11) NOT NULL,
   `rate` int(11) NOT NULL DEFAULT '0',
   `voter_amount` int(11) NOT NULL DEFAULT '0',
-  `image_path` varchar(100) DEFAULT NULL,
+  `image_path` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_Concerts_Users` (`created_by`),
   KEY `FK_Concerts_Location` (`location`),
@@ -149,7 +151,7 @@ CREATE TABLE `Concerts` (
   CONSTRAINT `FK_Concerts_Artists` FOREIGN KEY (`artist`) REFERENCES `Artists` (`id`),
   CONSTRAINT `FK_Concerts_Location` FOREIGN KEY (`location`) REFERENCES `Locations` (`id`),
   CONSTRAINT `FK_Concerts_Users` FOREIGN KEY (`created_by`) REFERENCES `Users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -158,6 +160,7 @@ CREATE TABLE `Concerts` (
 
 LOCK TABLES `Concerts` WRITE;
 /*!40000 ALTER TABLE `Concerts` DISABLE KEYS */;
+INSERT INTO `Concerts` VALUES (20,'Kursat Basar Orkestrasi ve Jale',48,45,38,'2017-12-10 15:00:00',10,100,0,0,'http://www.wts.com.tr/images/konserler-wts.jpg'),(21,'Test Concert',48,46,39,'2018-12-17 16:00:00',20,120,0,0,'https://sc-events.s3.amazonaws.com/4315318/main.jpg'),(22,'Test Concert',48,47,40,'2018-12-02 16:00:00',10,100,0,0,'http://www.wts.com.tr/images/konserler-wts.jpg'),(23,'Pentagram Akustik',51,48,41,'0217-12-19 21:00:00',50,160,0,0,'http://www.biletix.com/static/images/live/event/eventimages/pentagram_psm.PNG');
 /*!40000 ALTER TABLE `Concerts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -175,7 +178,7 @@ CREATE TABLE `Locations` (
   `city` varchar(100) DEFAULT NULL,
   `address` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -184,7 +187,7 @@ CREATE TABLE `Locations` (
 
 LOCK TABLES `Locations` WRITE;
 /*!40000 ALTER TABLE `Locations` DISABLE KEYS */;
-INSERT INTO `Locations` VALUES (13,45.12312,63.43432,'Istanbul','Bebek Mah. Nispetiye Cad. Test Sokak'),(14,45.12312,63.43432,'Istanbul,Bebek','Istanbul,Bebek');
+INSERT INTO `Locations` VALUES (38,45.12312,63.43432,'Trump Kultur Merkezi','Trump Kultur Merkezi'),(39,45.12312,63.43432,'Beykoz','Beykoz'),(40,45.12312,63.43432,'Istanbul','Istanbul'),(41,45.12312,63.43432,'Zorlu PSM','Zorlu PSM');
 /*!40000 ALTER TABLE `Locations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -251,12 +254,12 @@ CREATE TABLE `Relations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `follower_id` int(11) NOT NULL,
   `following_id` int(11) NOT NULL,
-  `created_at` datetime NOT NULL,
+  `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_Relations_Users_Following` (`follower_id`),
   CONSTRAINT `FK_Relations_Users_Follower` FOREIGN KEY (`follower_id`) REFERENCES `Users` (`id`),
   CONSTRAINT `FK_Relations_Users_Following` FOREIGN KEY (`follower_id`) REFERENCES `Users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -265,6 +268,7 @@ CREATE TABLE `Relations` (
 
 LOCK TABLES `Relations` WRITE;
 /*!40000 ALTER TABLE `Relations` DISABLE KEYS */;
+INSERT INTO `Relations` VALUES (1,51,48,NULL);
 /*!40000 ALTER TABLE `Relations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -332,18 +336,18 @@ DROP TABLE IF EXISTS `Users`;
 CREATE TABLE `Users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
-  `email` varchar(100) NOT NULL,
-  `password` varchar(256) NOT NULL,
-  `followers` int(11) NOT NULL DEFAULT '0',
-  `followings` int(11) NOT NULL DEFAULT '0',
+  `email` varchar(256) NOT NULL,
+  `password` varchar(256) DEFAULT NULL,
+  `followers` int(11) DEFAULT '0',
+  `followings` int(11) DEFAULT '0',
   `photo_path` varchar(255) NOT NULL DEFAULT '',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `last_login` datetime DEFAULT NULL,
-  `username` varchar(100) NOT NULL,
+  `username` varchar(100) DEFAULT NULL,
   `spotify_id` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -352,7 +356,7 @@ CREATE TABLE `Users` (
 
 LOCK TABLES `Users` WRITE;
 /*!40000 ALTER TABLE `Users` DISABLE KEYS */;
-INSERT INTO `Users` VALUES (10,'Fatih Guven','fatihguven@gmail.com','654321',0,0,'localhost:8080/photo','2017-11-15 16:03:35','2017-11-15 16:03:35','2017-11-15 16:03:35','ffguven',NULL),(11,'Hilal Donmez','hilaldonmez@gmail.com','654321',0,0,'','2017-11-15 16:05:29','2017-11-15 16:05:29','2017-11-15 16:05:29','hdonmez',NULL),(15,'Doga Can Dorum','dogacan.dorum@hotmail.com','11235',0,0,'','2017-11-15 19:32:57','2017-11-15 19:32:57','2017-11-15 19:32:57','ddorum',NULL);
+INSERT INTO `Users` VALUES (48,'Fatih Güven','fatih.guven@hotmail.com',NULL,0,0,'https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/12042817_10206845907799008_1170828127403682503_n.jpg?oh=0690ae3394ceb9d99b87b10dc5063031&oe=5A9B890B','2017-12-04 20:22:53','2017-12-04 20:22:53','2017-12-04 20:22:53',NULL,'11128938007'),(51,'Test User','tuser@gmail.com','654321',0,0,'https://www.randomlists.com/img/people/arnold_schwarzenegger.jpg','2017-12-06 00:05:57','2017-12-06 00:05:57','2017-12-06 00:05:57','tuser',NULL);
 /*!40000 ALTER TABLE `Users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -365,4 +369,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-15 19:40:27
+-- Dump completed on 2017-12-06  0:31:27

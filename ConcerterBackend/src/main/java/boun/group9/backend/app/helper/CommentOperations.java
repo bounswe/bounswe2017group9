@@ -39,12 +39,13 @@ public class CommentOperations {
 	}
 	public static STATUS createCommentwithCategory(Comments newComment) {
 		try {
-			URL url = new URL(Application.API_ENDPOINT+"/newcomment");
+			URL url = new URL(Application.API_ENDPOINT+"/new-comment");
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("POST");
 			connection.setDoOutput(true);
 			connection.setRequestProperty("Content-Type", "application/json");
 			String json = Application.gson.toJson(newComment);
+			System.out.println(json);
 			byte[] jsonBytes = json.getBytes("UTF-8");
 			OutputStream os = connection.getOutputStream();
 			os.write(jsonBytes);
@@ -52,15 +53,11 @@ public class CommentOperations {
 			connection.connect();
 			int status = connection.getResponseCode();
 			System.out.println(status);
-			if(status==200){
-				return Application.STATUS.SUCCESS;
-			}
-		}catch(IOException ex) {
+		}catch(Exception ex) {
 			ex.printStackTrace();
 			return Application.STATUS.ERROR;
 		}
-		return Application.STATUS.ERROR;
-		
+		return Application.STATUS.SUCCESS;
 	}
 	
 		public static ArrayList<Comments> getCommentsByConcertID(int concertID){

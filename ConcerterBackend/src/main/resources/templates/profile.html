@@ -51,14 +51,23 @@
 				<!-- END SIDEBAR USER TITLE -->
 				<!-- SIDEBAR BUTTONS -->
 				<div class="profile-userbuttons">
-					<button type="button" class="btn btn-success btn-sm">Follow</button>
+					<form th:Action="@{${'/follow/' + user.id}}" method="POST">
+						<button type="submit" class="btn btn-success btn-sm">Follow</button>
+					</form>
+					
+				</div>
+				<div class="profile-userbuttons">
+					<form th:Action="@{${'/unfollow/'+user.id}}" method="POST">
+						<button type="submit" class="btn btn-success btn-sm">Unfollow</button>
+					</form>
+					
 				</div>
 				<!-- END SIDEBAR BUTTONS -->
 				<!-- SIDEBAR MENU -->
 				<div class="nav flex-column nav-pills profile-usermenu" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-  					<a href="/profile/7/attending" class="btn btn-info">Attending Concerts</a>
-  					<a href="/profile/7/thinking" class="btn btn-info">Thinking Concerts</a>
-  					<a href="/profile/7/attended" class="btn btn-info">Attended Concerts</a>
+  					<a th:href="${'/profile/'+user.id+'/attending'}" class="btn btn-info">Attending Concerts</a>
+  					<a th:href="${'/profile/'+user.id+'/thinking'}" class="btn btn-info">Thinking Concerts</a>
+  					<a th:href="${'/profile/'+user.id+'/attended'}" class="btn btn-info">Attended Concerts</a>
 				</div>
 
 				<!-- END MENU -->
@@ -69,7 +78,7 @@
 			   <div class="row">
 <div class="col-8 offset-2">
 <div class="card border-success">
-  <img class="card-img-top" src="/1.jpg" alt="Card image cap"></img>
+  <img class="card-img-top" th:src="${concert.image_path}" alt="Card image cap"></img>
   <div class="card-body">
     <a class="card-title" th:href="@{~/concert/{id}(id=${concert.id})}" th:text="${concert.name}"></a>
     <a href="#" class="btn btn-success">Attending</a>
@@ -82,8 +91,7 @@
     </div>
     <div class="col-4">
     <p><b>Location : </b> <span th:text="${concert.location.city}"> </span></p>
-    <p><b>Date :</b> 29/10/2017</p>
-    <p><b>Time :</b> 18:00 </p>
+    <p><b>Date :</b> <span th:text="${concert.date_str}"></span></p>
     </div>
     <div class="col-4">
     <p><b>Min Price : </b> <span th:text="${concert.min_price}"></span></p>

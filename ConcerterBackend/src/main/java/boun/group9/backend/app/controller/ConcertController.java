@@ -18,9 +18,11 @@ import org.springframework.web.servlet.ModelAndView;
 import boun.group9.backend.app.Application;
 import boun.group9.backend.app.Application.STATUS;
 import boun.group9.backend.app.data.Artists;
+import boun.group9.backend.app.data.Attend;
 import boun.group9.backend.app.data.Comments;
 import boun.group9.backend.app.data.Concerts;
 import boun.group9.backend.app.data.Locations;
+import boun.group9.backend.app.data.Search;
 import boun.group9.backend.app.data.Users;
 import boun.group9.backend.app.helper.ConcertOperations;
 import boun.group9.backend.app.helper.CommentOperations;
@@ -40,9 +42,11 @@ public class ConcertController {
 	}
 	*/
 	@RequestMapping("/concert/{concertID}")
-	public String concertPage(@PathVariable("concertID") int concertID,Model model) {
+	public String concertPage(@PathVariable("concertID") int concertID,Model model,HttpSession session) {
 		Concerts concert = ConcertOperations.getConcert(concertID);
 		model.addAttribute("concert",concert);
+		model.addAttribute("search",new Search());
+		model.addAttribute("loggedInUser",(Users)session.getAttribute("loggedInUser"));
 		return "concert";
 	}
 	@RequestMapping(value="/new-concert",method=RequestMethod.GET)
@@ -76,5 +80,14 @@ public class ConcertController {
 		model.addAttribute("commentList",commentList);
 		return "concert";
 	}
-	
+	@RequestMapping(value="/attend",method=RequestMethod.POST)
+	public ModelAndView attendConcert(@ModelAttribute Attend attend,HttpSession session) {
+		Users user = (Users)session.getAttribute("loggedInUser");
+		Application.STATUS status = ConcertOperations.attendConcert(user,attend.getConcert_id());
+		if(status == Application.STATUS.SUCCESS) {
+			return new ModelAndView("redirect:/index");
+		}else {
+			return new ModelAndView("redirect:/error");
+		}
+	}
 }

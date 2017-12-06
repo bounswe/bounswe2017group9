@@ -16,13 +16,26 @@ public class Users {
 	private Date updated_at;
 	private Date last_login;
 	private String username;
+	private String spotify_id;
 	public Users() {
 		
 	}
+	
 	public Users(Spotify_user spotifyUser) {
 		this.name = spotifyUser.getDisplay_name();
 		this.email = spotifyUser.getEmail();
 		this.photo_path = spotifyUser.getImages().get(0).getUrl();
+		String href = spotifyUser.getHref();
+		System.out.println(href);
+		href = href.substring(href.length()-11,href.length());
+		System.out.println(href);
+		this.spotify_id=href;
+	}
+	public String getSpotify_id() {
+		return this.spotify_id;
+	}
+	public void setSpotify_id(String spotify_id) {
+		this.spotify_id = spotify_id;
 	}
 	public int getId() {
 		return id;

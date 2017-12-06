@@ -5,64 +5,44 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import javax.servlet.http.HttpSession;
+
 import boun.group9.backend.app.Application;
 import boun.group9.backend.app.Application.STATUS;
 import boun.group9.backend.app.data.Users;
 
 public class RelationOperations {
 	
-	public static STATUS follow(int followerID,Users followinguser) {
-		String json = Application.gson.toJson(followinguser);
+	public static STATUS follow(int followingID,HttpSession session) {
+		Users baseUser = (Users)session.getAttribute("loggedInUser");
 		try {
-			
-			URL url = new URL(Application.API_ENDPOINT + "/follow/"+followerID+"/"+followinguser.getId());
-			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-			connection.setRequestMethod("PUT");
-			connection.setDoOutput(true);
-			connection.setRequestProperty("Content-Type", "application/json");
-			byte[] jsonBytes = json.getBytes("UTF-8");
-			OutputStream os = connection.getOutputStream();
-			os.write(jsonBytes);
-			os.close();
+			URL url = new URL(Application.API_ENDPOINT+"/follow?follower="+baseUser.getId()+"&"+"following="+followingID);
+			HttpURLConnection connection =(HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("POST");
+			connection.setDoInput(true);
 			connection.connect();
-			int status = connection.getResponseCode();
-			System.out.println("Response status: " + status);
-			if(status == 200) {
-				return Application.STATUS.SUCCESS;
-			}
-			return Application.STATUS.ERROR;
-		} catch (IOException ex) {
+			System.out.println(connection.getResponseCode());
+		}catch(Exception ex) {
 			ex.printStackTrace();
 			return Application.STATUS.ERROR;
 		}
-			
+		return Application.STATUS.SUCCESS;
 	}
-	public static STATUS unfollow(int followerID,Users followinguser) {
-		String json = Application.gson.toJson(followinguser);
+	
+	public static STATUS unfollow(int followingID,HttpSession session) {
+		Users baseUser = (Users)session.getAttribute("loggedInUser");
 		try {
-			
-			URL url = new URL(Application.API_ENDPOINT + "/unfollow/"+followerID+"/"+followinguser.getId());
-			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-			connection.setRequestMethod("PUT");
-			connection.setDoOutput(true);
-			connection.setRequestProperty("Content-Type", "application/json");
-			byte[] jsonBytes = json.getBytes("UTF-8");
-			OutputStream os = connection.getOutputStream();
-			os.write(jsonBytes);
-			os.close();
+			URL url = new URL(Application.API_ENDPOINT+"/unfollow?follower="+baseUser.getId()+"&"+"following="+followingID);
+			HttpURLConnection connection =(HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("POST");
+			connection.setDoInput(true);
 			connection.connect();
-			int status = connection.getResponseCode();
-			System.out.println("Response status: " + status);
-			if(status == 200) {
-				return Application.STATUS.SUCCESS;
-			}
-			return Application.STATUS.ERROR;
-		} catch (IOException ex) {
+			System.out.println(connection.getResponseCode());
+		}catch(Exception ex) {
 			ex.printStackTrace();
 			return Application.STATUS.ERROR;
 		}
-			
+		return Application.STATUS.SUCCESS;
 	}
-
 
 }

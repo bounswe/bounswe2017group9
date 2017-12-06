@@ -5,10 +5,11 @@
 	<meta http-equiv="Content-Type" content="text/html;" charset="UTF-8" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"></link>
 	<link rel="stylesheet" href="/css/style.css"></link> 
+	<link rel="stylesheet" href="/css/style1.css"></link> 
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light">
-  <a class="navbar-brand" href="index">Concerter</a>
+  <a class="navbar-brand" href="/index">Concerter</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -17,7 +18,7 @@
     <ul class="navbar-nav mr-auto">
       
       <li class="nav-item">
-        <a class="nav-link" href="/profile/1">Profile</a>
+      <a class="nav-link" th:text="${loggedInUser != null} ? ${loggedInUser.name} : 'Not logged in'" th:href="@{${loggedInUser != null} ? '/profile/'+${loggedInUser.id} : '#'}"></a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -28,11 +29,17 @@
         </div>
       </li>
       
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>
+    
+    <form class="form-inline my-2 my-lg-0" th:Action="@{/basic-search}" th:object="${search}" method="post">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" th:field="*{searchKey}"></input>
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
+    <li class="nav-item">
+      	<a class="nav-link" href="/logout">Logout</a>
+      	
+      </li>
+      
+  	</ul>
   </div>
 </nav>
 <div class="row">
@@ -62,12 +69,7 @@
     </div>
     <hr />
     <div class="media comment">
-  <a href="/profile/1"><img class="align-self-center mr-3 commenterPhoto" src="/fatihGuven.jpg" alt="Generic placeholder image"></img></a>
-  <div class="media-body">
-    <a class="mt-0" href="/profile/1"><b>Fatih Güven</b></a>
-    <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. </p>
-    <p class="mb-0">Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-  </div>
+  
 </div>
   </div>
 </div>
