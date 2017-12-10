@@ -39,7 +39,7 @@ public class CommentOperations {
 	}
 	public static STATUS createCommentwithCategory(Comments newComment) {
 		try {
-			URL url = new URL(Application.API_ENDPOINT+"/new-comment");
+			URL url = new URL(Application.API_ENDPOINT+"/newcomment");
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("POST");
 			connection.setDoOutput(true);
@@ -91,7 +91,7 @@ public class CommentOperations {
 			try {
 				URL url = new URL(Application.API_ENDPOINT+ "/"+ userID + "/comments/" + commentID + "/deleteComment");
 				HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-				connection.setRequestMethod("PUT");
+				connection.setRequestMethod("GET");
 				connection.setDoOutput(true);
 				connection.setRequestProperty("Content-Type", "application/json");
 				connection.connect();
@@ -104,7 +104,7 @@ public class CommentOperations {
 				}
 				System.out.println(status);
 
-				System.out.println(status);
+				
 
 			}catch(Exception ex) {
 				ex.printStackTrace();
@@ -117,9 +117,9 @@ public class CommentOperations {
 		public static STATUS upVoteForComment(int commentID, int userID){
 
 			try {
-				URL url = new URL(Application.API_ENDPOINT+ "/"+userID +"/comments/" + commentID + "/upVote" );
+				URL url = new URL(Application.API_ENDPOINT+ "/comments/" + commentID + "/upVote" );
 				HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-				connection.setRequestMethod("PUT");
+				connection.setRequestMethod("GET");
 				connection.setDoOutput(true);
 				connection.setRequestProperty("Content-Type", "application/json");
 				connection.connect();
@@ -142,9 +142,9 @@ public class CommentOperations {
 		
 		public static STATUS downVoteForComment(int commentID, int userID) {
 			try {
-				URL url = new URL(Application.API_ENDPOINT+ "/" +userID + "/comments/" + commentID + "/downVote" );
+				URL url = new URL(Application.API_ENDPOINT+ "/comments/" + commentID + "/downVote" );
 				HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-				connection.setRequestMethod("PUT");
+				connection.setRequestMethod("GET");
 				connection.setDoOutput(true);
 				connection.setRequestProperty("Content-Type", "application/json");
 				connection.connect();
