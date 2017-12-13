@@ -50,9 +50,7 @@ public class UserController {
 				query = UserChecker.insertUserQuery(user);
 				System.out.println(query);
 				rs = Database.connect(query,Application.MODE_UPDATE);
-				user.setId(Database.last_generated_id);
-				json = Application.gson.toJson(user);
-				return json;
+				return "OK.";
 			}else { // if it's spotify signup
 				user = UserChecker.insertSpotifyUser(user);
 				json = Application.gson.toJson(user);

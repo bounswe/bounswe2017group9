@@ -1,15 +1,31 @@
 package boun.group9.webservice.app.data;
 
 public class SemanticTags {
-	private String id;			//wikidata id
-	private String label;		//wikidata label
-	private String search;		//search word for semantic tag
 	private String description;	//wikidata description
-	public String getId() {
+	private String search;		//search word for semantic tag
+	private int id;
+	private String semanticTagId;
+	private int concert_id;
+	private String label;	//wikidata label
+
+
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
+	}
+	public int getConcert_id() {
+		return concert_id;
+	}
+	public void setConcert_id(int concert_id) {
+		this.concert_id = concert_id;
+	}
+	public String getSemanticTagId() {
+		return semanticTagId;
+	}
+	public void setSemanticTagId(String semanticTagId) {
+		this.semanticTagId = semanticTagId;
 	}
 	public String getLabel() {
 		return label;
@@ -23,6 +39,7 @@ public class SemanticTags {
 	public void setSearch(String search) {
 		this.search = search;
 	}
+
 	public String getDescription() {
 		return description;
 	}
