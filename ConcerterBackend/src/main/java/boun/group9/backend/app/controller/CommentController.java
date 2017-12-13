@@ -32,6 +32,7 @@ public class CommentController {
 	@RequestMapping(value="/newcomment",method=RequestMethod.POST)
 	public ModelAndView createCommentGet(@ModelAttribute Comments newComment, HttpSession session) {
 		ModelAndView model=new ModelAndView("redirect:/concert/20");
+		//Users loggedInUser = (Users)session.getAttribute("loggedInUser");
 		newComment.setCommented_by(51);
 		newComment.setConcert_id(20);
 		Application.STATUS status = CommentOperations.createCommentwithCategory(newComment);

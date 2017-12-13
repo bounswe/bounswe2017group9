@@ -5,11 +5,11 @@ import boun.group9.webservice.app.data.SemanticTags;
 
 public class SemanticTagsChecker {
 	public static String insertSemanticTagsQuery(SemanticTags tag) {
-		String query="INSERT INTO SemanticTags (id,label,search,description) VALUES (";
-		query+="\""+tag.getId()+"\",";
-		query+="\""+tag.getLabel()+"\", ";
-		query+="\""+tag.getSearch()+"\", ";
-		query+="\""+tag.getDescription()+"\");";
+		String query="INSERT INTO SemanticTags (semanticTagId,concert_id,label,description) VALUES (";
+		query+="\""+tag.getSemanticTagId()+"\", ";
+		query+="\""+tag.getConcert_id()+"\", ";
+		query+="\""+tag.getLabel().replaceAll("\"", " ") +"\", ";
+		query+="\""+tag.getDescription().replaceAll("\"", " ")+"\");";
 		return query;
 	}
 	public static String insertConcertTagsQuery(ConcertTags ctag) {

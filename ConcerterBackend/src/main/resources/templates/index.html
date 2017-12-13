@@ -27,8 +27,6 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/new-concert">Create Concert</a>
-        </div>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/advanced-search">Advanced Search</a>
         </div>
       </li>
@@ -79,6 +77,32 @@
     <p><b>Rate : </b> <span th:text="${concert.rate}"></span></p>
     </div>
     </div>
+    
+    <form action="#" th:action="@{/semantic-tag-wiki}">
+<div class="media-body">
+  
+    	
+  </div>
+  <div class="media-body">
+  	<button class="btn btn-outline-success" type="submit">Tag1</button>
+  </div>
+  </form>
+   
+    <!--  
+   <form action="#" th:action="@{/semantictagwiki}" th:object="${semanticTag}">
+<div class="media-body">
+  
+  	<input type="text" placeholder="Tag" th:field="*{search}"></input>
+  	
+  </div>
+  <div class="media-body">
+  	<button class="btn btn-outline-success" type="submit">Tag2</button>
+  </div>
+  </form>
+  -->
+ 
+    
+    
     <hr />
     <div class="media comment" th:each="comment : ${concert.commentList}">
   <a href="/profile/1"><img class="align-self-center mr-3 commenterPhoto" src="/fatihGuven.jpg" alt="Generic placeholder image"></img></a>
@@ -89,7 +113,8 @@
     <a class="mt-0" href="/profile/1"><b>Fatih Güven</b></a>
     <p th:text="${comment.comment}"></p>
     
-    
+    <!--  <p th:text="'Execution mode is ' + ( (${comment.category} == '1')? 'Development' : 'Production')"></p>
+    -->
     <a th:href="@{/deleteComment(commentID=${comment.id})}" class="btn btn-danger">Delete</a>  
  	<a th:href="@{/upVote(commentID=${comment.id})}" class="btn btn-danger">UpVote</a>  
  	<a th:href="@{/downVote(commentID=${comment.id})}" class="btn btn-danger">DownVote</a>  
