@@ -285,4 +285,24 @@ public class ConcertOperations {
 		return Application.STATUS.SUCCESS;
 	}
 	
+	public static STATUS submitRateForConcert(int concertID , int rate) {
+		try {
+			URL url = new URL(Application.API_ENDPOINT+"/concert/" + concertID+ "/" + rate );
+			HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+			connection.setRequestMethod("POST");
+			connection.setDoOutput(true);
+			connection.setRequestProperty("Content-Type", "application/json");
+			OutputStream os = connection.getOutputStream();
+			os.close();
+			connection.connect();
+			int status = connection.getResponseCode();
+			System.out.println("Response status: "+status);
+			System.out.println(url);
+		}catch(IOException ex) {
+			ex.printStackTrace();
+			return Application.STATUS.ERROR;
+		}
+		return Application.STATUS.SUCCESS;
+		
+	}
 }

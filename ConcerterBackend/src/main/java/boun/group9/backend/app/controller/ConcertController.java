@@ -90,4 +90,15 @@ public class ConcertController {
 			return new ModelAndView("redirect:/error");
 		}
 	}
+
+	@RequestMapping(value = "/concert/{concertID}/{rate}")
+	public String submitRateForConcert(@PathVariable("concertID") int concertID, @PathVariable("rate") int rate)
+	{
+		status= ConcertOperations.submitRateForConcert(concertID, rate);
+		if(status == STATUS.SUCCESS) {
+			return "index";
+		}else {
+			return "error";
+		}
+	}
 }
