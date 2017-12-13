@@ -50,9 +50,7 @@ public class UserController {
 				query = UserChecker.insertUserQuery(user);
 				System.out.println(query);
 				rs = Database.connect(query,Application.MODE_UPDATE);
-				user.setId(Database.last_generated_id);
-				json = Application.gson.toJson(user);
-				return json;
+				return "OK.";
 			}else { // if it's spotify signup
 				user = UserChecker.insertSpotifyUser(user);
 				json = Application.gson.toJson(user);
@@ -87,9 +85,9 @@ public class UserController {
 				user.setFollowers(rs.getInt("followers"));
 				user.setFollowings(rs.getInt("followings"));
 				user.setPhoto_path(rs.getString("photo_path"));
-				user.setCreated_at(rs.getTimestamp("created_at"));
-				user.setLast_login(rs.getTimestamp("last_login"));
-				user.setUpdated_at(rs.getTimestamp("updated_at"));
+				//user.setCreated_at(rs.getTimestamp("created_at"));
+				//user.setLast_login(rs.getTimestamp("last_login"));
+				//user.setUpdated_at(rs.getTimestamp("updated_at"));
 				return Application.gson.toJson(user);
 			}else {
 				throw new UserNotFoundException();

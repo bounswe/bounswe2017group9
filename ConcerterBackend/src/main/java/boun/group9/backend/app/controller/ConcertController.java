@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import boun.group9.backend.app.Application;
@@ -45,6 +46,8 @@ public class ConcertController {
 	public String concertPage(@PathVariable("concertID") int concertID,Model model,HttpSession session) {
 		Concerts concert = ConcertOperations.getConcert(concertID);
 		model.addAttribute("concert",concert);
+		model.addAttribute("newComment",new Comments());
+		
 		model.addAttribute("search",new Search());
 		model.addAttribute("loggedInUser",(Users)session.getAttribute("loggedInUser"));
 		return "concert";
@@ -90,4 +93,23 @@ public class ConcertController {
 			return new ModelAndView("redirect:/error");
 		}
 	}
+	
+	
+	@RequestMapping(value = "/rateConcert", method=RequestMethod.GET)
+    public ModelAndView RateForConcert( @RequestParam(name="concert_id") String concertID ,@RequestParam(name="rate") String rate,  HttpSession session){
+		Users user = (Users)session.getAttribute("loggedInUser");
+    	int userID = user.getId(); 	
+    	int concertid=Integer.parseInt(concertID);
+    	int rate_=Integer.parseInt(rate);
+		status= ConcertOperations.submitRateForConcert(concertid, rate_);
+        System.out.println(status);
+        if(status == Application.STATUS.SUCCESS){
+        	return new ModelAndView("redirect:/index");
+        }else{
+            return new ModelAndView("redirect:/error");
+        }
+
+    }
+	
+	
 }

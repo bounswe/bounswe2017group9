@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="RESTService:war exploded">
-    <output-path>$PROJECT_DIR$/target/RESTService-0.1.1-SNAPSHOT</output-path>
+    <output-path>$PROJECT_DIR$/target/RESTService-0.2.2</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
@@ -46,10 +46,11 @@
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.8.10" />
           <element id="library" level="project" name="Maven: joda-time:joda-time:2.9.9" />
           <element id="library" level="project" name="Maven: com.amazonaws:jmespath-java:1.11.221" />
+          <element id="library" level="project" name="Maven: com.googlecode.json-simple:json-simple:1.1" />
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/target/RESTService-0.1.1-SNAPSHOT/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/target/RESTService-0.2.2/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="RESTService/web/Web" />
     </root>
