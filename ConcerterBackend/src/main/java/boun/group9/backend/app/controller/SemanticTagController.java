@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,29 +22,13 @@ import boun.group9.backend.app.data.Concerts;
 import boun.group9.backend.app.data.Search;
 import boun.group9.backend.app.data.SemanticTag;
 import boun.group9.backend.app.data.Users;
+import boun.group9.backend.app.helper.CommentOperations;
 import boun.group9.backend.app.helper.ConcertOperations;
 import boun.group9.backend.app.helper.SearchOperations;
 import boun.group9.backend.app.helper.SemanticTagOperations;
 @Controller
 public class SemanticTagController {
-	@RequestMapping(value="/semantic-tag-wiki",method=RequestMethod.GET)
-//	public String wikiData(@RequestParam(name="search") String searchKey ,Model model,HttpSession session ) {
-		public String wikiData(Model model,HttpSession session,@RequestParam(name="search") String searchKey ) {
-		System.out.println("semant "+model.toString());	
-		searchKey="metal";
-		System.out.println("semantic tag list");
-		ArrayList<SemanticTag> tagList = SemanticTagOperations.getSemanticTags(searchKey);
-		System.out.println("semantic tag list");
-		for(int i=0;i<tagList.size();i++){
-			System.out.println(tagList.get(i).getLabel());
-		}
-		model.addAttribute("tagList",tagList);
-		model.addAttribute("search",new Search());
-		session.setAttribute("tagSearch",searchKey);
-		return "redirect:/index";
-	}
-	
-	
+	private static Application.STATUS status;
 	
 	@RequestMapping(value="tags",method=RequestMethod.GET)
 	public String semantictag(Model model, HttpSession session,@RequestParam(name="search") String searchKey ){
@@ -67,6 +52,28 @@ public class SemanticTagController {
 		model.addAttribute("search",new Search());
 		
 		return "redirect:/index";
+	}
+	
+	
+	@RequestMapping(value="/new-tag",method=RequestMethod.POST)
+	public ModelAndView createTag(@ModelAttribute SemanticTag tag, HttpSession session) {
+		ModelAndView model=new ModelAndView("redirect:/index");
+		Users loggedInUser = (Users)session.getAttribute("loggedInUser");
+		tag.setConcert_id(20);
+	    status = SemanticTagOperations.addSemanticTag(tag);
+		if(status==Application.STATUS.ERROR) {
+			return new ModelAndView("redirect:/error");
+		}
+		
+		return model;
+	}
+	
+	
+	@RequestMapping("/concert/{concertID}/tags")
+	public String getAllTags(@PathVariable("concertID") int concertID,Model model) {
+		ArrayList<SemanticTag> tagList = SemanticTagOperations.getTagsByConcertID(concertID);
+		model.addAttribute("semanticTagList",tagList);
+		return "concert";
 	}
 	
 

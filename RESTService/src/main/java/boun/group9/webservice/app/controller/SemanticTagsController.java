@@ -61,32 +61,11 @@ public class SemanticTagsController {
 			throw new InternalServerException();
 		}
 	}
-	@RequestMapping(value="new-concerttag",method=RequestMethod.POST)
-	public String newConcertTag(@RequestBody String body) {
-		ConcertTags ctag;
-		String query;
-		ResultSet rs;
-		try {
-			ctag = Application.gson.fromJson(body, ConcertTags.class);
-			query = SemanticTagsChecker.insertConcertTagsQuery(ctag);
-			System.out.println(query);
-			rs = Database.connect(query,Application.MODE_UPDATE);
-			return "OK.";
-		}catch(JsonSyntaxException ex) {
-			ex.printStackTrace();
-			throw new IJsonSyntaxException();
-		}catch(SQLException ex) {
-			ex.printStackTrace();
-			throw new ISQLException();
-		}catch(NotSavedException ex) {
-			ex.printStackTrace();
-			throw new InternalServerException();
-		}
-	}
-	@RequestMapping(value="semantictags",method=RequestMethod.GET)
-	public String getsemanticTags() {
+
+	@RequestMapping(value="semantic-tags/{concertID}",method=RequestMethod.GET)
+	public String getsemanticTags(@PathVariable(value="concertID") int concertID) {
 		String jsonString="";
-		String query="SELECT * FROM semanticTags;";
+		String query="SELECT * FROM semanticTags WHERE concert_id="+concertID+";";
 		System.out.println(query);
 		ResultSet rs;
 		SemanticTags tag;
@@ -141,35 +120,7 @@ public class SemanticTagsController {
 		}
 		return jsonString;
 	}
-	@RequestMapping(value="concerttags/{concertID}",method=RequestMethod.GET)
-	public String getConcertTags(@PathVariable(value="concertID") int concertID) {
-		String jsonString="";
-		String query="SELECT * FROM ConcertTags WHERE concert_id="+concertID+";";
-		System.out.println(query);
-		ResultSet rs;
-		ConcertTags ctag;
-		ArrayList<ConcertTags> ctagList = new ArrayList<ConcertTags>();
-		try {
-			rs = Database.connect(query, Application.MODE_GET);
-			while(rs.next()) {
-				ctag = new ConcertTags();
-				ctag.setId(rs.getInt("id"));
-				ctag.setTag_id(rs.getString("tag_id"));
-				ctag.setConcert_id(rs.getInt("concert_id"));
-				ctag.setCreated_at(rs.getDate("created_at"));
-				ctagList.add(ctag);
-			}
-			jsonString = Application.gson.toJson(ctagList);
-		}catch(SQLException ex) {
-			System.out.println("SQL Exception occured");
-			ex.printStackTrace();
-			return "SQL Error occured.";
-		}catch(NotSavedException ex) {
-			ex.printStackTrace();
-			return "Not saved.";
-		}
-		return jsonString;
-	}
+
 	@RequestMapping(value="searchWikidata/{search}",method=RequestMethod.GET)
 	public String getSementicTagsFromWikidata(@PathVariable(value="search") String search) {
 		String jsonString="";
@@ -228,7 +179,7 @@ public class SemanticTagsController {
 	}
 
 
-	@RequestMapping(value="searchbytags/{tagID}",method=RequestMethod.GET)
+	@RequestMapping(value="search-tags/{tagID}",method=RequestMethod.GET)
 	public String searchSemanticTag(@PathVariable(value="tagID") String tagID) {
 		String jsonString="";
 		String query;

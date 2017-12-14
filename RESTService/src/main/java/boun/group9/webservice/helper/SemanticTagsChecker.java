@@ -12,12 +12,12 @@ public class SemanticTagsChecker {
 		query+="\""+tag.getDescription().replaceAll("\"", " ")+"\");";
 		return query;
 	}
-	public static String insertConcertTagsQuery(ConcertTags ctag) {
+	/*public static String insertConcertTagsQuery(ConcertTags ctag) {
 		String query="INSERT INTO ConcertTags(id,tag_id,concert_id,created_at) VALUES (";
 		query+=ctag.getId()+", ";
 		query+="\""+ctag.getTag_id()+"\", ";
 		query+=ctag.getConcert_id()+", ";
 		query+="\""+ctag.getCreated_at()+"\");";
 		return query;
-	}
+	}*/
 }

@@ -17,6 +17,8 @@ public class Concerts {
 	private String date_str;
 	private String time_str;
 	private ArrayList<Comments> commentList;
+
+	public ArrayList<SemanticTag> semanticTagList;
 	private int artist_id;
 	private int location_id;
 	private int min_price;
