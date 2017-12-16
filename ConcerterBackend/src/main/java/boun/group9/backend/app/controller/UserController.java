@@ -42,7 +42,7 @@ public class UserController {
 	@RequestMapping(value="/request-spotify-login",method=RequestMethod.POST)
 	public RedirectView requestSpotifyLogin() {
 		RedirectView redirectView = new RedirectView();
-		redirectView.setUrl("https://accounts.spotify.com/en/authorize?client_id=bb34cac7478d4bc483f7711e0873b8b4&scope=user-read-email&response_type=code&redirect_uri=http:%2F%2Flocalhost:8080%2Fspotify-code");
+		redirectView.setUrl("https://accounts.spotify.com/en/authorize?client_id=bb34cac7478d4bc483f7711e0873b8b4&scope=user-read-email&response_type=code&redirect_uri=http:%2F%2Fconcerter.eu-central-1.elasticbeanstalk.com%2Fspotify-code");
 		return redirectView;
 	}
 	@RequestMapping(value="/spotify-code")
@@ -54,14 +54,14 @@ public class UserController {
 		Users user;
 		try {
 			String clientString = Application.SPOTIFY_CLIENT_ID+":"+Application.SPOTIFY_CLIENT_SECRET;
-			String parameters = "grant_type=authorization_code&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fspotify-code&code="+code;
+			String parameters = "grant_type=authorization_code&redirect_uri=http%3A%2F%2Fconcerter.eu-central-1.elasticbeanstalk.com%2Fspotify-code&code="+code;
 			URL url = new URL(Application.SPOTIFY_DEFAULT_AUTHENTICATION_HOST+"/api/token");
 			HttpURLConnection connection= (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("POST");
 			connection.setRequestProperty("Authorization","Basic "+Base64.encodeBase64String(clientString.getBytes()));
 			connection.setRequestProperty("grant_type", "authorization_code");
 			connection.setRequestProperty("code", code);
-			connection.setRequestProperty("redirect_uri","http%3A%2F%2Flocalhost%3A8080/spotify-code");
+			connection.setRequestProperty("redirect_uri","http%3A%2F%2Fhttp://concerter.eu-central-1.elasticbeanstalk.com/spotify-code");
 			System.out.println(Base64.encodeBase64String(clientString.getBytes()));
 			
 			connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");

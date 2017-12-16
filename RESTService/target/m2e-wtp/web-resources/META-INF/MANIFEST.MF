@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Implementation-Title: RESTService
-Implementation-Version: 0.2.2
+Implementation-Version: 0.3.0
 Built-By: ffguven
 Implementation-Vendor-Id: boun.group9.webservice
 Build-Jdk: 1.8.0_151

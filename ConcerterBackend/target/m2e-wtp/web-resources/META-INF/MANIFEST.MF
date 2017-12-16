@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Implementation-Title: ConcerterBackend
+Implementation-Version: 0.1.3
+Built-By: ffguven
+Implementation-Vendor-Id: boun.group9.backend
+Build-Jdk: 1.8.0_151
+Implementation-URL: http://projects.spring.io/spring-boot/ConcerterBac
+ kend/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+
