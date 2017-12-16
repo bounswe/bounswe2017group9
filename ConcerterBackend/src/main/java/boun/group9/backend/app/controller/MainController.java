@@ -28,12 +28,19 @@ public class MainController {
 	}
 	@RequestMapping("/index")
 	public String index(Model model,HttpSession session) {
-		//System.out.println("index "+model.toString());
+		
 		ArrayList<Concerts> concertList = ConcertOperations.getAllActiveConcerts();
 		ArrayList<Concerts> recommendConcertList = ConcertOperations.getRecommendedConcerts((Users)session.getAttribute("loggedInUser"));
-		String tagSearch=(String)session.getAttribute("tagSearch");
-		//System.out.println(tagSearch);
-		ArrayList<SemanticTag> tagList = SemanticTagOperations.getSemanticTags(tagSearch);	
+			
+		if(null != session.getAttribute("tagSearch")  ){
+			String tagSearch=(String)session.getAttribute("tagSearch");
+			System.out.println("tagSearch: "+tagSearch);
+			ArrayList<SemanticTag> tagList = SemanticTagOperations.getSemanticTags(tagSearch);	
+			model.addAttribute("tagList",tagList);
+			session.removeAttribute("tagSearch");
+		}
+		
+		
 		model.addAttribute("newComment",new Comments());
 		model.addAttribute("concertList",concertList);
 		model.addAttribute("recommendConcertList",recommendConcertList);
@@ -41,7 +48,6 @@ public class MainController {
 		model.addAttribute("loggedInUser",user);
 		model.addAttribute("search",new Search());
 		model.addAttribute("attend",new Attend());
-		model.addAttribute("tagList",tagList);
 		model.addAttribute("semanticTag",new SemanticTag());
 		return "index";
 	}

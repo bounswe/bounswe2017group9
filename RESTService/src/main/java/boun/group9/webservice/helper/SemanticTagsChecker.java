@@ -9,6 +9,11 @@ public class SemanticTagsChecker {
 		query+="\""+tag.getSemanticTagId()+"\", ";
 		query+="\""+tag.getConcert_id()+"\", ";
 		query+="\""+tag.getLabel().replaceAll("\"", " ") +"\", ";
+
+		if(tag.getDescription().length()>70){
+			tag.setDescription(tag.getDescription().substring(0,70));
+		}
+
 		query+="\""+tag.getDescription().replaceAll("\"", " ")+"\");";
 		return query;
 	}

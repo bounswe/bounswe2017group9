@@ -22,6 +22,7 @@ import boun.group9.backend.app.data.Artists;
 import boun.group9.backend.app.data.Comments;
 import boun.group9.backend.app.data.Concerts;
 import boun.group9.backend.app.data.Locations;
+import boun.group9.backend.app.data.SemanticTag;
 import boun.group9.backend.app.data.Users;
 public class ConcertOperations {
 	public static ArrayList<Concerts> getRecommendedConcerts(Users user){
@@ -48,6 +49,19 @@ public class ConcertOperations {
 				resultJson = br.readLine();
 				commentList = new ArrayList<Comments> (Arrays.asList(Application.gson.fromJson(resultJson, Comments[].class)));
 				oneConcert.setCommentList(commentList);
+				
+				
+				ArrayList<SemanticTag> semanticTagList;
+				url = new URL(Application.API_ENDPOINT+"/semantic-tags/"+oneConcert.getId());
+				connection = (HttpURLConnection) url.openConnection();
+				connection.setRequestMethod("GET");
+				connection.setDoInput(true);
+				connection.connect();
+				br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+				resultJson = br.readLine();
+				semanticTagList = new ArrayList<SemanticTag> (Arrays.asList(Application.gson.fromJson(resultJson, SemanticTag[].class)));
+				oneConcert.setSemanticTagList(semanticTagList);
+				
 			}
 			return resultList;
 		}catch(MalformedURLException ex) {
@@ -81,6 +95,19 @@ public class ConcertOperations {
 				resultJson = br.readLine();
 				commentList = new ArrayList<Comments> (Arrays.asList(Application.gson.fromJson(resultJson, Comments[].class)));
 				oneConcert.setCommentList(commentList);
+				
+				
+				ArrayList<SemanticTag> semanticTagList;
+				url = new URL(Application.API_ENDPOINT+"/semantic-tags/"+oneConcert.getId());
+				connection = (HttpURLConnection) url.openConnection();
+				connection.setRequestMethod("GET");
+				connection.setDoInput(true);
+				connection.connect();
+				br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+				resultJson = br.readLine();
+				semanticTagList = new ArrayList<SemanticTag> (Arrays.asList(Application.gson.fromJson(resultJson, SemanticTag[].class)));
+				oneConcert.setSemanticTagList(semanticTagList);
+				
 			}
 			return resultList;
 		}catch(MalformedURLException ex) {
@@ -114,6 +141,20 @@ public class ConcertOperations {
 				resultJson = br.readLine();
 				commentList = new ArrayList<Comments> (Arrays.asList(Application.gson.fromJson(resultJson, Comments[].class)));
 				oneConcert.setCommentList(commentList);
+				
+				ArrayList<SemanticTag> semanticTagList;
+				url = new URL(Application.API_ENDPOINT+"/semantic-tags/"+oneConcert.getId());
+				connection = (HttpURLConnection) url.openConnection();
+				connection.setRequestMethod("GET");
+				connection.setDoInput(true);
+				connection.connect();
+				br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+				resultJson = br.readLine();
+				semanticTagList = new ArrayList<SemanticTag> (Arrays.asList(Application.gson.fromJson(resultJson, SemanticTag[].class)));
+				oneConcert.setSemanticTagList(semanticTagList);
+				
+			
+			
 			}
 			return resultList;
 		}catch(MalformedURLException ex) {
@@ -147,6 +188,19 @@ public class ConcertOperations {
 				resultJson = br.readLine();
 				commentList = new ArrayList<Comments> (Arrays.asList(Application.gson.fromJson(resultJson, Comments[].class)));
 				oneConcert.setCommentList(commentList);
+			
+				ArrayList<SemanticTag> semanticTagList;
+				url = new URL(Application.API_ENDPOINT+"/semantic-tags/"+oneConcert.getId());
+				connection = (HttpURLConnection) url.openConnection();
+				connection.setRequestMethod("GET");
+				connection.setDoInput(true);
+				connection.connect();
+				br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+				resultJson = br.readLine();
+				semanticTagList = new ArrayList<SemanticTag> (Arrays.asList(Application.gson.fromJson(resultJson, SemanticTag[].class)));
+				oneConcert.setSemanticTagList(semanticTagList);
+				
+			
 			}
 			return resultList;
 		}catch(MalformedURLException ex) {
@@ -201,6 +255,19 @@ public class ConcertOperations {
 				resultJson = br.readLine();
 				commentList = new ArrayList<Comments> (Arrays.asList(Application.gson.fromJson(resultJson, Comments[].class)));
 				oneConcert.setCommentList(commentList);
+				
+				ArrayList<SemanticTag> semanticTagList;
+				url = new URL(Application.API_ENDPOINT+"/semantic-tags/"+oneConcert.getId());
+				connection = (HttpURLConnection) url.openConnection();
+				connection.setRequestMethod("GET");
+				connection.setDoInput(true);
+				connection.connect();
+				br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+				resultJson = br.readLine();
+				semanticTagList = new ArrayList<SemanticTag> (Arrays.asList(Application.gson.fromJson(resultJson, SemanticTag[].class)));
+				oneConcert.setSemanticTagList(semanticTagList);
+				
+				
 			}
 			return resultList;
 		}catch(MalformedURLException ex) {

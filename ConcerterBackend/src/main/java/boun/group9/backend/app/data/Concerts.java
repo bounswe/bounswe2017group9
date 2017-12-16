@@ -19,6 +19,7 @@ public class Concerts {
 	private ArrayList<Comments> commentList;
 
 	public ArrayList<SemanticTag> semanticTagList;
+	
 	private int artist_id;
 	private int location_id;
 	private int min_price;
@@ -29,6 +30,15 @@ public class Concerts {
 	public Concerts() {
 	
 	}
+	
+	public ArrayList<SemanticTag> getSemanticTagList(){
+		return this.semanticTagList;
+	}
+	public void setSemanticTagList(ArrayList<SemanticTag> semanticTagList) {
+		this.semanticTagList = semanticTagList;
+	}
+	
+	
 	public ArrayList<Comments> getCommentList(){
 		return this.commentList;
 	}

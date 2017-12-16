@@ -32,13 +32,14 @@ public class SemanticTagController {
 	
 	@RequestMapping(value="tags",method=RequestMethod.GET)
 	public String semantictag(Model model, HttpSession session,@RequestParam(name="search") String searchKey ){
-		if(searchKey!=null){
+		//System.out.println("searchKey "+searchKey);
+		if(!searchKey.equalsIgnoreCase("")){
 			session.setAttribute("tagSearch",searchKey);
 		}else{
-			session.setAttribute("tagSearch","");
+			session.removeAttribute("tagSearch");
 		}
 		
-		ArrayList<SemanticTag> tagList = SemanticTagOperations.getSemanticTags(searchKey);
+		//ArrayList<SemanticTag> tagList = SemanticTagOperations.getSemanticTags(searchKey);
 		/*for(int i=0;i<tagList.size();i++){
 			System.out.println(tagList.get(i).getLabel());
 			System.out.println(tagList.get(i).getConcert_id());
@@ -48,20 +49,19 @@ public class SemanticTagController {
 			System.out.println(tagList.get(i).getSemanticTagId());
 			
 		}*/
-		model.addAttribute("tagList",tagList);
 		model.addAttribute("search",new Search());
 		
 		return "redirect:/index";
 	}
 	
 	
+	
 	@RequestMapping(value="/new-tag",method=RequestMethod.POST)
-	public ModelAndView createTag(@ModelAttribute SemanticTag tag, HttpSession session) {
+	public ModelAndView createTag(@ModelAttribute SemanticTag semanticTag, HttpSession session) {
 		ModelAndView model=new ModelAndView("redirect:/index");
 		Users loggedInUser = (Users)session.getAttribute("loggedInUser");
-		tag.setConcert_id(20);
-	    status = SemanticTagOperations.addSemanticTag(tag);
-		if(status==Application.STATUS.ERROR) {
+	    status = SemanticTagOperations.addSemanticTag(semanticTag);
+	    if(status==Application.STATUS.ERROR) {
 			return new ModelAndView("redirect:/error");
 		}
 		
