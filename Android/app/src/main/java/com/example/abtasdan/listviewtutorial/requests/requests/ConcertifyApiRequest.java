@@ -1,9 +1,13 @@
 package com.example.abtasdan.listviewtutorial.requests.requests;
 
 import com.example.abtasdan.listviewtutorial.modals.Concert;
+import com.example.abtasdan.listviewtutorial.modals.CreateConcertObject;
 import com.example.abtasdan.listviewtutorial.modals.CreatedBy;
+import com.example.abtasdan.listviewtutorial.modals.NewUserObject;
+import com.example.abtasdan.listviewtutorial.modals.requests.AttendConcertReq;
 import com.example.abtasdan.listviewtutorial.modals.requests.LoginReq;
 import com.example.abtasdan.listviewtutorial.modals.requests.SearchResult;
+import com.example.abtasdan.listviewtutorial.modals.requests.SignUpReq;
 
 
 import java.util.ArrayList;
@@ -13,34 +17,31 @@ import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.Query;
 import retrofit.http.POST;
-import retrofit.http.Field;
-import retrofit.http.FormUrlEncoded;
 
 public interface ConcertifyApiRequest {
 
 
-    @GET("/concerts")
+    @GET("/homePageConcerts")
     void getConcerts(@Query("user_id") long user_id, Callback<ArrayList<Concert>> projectCallback);
 
     @GET("/basic-search")
     void search(@Query("searchKey") String searchKey, Callback<SearchResult> searchResultCallback);
-    //
-
 
     @POST("/user")
     void login(@Body LoginReq loginReq, Callback<CreatedBy> projectCallback);
-//
-//    @POST("/projects/log/view-project-page")
-//    @FormUrlEncoded
-//    void viewProject(@Field("projectId") long projectId, Callback<Response> projectCallback);
-//
-//
-//
-//    @GET("/projects/mobile")
-//    void getProjects(@Nullable @Query("page") int page, Callback<ArrayList<MobileListItem>> arrayListCallback);
-//
-//    @GET("/projects/search/mobile")
-//    void getSearchProjects(@Nullable @Query("query") String query, Callback<ArrayList<MobileListItem>> arrayListCallback);
+
+   @POST("/new-user")
+    void newUser(@Body SignUpReq newUser, Callback<CreatedBy> projectCallback);
+
+    @POST("/concerts")
+    void newConcert(@Body CreateConcertObject newConcertObject, Callback<String> projectCallback);
+
+    @GET("/recommend")
+    void getRecommend( @Query("userID") int user_id, Callback<ArrayList<Concert>> arrayListCallback);
+
+
+    @GET("/concerts")
+    void getAttendConcerts(@Body AttendConcertReq attendConcertReq, Callback<ArrayList<Concert>> arrayListCallback);
 //
 //    @GET("/misc/force-update-check")
 //    void forceUpdate(@Query("platform") int platform, @Query("version") String version,

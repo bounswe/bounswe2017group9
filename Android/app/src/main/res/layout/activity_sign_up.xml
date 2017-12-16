@@ -23,6 +23,25 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="   Name    "
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_nameSignUp"
+                android:layout_width="232dp"
+                android:maxWidth="232dp"
+                android:layout_height="wrap_content"
+                android:hint="Enter Your Name"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             >
 
@@ -38,7 +57,7 @@
                 android:layout_width="232dp"
                 android:maxWidth = "232dp"
                 android:layout_height="wrap_content"
-
+                android:hint="Enter Username"
                 />
         </LinearLayout>
         <LinearLayout
@@ -59,7 +78,7 @@
                 android:layout_width="232dp"
                 android:maxWidth = "232dp"
                 android:layout_height="wrap_content"
-
+                android:hint="Enter Email"
                 />
         </LinearLayout>
         <LinearLayout
@@ -78,12 +97,33 @@
                 android:id="@+id/et_passwordSignUp"
                 android:layout_width="232dp"
                 android:maxWidth="232dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:hint="Enter Password"/>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="Photo Path"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_photoSignUp"
+                android:layout_width="232dp"
+                android:maxWidth="232dp"
+                android:layout_height="wrap_content"
+                android:hint="Enter Your Photo Path"/>
+        </LinearLayout>
+        <TextView  android:layout_centerInParent="true" android:layout_width="wrap_content" android:id="@+id/textView1"
+            android:layout_height="wrap_content" android:text=" " ></TextView>
 
         <Button
-            android:id="@+id/btn_main_menu"
+            android:id="@+id/btn_signUP_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sign Up" />

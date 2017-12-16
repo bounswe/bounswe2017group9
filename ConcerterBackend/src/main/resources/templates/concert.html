@@ -1,84 +1,199 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>ConcerterBackend Test</title>
-	<meta http-equiv="Content-Type" content="text/html;" charset="UTF-8" />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"></link>
-	<link rel="stylesheet" href="/css/style.css"></link> 
-	<link rel="stylesheet" href="/css/style1.css"></link> 
+    <title>ConcerterBackend Test</title>
+    <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"  ></link>
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+    <!-- Fonts CSS-->
+    <link rel="stylesheet" href="/fonts/fonts.css" type="text/css"></link>
+    <link rel="stylesheet" href="/css/advanced-search.css" type="text/css"></link>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"></link>
+    <!-- Main StyleSheet for Home Page CSS-->
+    <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
+    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" ></link>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"></link>
+
+    <link rel="stylesheet" href="/css/style.css" type="text/css"></link>
 </head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-light">
-  <a class="navbar-brand" href="/index">Concerter</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      
-      <li class="nav-item">
-      <a class="nav-link" th:text="${loggedInUser != null} ? ${loggedInUser.name} : 'Not logged in'" th:href="@{${loggedInUser != null} ? '/profile/'+${loggedInUser.id} : '#'}"></a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Concerts
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/new-concert">Create Concert</a>
+<header>
+    <div class="container-fluid">
+        <div class="row align-items-center  ">
+            <div class="logo col-sm-2">
+                <div class="col-xs-12">
+                    <img src="images/concerter-logo.png" width="50%" alt="Image Not Available"></img>
+                </div>
+                <p>Concerter</p>
+            </div>
+            <div class="search-bar col-sm-7">
+                <div class="row">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for..." aria-label="Search for..."></input>
+                        <span class="input-group-btn">
+                        <button class="btn btn-secondary" type="button">Go!</button>
+                    </span>
+                    </div>
+                </div>
+            </div>
+            <div class="registration col-sm-3">
+                <div class="row justify-content-center">
+                    <a href="#" class="btn btn-primary btn-lg active login-button registration-button">Log In</a>
+                    <a href="#" class="btn btn-secondary btn-lg active signup-button registration-button">Sign Up</a>
+                </div>
+            </div>
         </div>
-      </li>
-      
-    
-    <form class="form-inline my-2 my-lg-0" th:Action="@{/basic-search}" th:object="${search}" method="post">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" th:field="*{searchKey}"></input>
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-    <li class="nav-item">
-      	<a class="nav-link" href="/logout">Logout</a>
-      	
-      </li>
-      
-  	</ul>
-  </div>
-</nav>
-<div class="row">
-<div class="col-6 offset-3">
-<div class="card border-success">
-  <img class="card-img-top" src="/1.jpg" alt="Card image cap"></img>
-  <div class="card-body">
-    <p class="card-title" href="/concert/1" th:text="${concert.name}"></p>
-    <a href="#" class="btn btn-success">Attending</a>
-    <a href="#" class="btn btn-warning">Maybe</a>
-    <hr />
+    </div>
+</header>
+<body>
+<div class="container-fluid">
     <div class="row">
-    <div class="col-4">
-    <p><b>Artist : </b> <span th:text="${concert.artist.name}"></span></p>
-    <p><b>Created By :</b> <span th:text="${concert.created_by.name}"></span></p>
-    </div>
-    <div class="col-4">
-    <p><b>Location : </b> <span th:text="${concert.location.city}"></span> </p>
-    <p><b>Date :</b> 29/10/2017</p>
-    <p><b>Time :</b> 18:00 </p>
-    </div>
-    <div class="col-4">
-    <p><b>Min Price : </b> <span th:text="${concert.min_price}"></span></p>
-    <p> <b>Max Price : </b> <span th:text="${concert.max_price}"></span></p>
-    <p><b>Rate : </b> <span th:text="${concert.rate}"></span></p>
-    </div>
-    </div>
-    <hr />
-    <div class="media comment">
+        <div class="col-sm-2 side-menu" >
+            <ul class="list-group ">
+           </ul>
+        </div>
+        <!--
+            Home Page Main Concert Listing Section
+        -->
+        <div class="col concert-listing">
+            <div class="concert-listing-dropdown-button">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Popular Concerts
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Nearest Concerts</a>
+                        <a class="dropdown-item" href="#">Popular Concerts</a>
+                        <a class="dropdown-item" href="#">What I May Like</a>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row" >
+                    <div class="concert-listing-container col-12">
+                        <!--Bu id taginin içine bi id gerçekten atılsa süper olur -->
+                        <div class="card current-concert" >
+                            <!-- Hata alırsanız yukarıdaki id için benimle iletişime geçin.
+                             Sevgilerimle, Harun :)     -->
+                            <div class="card-header">
+                                <h2 th:text="${concert.name}">
+                                </h2>
+                            </div>
+                            <div class="card-image">
+                                <img class="card-img-top" src="images/rihanna-concert.jpg" alt="Card image cap"></img>
+                            </div>
+                            <div class="card-body">
+                                <div class="clearfix">
+                                    <h4 class="card-title flaot-left" style="display: inline-block" ><span th:text="${concert.artist.name}"></span></h4>
+                                    <div class="concert-location float-right " style="color: grey"><i class="fa fa-map-marker" aria-hidden="true"></i> <span th:text="${concert.location.city}"></span></div>
+                                </div>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <p>
+                                                <i class="fa fa-calendar" aria-hidden="true"></i> 21.06.2019 18:00
+                                            </p>
+                                        </div>
+                                        <div class="col-5">
+                                            <p>
+                                                <i class="fa fa-money" aria-hidden="true"></i><span th:text="${concert.min_price}"></span> - <span th:text="${concert.max_price}"></span>
+                                            </p>
+                                        </div>
+                                        <div class="col-1">
+                                            <p>
+                                                <i class="fa fa-star" aria-hidden="true"></i><span th:text="${concert.rate}"></span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-line">
+                                    <div class="card-inner-line">
+                                    </div>
+                                </div>
+                                <p><b>Hilal</b></p>
+                                <div class="media comment" th:each="comment : ${concert.commentList}">
+								<p><b>Begun</b></p>
+									  <div class="media-body" >
+									    <p th:text="${comment.comment}"></p>
+									    <p th:text="${comment.category}"></p>
+									  </div>
+  								</div>
+                                <div class="create-comment">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-1">
+                                                <!--  <img src="https://scontent-otp1-1.xx.fbcdn.net/v/t1.0-1/p32x32/11998819_10207644722858852_961965001166011171_n.jpg?oh=2ad334cbb8563c259ec13dfb45477ec3&oe=5AA50A53"></img>-->
+                                            </div>
+                                            <div class="col-11">
+                                            <form action="#" th:action="@{/newcomment}" th:object="${newComment}" method="post">
+<div class="media-body">
   
-</div>
+  	<input type="text" placeholder="Comment" th:field="*{comment}"></input>
+  	<input type="hidden" th:value="20" th:id="concert_id" th:name="concert_id"></input>
+ 	<select id="section" name="section" th:field="*{category}">
+        <option selected="selected" value="0">Select your comment category</option>
+                                                            <option value="1" style="background-color: palegreen">Artist</option>
+                                                            <option value="2" style="background-color: navy">Scene</option>
+                                                            <option value="3" style="background-color: pink">Sound</option>
+                                                            <option value="4" style="background-color: hotpink">Audience</option>
+                                                        </select>
+      <input type="hidden"  th:value="${category}" th:id="category" th:name="category"></input>
+  	
   </div>
-</div>
-<hr />
-</div>
+   <div class="form-group">
+          <button class="btn btn-default" id="comment-button"  style="width: 100px">Comment</button>
+   </div>
+  </form>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                             </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-</div>
+        </div>
+        <!--
+            Past Concert Section
+        -->
+        <div class="col-sm-3 past-concert justify-content-center">
+            <a href="#" id="past-concert-title">PAST CONCERTS</a>
+            <div class="card" style="width: 20rem;">
+                <img class="card-img-top" src="images/rihanna-concert.jpg" alt="Card image cap"></img>
+                <div class="card-body">
+                    <h4 class="card-title">Rihanna</h4>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><i class="fa fa-map-marker" aria-hidden="true"></i> Vodafone Arena</li>
+                    <li class="list-group-item"><i class="fa fa-calendar" aria-hidden="true"></i> 21.06.2019 18:00/ Ended</li>
+                    <li class="list-group-item">
+                        <div class="card-detailed-info">
+                            <i class="fa fa-money" aria-hidden="true"></i> 63$
+                        </div>
+                    </li>
+                    <li class="list-group-item"><span class="card-attendees"><i class="fa fa-users" aria-hidden="true"></i> 80126 attendees</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
 </body>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/js/advanced-search.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- Bootstrap Date-Picker Plugin -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 </html>

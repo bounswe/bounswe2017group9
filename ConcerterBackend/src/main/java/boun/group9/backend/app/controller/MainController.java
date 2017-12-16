@@ -13,6 +13,7 @@ import boun.group9.backend.app.data.Attend;
 import boun.group9.backend.app.data.Comments;
 import boun.group9.backend.app.data.Concerts;
 import boun.group9.backend.app.data.Search;
+import boun.group9.backend.app.data.SemanticTag;
 import boun.group9.backend.app.data.Users;
 import boun.group9.backend.app.helper.ConcertOperations;
 
@@ -35,6 +36,8 @@ public class MainController {
 		model.addAttribute("loggedInUser",user);
 		model.addAttribute("search",new Search());
 		model.addAttribute("attend",new Attend());
+		model.addAttribute("tagList",new ArrayList<SemanticTag>());
+		model.addAttribute("semanticTag",new SemanticTag());
 		return "index";
 	}
 }

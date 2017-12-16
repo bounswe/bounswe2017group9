@@ -45,6 +45,8 @@ public class ConcertController {
 	public String concertPage(@PathVariable("concertID") int concertID,Model model,HttpSession session) {
 		Concerts concert = ConcertOperations.getConcert(concertID);
 		model.addAttribute("concert",concert);
+		model.addAttribute("newComment",new Comments());
+		
 		model.addAttribute("search",new Search());
 		model.addAttribute("loggedInUser",(Users)session.getAttribute("loggedInUser"));
 		return "concert";

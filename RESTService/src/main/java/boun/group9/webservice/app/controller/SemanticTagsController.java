@@ -3,17 +3,13 @@ package boun.group9.webservice.app.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;  
@@ -24,9 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
 
 import boun.group9.webservice.app.Application;
 import boun.group9.webservice.app.data.Artists;
@@ -41,7 +35,6 @@ import boun.group9.webservice.exception.InternalServerException;
 import boun.group9.webservice.exception.NotSavedException;
 import boun.group9.webservice.helper.Database;
 import boun.group9.webservice.helper.SemanticTagsChecker;
-import boun.group9.webservice.helper.UserChecker;
 
 
 @RestController
@@ -102,9 +95,10 @@ public class SemanticTagsController {
 			rs = Database.connect(query, Application.MODE_GET);
 			while(rs.next()) {
 				tag = new SemanticTags();
-				tag.setId(rs.getString("id"));
+				tag.setId(rs.getInt("id"));
+				tag.setSemanticTagId(rs.getString("semanticTagId"));
+				tag.setConcert_id(rs.getInt("concert_id"));
 				tag.setLabel(rs.getString("label"));
-				tag.setSearch(rs.getString("search"));
 				tag.setDescription(rs.getString("description"));
 				tagList.add(tag);
 			}
@@ -130,9 +124,10 @@ public class SemanticTagsController {
 			rs = Database.connect(query, Application.MODE_GET);
 			if(rs.next()) {
 				tag = new SemanticTags();
-				tag.setId(rs.getString("id"));
+				tag.setId(rs.getInt("id"));
+				tag.setSemanticTagId(rs.getString("semanticTagId"));
+				tag.setConcert_id(rs.getInt("concert_id"));
 				tag.setLabel(rs.getString("label"));
-				tag.setSearch(rs.getString("search"));
 				tag.setDescription(rs.getString("description"));
 				jsonString = Application.gson.toJson(tag);
 			}
@@ -209,7 +204,7 @@ public class SemanticTagsController {
 		    while (i.hasNext()) {
 		    		JSONObject innerObj = (JSONObject) i.next();
 		    		tag=new SemanticTags();
-		    		tag.setId(innerObj.get("id").toString());
+		    		tag.setSemanticTagId(innerObj.get("id").toString());
 		    		tag.setLabel(innerObj.get("label").toString());
 		    		tag.setSearch(search);
 		    		tag.setDescription(innerObj.get("description").toString());
@@ -231,6 +226,8 @@ public class SemanticTagsController {
 		  }
 		return jsonString;
 	}
+
+
 	@RequestMapping(value="searchbytags/{tagID}",method=RequestMethod.GET)
 	public String searchSemanticTag(@PathVariable(value="tagID") String tagID) {
 		String jsonString="";

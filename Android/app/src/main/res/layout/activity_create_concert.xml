@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.abtasdan.listviewtutorial.activities.CreateConcertActivity">
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Create a Concert"
+            android:textSize="30sp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="     Name     "
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_create_name"
+                android:layout_width="232dp"
+                android:maxWidth="232dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Artist Name"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_create_artist_name"
+                android:layout_width="232dp"
+                android:maxWidth = "232dp"
+                android:layout_height="wrap_content"
+
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="      City        "
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_create_city"
+                android:layout_width="232dp"
+                android:maxWidth = "232dp"
+                android:layout_height="wrap_content"
+
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="    Adress     "
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_create_address"
+                android:layout_width="232dp"
+                android:maxWidth="232dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="      Date       "
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_create_date"
+                android:layout_width="232dp"
+                android:maxWidth="232dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="   Min Price  "
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_create_min_price"
+                android:layout_width="232dp"
+                android:maxWidth="232dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="  Max Price  "
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_create_max_price"
+                android:layout_width="232dp"
+                android:maxWidth="232dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="     Photo     "
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_create_photo"
+                android:layout_width="232dp"
+                android:maxWidth="232dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+
+        <Button
+            android:id="@+id/btn_create_concert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create Concert" />
+    </LinearLayout>
+
+</LinearLayout>

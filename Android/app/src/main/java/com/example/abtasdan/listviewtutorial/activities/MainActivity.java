@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.example.abtasdan.listviewtutorial.R;
 import com.example.abtasdan.listviewtutorial.adapters.ConcertAdapter;
 import com.example.abtasdan.listviewtutorial.modals.Concert;
+import com.example.abtasdan.listviewtutorial.modals.CreateConcertObject;
 import com.example.abtasdan.listviewtutorial.modals.requests.SearchResult;
 import com.example.abtasdan.listviewtutorial.requests.requests.ConcertifyApiRequest;
 import com.example.abtasdan.listviewtutorial.requests.requests.RetrofitHttpClient;
@@ -105,14 +107,21 @@ public class MainActivity extends Activity {
 
     @OnClick(R.id.tv_home)
     public void refresh() {
+
         refreshItems();
     }
 
     private void refreshItems() {
-        int userId = 7;
+        SharedPreferences prefs = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
+        String restoredText = prefs.getString("name", null);
+        int userId = 0;
+        if (restoredText != null) {
+            userId = prefs.getInt("idName", 0); //0 is the default value.
+        }
         concertifyApiRequest.getConcerts(userId, new Callback<ArrayList<Concert>>() {
             @Override
             public void success(ArrayList<Concert> concerts, Response response) {
+
                 ConcertAdapter concertAdapter = new ConcertAdapter(MainActivity.this, concerts, false);
                 lvConcerts.setAdapter(concertAdapter);
             }
@@ -139,7 +148,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void failure(RetrofitError error) {
-
+                Log.e("searchLog",  "failure");
             }
         });
     }
@@ -156,11 +165,13 @@ public class MainActivity extends Activity {
     }
     @OnClick(R.id.tv_profile_main)
     public void onClickProfile(){
+        finish();
         Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
         startActivity(intent);
     }
     @OnClick(R.id.tv_explore_main)
     public void onClickExplore(){
+        finish();
         Intent intent = new Intent(MainActivity.this,RecommendationActivity.class);
         startActivity(intent);
     }
@@ -171,10 +182,15 @@ public class MainActivity extends Activity {
         editor.putString("name",null);
 
         editor.apply();
-
+        finish();
         Intent intent = new Intent(MainActivity.this, UnregisteredMainPageActivity.class);
         startActivity(intent);
-        finish();
 
+
+    }
+    @OnClick(R.id.btn_create)
+    public void onClickCreate(){
+        Intent intent = new Intent(MainActivity.this, CreateConcertActivity.class);
+        startActivity(intent);
     }
 }

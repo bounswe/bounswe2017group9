@@ -3,6 +3,7 @@
     package="com.example.abtasdan.listviewtutorial">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -11,8 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.MainActivity" android:theme="@style/noAnimTheme" />
-        <activity android:name=".activities.LoginActivity"  />
+        <activity
+            android:name=".activities.MainActivity"
+            android:theme="@style/noAnimTheme" />
+        <activity android:name=".activities.LoginActivity" />
         <activity android:name=".activities.SignUpActivity" />
         <activity android:name=".activities.UnregisteredMainPageActivity">
             <intent-filter>
@@ -21,8 +24,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.ProfileActivity" android:theme="@style/noAnimTheme"/>
-        <activity android:name=".activities.RecommendationActivity" android:theme="@style/noAnimTheme"></activity>
+        <activity
+            android:name=".activities.ProfileActivity"
+            android:theme="@style/noAnimTheme" />
+        <activity
+            android:name=".activities.RecommendationActivity"
+            android:theme="@style/noAnimTheme" />
+        <activity android:name=".activities.CreateConcertActivity" />
+        <activity android:name=".activities.ProfileConcertsActivity" />
+        <activity android:name=".activities.ProfileOldConcertsActivity"></activity>
     </application>
 
 </manifest>

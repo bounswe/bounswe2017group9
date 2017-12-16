@@ -102,7 +102,7 @@ public class UnregisteredMainPageActivity extends Activity {
 
 
         concertifyApiRequest = restAdapter.create(ConcertifyApiRequest.class);
-        refreshItems();
+       // refreshItems();
 
     }
 

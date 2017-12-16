@@ -1,9 +1,14 @@
 Manifest-Version: 1.0
 Implementation-Title: ConcerterBackend
+<<<<<<< HEAD:ConcerterBackend/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
 Implementation-Version: 0.1.3
 Built-By: ffguven
+=======
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: HￄﾰLAL DￃﾖNMEZ
+>>>>>>> 1434c9d20ae9dc7ec46828ad0f7a146de5411182:ConcerterBackend/target/classes/META-INF/MANIFEST.MF
 Implementation-Vendor-Id: boun.group9.backend
-Build-Jdk: 1.8.0_151
+Build-Jdk: 1.8.0_131
 Implementation-URL: http://projects.spring.io/spring-boot/ConcerterBac
  kend/
 Created-By: Maven Integration for Eclipse

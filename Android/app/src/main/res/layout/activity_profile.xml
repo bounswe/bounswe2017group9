@@ -12,9 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
-
-
         <LinearLayout
             android:weightSum="4"
 
@@ -35,6 +32,7 @@
                 android:gravity="center"
                 android:layout_weight="1"
                 android:textSize="20sp"
+
                 android:layout_marginTop="5dp"
                 android:text="Profile"
                 android:layout_width="0dp"
@@ -44,28 +42,201 @@
                 android:gravity="center"
                 android:layout_weight="1"
                 android:textSize="20sp"
+
                 android:layout_marginTop="5dp"
                 android:text="Explore"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/tv_logout_profile"
-                android:background="@color/colorAccent"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:textSize="20sp"
                 android:layout_marginTop="5dp"
                 android:text="Logout"
                 android:layout_width="0dp"
+                android:background="@color/colorAccent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
+
         <TextView
+            android:id="@+id/tv_title"
             android:textSize="30sp"
             android:text="Profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="left"
             android:layout_marginLeft="10dp"/>
+        <ImageView
+            android:id="@+id/iv_image"
+            android:layout_gravity="center"
+            android:layout_width="200dp"
+            android:scaleType="centerInside"
+            android:layout_height="200dp"
+            android:layout_weight="5"
+            android:src="@drawable/image_test"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:orientation="vertical"
+                android:layout_marginLeft="5dp">
+             <TextView
+                 android:id="@+id/tv_profile_name"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:lines="1"
+                 android:text="  Valentina Lisitsa"
+                 android:textSize="24sp"
+                 android:layout_gravity="center"
+                 />
+             <TextView
+                 android:id="@+id/tv_profile_email"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:lines="1"
+                 android:text="fatihguven@gmail.com"
+                 android:textSize="18sp"
+                 android:layout_gravity="center"
+                 />
+            <TextView
+                android:id="@+id/tv_last_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:text="29 Kasım 2017"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+               android:weightSum="2"
+                >
+
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="15dp">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@mipmap/ic_launcher"/>
+                    <TextView
+                        android:id="@+id/tv_profile_followings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=" 24 Followings"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="15dp">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@mipmap/ic_launcher"/>
+                    <TextView
+                        android:id="@+id/tv_profile_followers"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=" 35 Followers"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                >
+
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="15dp">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@mipmap/ic_launcher"/>
+                    <TextView
+                        android:id="@+id/tv_profile_attendings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=" Attending Concerts"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="15dp">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@mipmap/ic_launcher"/>
+                    <TextView
+                        android:id="@+id/tv_profile_attended"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=" Attended Concerts"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimaryDark"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"></View>
+
     </LinearLayout>
 
 </LinearLayout>
