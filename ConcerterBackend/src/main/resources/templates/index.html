@@ -77,44 +77,75 @@
     <p><b>Rate : </b> <span th:text="${concert.rate}"></span></p>
     </div>
     </div>
-    
-    <form action="#" th:action="@{/semantic-tag-wiki}">
-<div class="media-body">
+      
+      <hr />
+ 	   <p><b>Tags :</b></p>
+      
+    <div class="media comment" th:each="semanticTag : ${concert.semanticTagList}">
   
-    	
-  </div>
-  <div class="media-body">
-  	<button class="btn btn-outline-success" type="submit">Tag1</button>
-  </div>
-  </form>
-   
-    <!--  
-   <form action="#" th:action="@{/semantictagwiki}" th:object="${semanticTag}">
-<div class="media-body">
+     <div class="media-body" >
+      <p th:text="${semanticTag.label}"></p>
+      	
+ 	</div>
+   </div>
   
-  	<input type="text" placeholder="Tag" th:field="*{search}"></input>
+  <hr/>
+      
+ 	<form class="form-inline my-2 my-lg-0" th:Action="@{/rateConcert}"  method="get"> 
+     <input type="hidden"  th:value="${concert.id}" th:id="concert_id" th:name="concert_id"></input>
+    <input type="text" th:name="rate" th:placeholder="rate" />    
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rate</button>
+    </form>
+ 	
+  <hr />
+  
+  	<form class="form-inline my-2 my-lg-0" th:Action="@{/tags}"  method="get">
+  	  		<input type="search" th:name="search" th:placeholder="tags" />    
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search Tags</button>
+    </form>
+     
+    <div class="media comment" th:each="semanticTag : ${tagList}"  th:if="${tagList.size() != 0}">
+  	<div class="media-body" >
   	
-  </div>
-  <div class="media-body">
-  	<button class="btn btn-outline-success" type="submit">Tag2</button>
-  </div>
-  </form>
-  -->
+  		<hr/>
+  		
+      
+	 	<form class="form-inline my-2 my-lg-0" th:Action="@{/new-tag}"  th:object="${semanticTag}" method="post"> 
+	     <input type="hidden"  th:value="${concert.id}" th:id="concert_id" th:name="concert_id"></input>
+	    <input type="hidden"  th:value="${semanticTag.label}" th:id="label" th:name="label"></input>
+	    <input type="hidden"  th:value="${semanticTag.description}" th:id="description" th:name="description"></input>
+	    <input type="hidden"  th:value="${semanticTag.semanticTagId}" th:id="semanticTagId" th:name="semanticTagId"></input>	    
+	    	
+   			 <p> <b>Label : </b> <span th:text="${semanticTag.label}"></span></p>  
+   			 <p> <b>Description : </b> <span th:text="${semanticTag.description}"></span></p>    	
+	    	<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Add tag</button>
+	    </form>
+ 	
+  		<hr />
+  	 	
+ 	 	</div>
+ 	  </div>
+  
+  <hr/>
+ 
+ 	   
  
     
     
     <hr />
     <div class="media comment" th:each="comment : ${concert.commentList}">
-  <a href="/profile/1"><img class="align-self-center mr-3 commenterPhoto" src="/fatihGuven.jpg" alt="Generic placeholder image"></img></a>
-  <div class="media-body" >
+  <!--<a href="/profile/{userID}(userID=${comment.commented_by})}"><img class="align-self-center mr-3 commenterPhoto" src="${comment.commented_user.photo_path}" alt="Generic placeholder image"></img></a>
+    --> 
+     <a href="/profile/1"><img class="align-self-center mr-3 commenterPhoto" src="/fatihGuven.jpg" alt="Generic placeholder image"></img></a>
+ 
+   <div class="media-body" >
     
    	
-   	
-    <a class="mt-0" href="/profile/1"><b>Fatih Güven</b></a>
+   	<a class="card-title" th:href="@{~/profile/{userID}(userID=${comment.commented_by})}" th:text="${comment.commented_user.name}"></a>
     <p th:text="${comment.comment}"></p>
     
-    <!--  <p th:text="'Execution mode is ' + ( (${comment.category} == '1')? 'Development' : 'Production')"></p>
-    -->
+    
+    
     <a th:href="@{/deleteComment(commentID=${comment.id})}" class="btn btn-danger">Delete</a>  
  	<a th:href="@{/upVote(commentID=${comment.id})}" class="btn btn-danger">UpVote</a>  
  	<a th:href="@{/downVote(commentID=${comment.id})}" class="btn btn-danger">DownVote</a>  
