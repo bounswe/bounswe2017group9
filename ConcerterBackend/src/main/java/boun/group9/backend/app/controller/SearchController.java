@@ -27,6 +27,7 @@ import boun.group9.backend.app.helper.SearchOperations;
 public class SearchController {
 	@RequestMapping(value="basic-search",method=RequestMethod.POST)
 	public String basicSearch(@ModelAttribute Search search,Model model,HttpSession session) {
+		//System.out.println("basic search");
 		SearchResult searchResult = SearchOperations.basicSearchConcert(search.getSearchKey());
 		model.addAttribute("concertList",searchResult.concerts);
 		model.addAttribute("userList",searchResult.users);
@@ -42,6 +43,7 @@ public class SearchController {
 	public String advancedSearch(HttpSession session,Model model) {
 		model.addAttribute("advancedSearch",new AdvancedSearch());
 		model.addAttribute("search",new Search());
+		model.addAttribute("loggedInUser",(Users)session.getAttribute("loggedInUser"));
 		return "advanced-search";
 	}
 	@RequestMapping(value="advanced-search",method=RequestMethod.POST)

@@ -9,15 +9,20 @@ public class SemanticTagsChecker {
 		query+="\""+tag.getSemanticTagId()+"\", ";
 		query+="\""+tag.getConcert_id()+"\", ";
 		query+="\""+tag.getLabel().replaceAll("\"", " ") +"\", ";
+
+		if(tag.getDescription().length()>70){
+			tag.setDescription(tag.getDescription().substring(0,70));
+		}
+
 		query+="\""+tag.getDescription().replaceAll("\"", " ")+"\");";
 		return query;
 	}
-	public static String insertConcertTagsQuery(ConcertTags ctag) {
+	/*public static String insertConcertTagsQuery(ConcertTags ctag) {
 		String query="INSERT INTO ConcertTags(id,tag_id,concert_id,created_at) VALUES (";
 		query+=ctag.getId()+", ";
 		query+="\""+ctag.getTag_id()+"\", ";
 		query+=ctag.getConcert_id()+", ";
 		query+="\""+ctag.getCreated_at()+"\");";
 		return query;
-	}
+	}*/
 }
