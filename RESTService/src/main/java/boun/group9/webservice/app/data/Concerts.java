@@ -18,6 +18,7 @@ public class Concerts {
 	private float rate;
 	private int voter_amount;
 	private String image_path;
+	private String ticket;
 	public Concerts() {
 	
 	}
@@ -107,5 +108,12 @@ public class Concerts {
 	}
 	public void setImage_path(String image_path) {
 		this.image_path = image_path;
+	}
+
+	public String getTicket() {
+		return ticket;
+	}
+	public void setTicket(String ticket){
+		this.ticket=ticket;
 	}
 }
