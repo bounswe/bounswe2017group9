@@ -2,6 +2,7 @@ package boun.group9.webservice.app.controller;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -50,7 +51,9 @@ public class UserController {
 				query = UserChecker.insertUserQuery(user);
 				System.out.println(query);
 				rs = Database.connect(query,Application.MODE_UPDATE);
-				return "OK.";
+				user.setId(Database.last_generated_id);
+				json = Application.gson.toJson(user);
+				return json;
 			}else { // if it's spotify signup
 				user = UserChecker.insertSpotifyUser(user);
 				json = Application.gson.toJson(user);
@@ -176,5 +179,16 @@ public class UserController {
 		
 
 	}
+	@RequestMapping(value="followings/{userID}",method= RequestMethod.GET)
+	public static String getFollowings(@PathVariable(value = "userID") int userID){
+		ArrayList<Users> users  = UserChecker.getFollowings(userID);
+		return Application.gson.toJson(users);
+	}
+	@RequestMapping(value="followers/{userID}",method= RequestMethod.GET)
+	public static String getFollowers(@PathVariable(value = "userID") int userID){
+		ArrayList<Users> users  = UserChecker.getFollowers(userID);
+		return Application.gson.toJson(users);
+	}
+
 
 }

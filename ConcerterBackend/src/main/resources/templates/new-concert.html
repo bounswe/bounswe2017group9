@@ -3,7 +3,7 @@
 <head>
 	<title>ConcerterBackend Test</title>
 	<meta http-equiv="Content-Type" content="text/html;" charset="UTF-8" />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"></link>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" ></link>
 	<link rel="stylesheet" href="/css/style.css"></link>
 </head>
 <body>
@@ -41,43 +41,43 @@
   <div class="form-group row">
     <label for="Name" class="col-sm-2 col-form-label">Name</label>
     <div class="col-sm-10 input-group">
-      <input type="text" class="form-control" id="Name" placeholder="Name" th:field="*{name}"> </input>
+      <input type="text" class="form-control" id="Name" placeholder="Name" th:field="*{name}"></input>
     </div>
   </div>
   <div class="form-group row">
     <label for="inputEmail3" class="col-sm-2 col-form-label">Artist</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="Artist" placeholder="Artist" th:field="*{artist_name}"> </input>
+      <input type="text" class="form-control" id="Artist" placeholder="Artist" th:field="*{artist_name}"></input>
     </div>
   </div>
   <div class="form-group row">
     <label for="inputEmail3" class="col-sm-2 col-form-label">Location</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="Location" placeholder="Location" th:field="*{location_name}"> </input>
+      <input type="text" class="form-control" id="Location" placeholder="Location" th:field="*{location_name}"></input>
     </div>
   </div>
   <div class="form-group row">
     <label for="inputEmail3" class="col-sm-2 col-form-label">Date</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="Date" placeholder="Date" th:field="*{date_str}"> </input>
+      <input type="text" class="form-control" id="Date" placeholder="Date" th:field="*{date_str}"></input>
     </div>
   </div>
   <div class="form-group row">
     <label for="inputEmail3" class="col-sm-2 col-form-label">Time</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="Time" placeholder="Time" th:field="*{time_str}"> </input>
+      <input type="text" class="form-control" id="Time" placeholder="Time" th:field="*{time_str}"></input>
     </div>
   </div>
   <div class="form-group row">
     <label for="inputEmail3" class="col-sm-2 col-form-label">Min Price</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="MinPrice" placeholder="Min Price" th:field="*{min_price}"> </input>
+      <input type="text" class="form-control" id="MinPrice" placeholder="Min Price" th:field="*{min_price}"></input>
     </div>
   </div>
   <div class="form-group row">
     <label for="inputEmail3" class="col-sm-2 col-form-label">Max Price</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="MaxPrice" placeholder="Max Price" th:field="*{max_price}"> </input>
+      <input type="text" class="form-control" id="MaxPrice" placeholder="Max Price" th:field="*{max_price}"></input>
     </div>
   </div>
   <div class="form-group row">
@@ -85,18 +85,24 @@
   <div class="col-sm-10">
   	<input type="text" class="form-control" id="poster" th:field="*{image_path}"></input>
   </div>
+  </div>
+  <div class="form-group row">
+  <label for="exampleFormControlFile1" class="col-sm-2 col-form-label">Ticket</label>
+  <div class="col-sm-10">
+  	<input type="text" class="form-control" id="ticket" th:field="*{ticket}"></input>
+  </div>
     
   </div>
   <div class="form-group row">
     <div class="col-sm-4 offset-4">
-      <button type="text" class="btn btn-primary">Create</button>
+      <button type="submit" class="btn btn-primary">Create</button>
     </div>
   </div>
 </form>
 	</div>
 </div>
 </body>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" ></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" ></script>
 </html>

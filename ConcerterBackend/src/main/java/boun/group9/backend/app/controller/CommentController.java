@@ -28,21 +28,7 @@ public class CommentController {
 		
 		return model;
 	}
-	/* harunun denemesi icin
-	@RequestMapping(value="/newcomment",method=RequestMethod.POST)
-	public ModelAndView createCommentGet(@ModelAttribute Comments newComment, HttpSession session) {
-		ModelAndView model=new ModelAndView("redirect:/concert/20");
-		//Users loggedInUser = (Users)session.getAttribute("loggedInUser");
-		newComment.setCommented_by(51);
-		newComment.setConcert_id(20);
-		Application.STATUS status = CommentOperations.createCommentwithCategory(newComment);
-		if(status==Application.STATUS.ERROR) {
-			return new ModelAndView("redirect:/error");
-		}
-		
-		return model;
-	}
-	*/	
+	
 	@RequestMapping(value = "/deleteComment", method=RequestMethod.GET)
     public ModelAndView deleteComment( @RequestParam(name="commentID") String commentID , HttpSession session){
     	Users user = (Users)session.getAttribute("loggedInUser");
