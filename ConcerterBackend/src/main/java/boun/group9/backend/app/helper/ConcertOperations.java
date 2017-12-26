@@ -38,6 +38,7 @@ public class ConcertOperations {
 			resultJson = br.readLine();
 			resultList = new ArrayList<Concerts>(Arrays.asList(Application.gson.fromJson(resultJson, Concerts[].class)));
 			for(Concerts oneConcert : resultList) {
+				oneConcert.parseDate(oneConcert.getDate_time());
 				ArrayList<Comments> commentList;
 				Comments comment;
 				url = new URL(Application.API_ENDPOINT+"/concerts/"+oneConcert.getId()+"/comments");
@@ -84,6 +85,7 @@ public class ConcertOperations {
 			resultJson = br.readLine();
 			resultList = new ArrayList<Concerts>(Arrays.asList(Application.gson.fromJson(resultJson, Concerts[].class)));
 			for(Concerts oneConcert : resultList) {
+				oneConcert.parseDate(oneConcert.getDate_time());
 				ArrayList<Comments> commentList;
 				Comments comment;
 				url = new URL(Application.API_ENDPOINT+"/concerts/"+oneConcert.getId()+"/comments");
@@ -130,6 +132,7 @@ public class ConcertOperations {
 			resultJson = br.readLine();
 			resultList = new ArrayList<Concerts>(Arrays.asList(Application.gson.fromJson(resultJson, Concerts[].class)));
 			for(Concerts oneConcert : resultList) {
+				oneConcert.parseDate(oneConcert.getDate_time());
 				ArrayList<Comments> commentList;
 				Comments comment;
 				url = new URL(Application.API_ENDPOINT+"/concerts/"+oneConcert.getId()+"/comments");
@@ -177,6 +180,7 @@ public class ConcertOperations {
 			resultJson = br.readLine();
 			resultList = new ArrayList<Concerts>(Arrays.asList(Application.gson.fromJson(resultJson, Concerts[].class)));
 			for(Concerts oneConcert : resultList) {
+				oneConcert.parseDate(oneConcert.getDate_time());
 				ArrayList<Comments> commentList;
 				Comments comment;
 				url = new URL(Application.API_ENDPOINT+"/concerts/"+oneConcert.getId()+"/comments");
@@ -221,7 +225,7 @@ public class ConcertOperations {
 			BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			resultJson = br.readLine();
 			Concerts concert=Application.gson.fromJson(resultJson, Concerts.class);
-			
+			concert.parseDate(concert.getDate_time());
 
 			ArrayList<Concerts> similarConcerts;
 			url = new URL(Application.API_ENDPOINT+"/semantic-search/"+concertID);
@@ -257,7 +261,7 @@ public class ConcertOperations {
 			resultList = new ArrayList<Concerts>(Arrays.asList(Application.gson.fromJson(resultJson, Concerts[].class)));
 			//System.out.println(resultList.get(0).getDate_time());
 			for(Concerts oneConcert : resultList) {
-				oneConcert.setDate_str(oneConcert.getDate_time().toString());
+				oneConcert.parseDate(oneConcert.getDate_time());
 				ArrayList<Comments> commentList;
 				Comments comment;
 				url = new URL(Application.API_ENDPOINT+"/concerts/"+oneConcert.getId()+"/comments");
