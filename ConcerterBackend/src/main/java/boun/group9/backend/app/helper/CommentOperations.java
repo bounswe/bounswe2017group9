@@ -91,7 +91,7 @@ public class CommentOperations {
 			try {
 				URL url = new URL(Application.API_ENDPOINT+ "/"+ userID + "/comments/" + commentID + "/deleteComment");
 				HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-				connection.setRequestMethod("GET");
+				connection.setRequestMethod("DELETE");
 				connection.setDoOutput(true);
 				connection.setRequestProperty("Content-Type", "application/json");
 				connection.connect();

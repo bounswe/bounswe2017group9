@@ -12,7 +12,6 @@ public class AdvancedSearch {
 	private int max_price;
 	private String artist_name;
 	private String location_name;
-	
 	private Date start_date;
 	private Date end_date;
 	public String getName() {

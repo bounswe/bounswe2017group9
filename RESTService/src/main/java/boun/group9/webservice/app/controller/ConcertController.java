@@ -53,8 +53,8 @@ public class ConcertController {
 	@RequestMapping(value="concerts/{concertID}",method=RequestMethod.GET)
 	public static String getConcert(@PathVariable(value="concertID") int concertID) {
 		String jsonString="";
-		String query = "SELECT Concerts.id AS Concerts_id, Concerts.name AS Concerts_name, Concerts.date_time AS Concerts_date_time, Concerts.min_price, Concerts.max_price, Concerts.rate AS Concerts_rate, Concerts.voter_amount as Concerts_voter_amount, Concerts.image_path AS Concerts_image_path, Users.id AS Users_id, Users.name AS Users_name, Users.email AS Users_email, Users.followers AS Users_followers, Users.followings AS Users_followings, Users.photo_path AS Users_photo_path, Users.created_at AS Users_created_at, Users.updated_at AS Users_updated_at, Users.last_login AS Users_last_login, Artists.id AS Artists_id, Artists.name AS Artists_name, Locations.id AS Locations_id, Locations.longitude AS Locations_longitude,Locations.latitude AS Locations_latitude, Locations.city AS Locations_city, Locations.address as Locations_address FROM Concerts INNER JOIN Users ON Concerts.created_by = Users.id INNER JOIN Artists ON Concerts.artist = Artists.id INNER JOIN Locations ON Concerts.location = Locations.id WHERE Concerts.id="+concertID+";";
-		System.out.println(query);
+		String query = "SELECT Concerts.ticket AS Concerts_ticket,Concerts.id AS Concerts_id, Concerts.name AS Concerts_name, Concerts.date_time AS Concerts_date_time, Concerts.min_price, Concerts.max_price, Concerts.rate AS Concerts_rate, Concerts.voter_amount as Concerts_voter_amount, Concerts.image_path AS Concerts_image_path, Users.id AS Users_id, Users.name AS Users_name, Users.email AS Users_email, Users.followers AS Users_followers, Users.followings AS Users_followings, Users.photo_path AS Users_photo_path, Users.created_at AS Users_created_at, Users.updated_at AS Users_updated_at, Users.last_login AS Users_last_login, Artists.id AS Artists_id, Artists.name AS Artists_name, Locations.id AS Locations_id, Locations.longitude AS Locations_longitude,Locations.latitude AS Locations_latitude, Locations.city AS Locations_city, Locations.address as Locations_address FROM Concerts INNER JOIN Users ON Concerts.created_by = Users.id INNER JOIN Artists ON Concerts.artist = Artists.id INNER JOIN Locations ON Concerts.location = Locations.id WHERE Concerts.id="+concertID+";";
+		//System.out.println(query);
 		ResultSet rs;
 		Concerts concert;
 		Users user;
@@ -67,6 +67,7 @@ public class ConcertController {
 				user = new Users();
 				artist = new Artists();
 				location = new Locations();
+				concert.setTicket(rs.getString("Concerts_ticket"));
 				concert.setId(rs.getInt("Concerts_id"));
 				concert.setName(rs.getString("Concerts_name"));
 				concert.setMin_price(rs.getInt("min_price"));
@@ -95,8 +96,7 @@ public class ConcertController {
 				location.setAddress(rs.getString("Locations_address"));
 				concert.setLocation(location);
 				jsonString = Application.gson.toJson(concert,Concerts.class);
-				System.out.println(jsonString);
-				System.out.println(jsonString);
+				//System.out.println(jsonString);
 				return jsonString;
 			}
 		}catch(SQLException ex) {
@@ -117,21 +117,21 @@ public class ConcertController {
 		System.out.println(user_id);
 		if(user_id != null) {
 			if(status == null) { //get created concerts 
-				query = "SELECT Concerts.id AS Concerts_id, Concerts.name AS Concerts_name, Concerts.date_time AS Concerts_date_time, Concerts.min_price, Concerts.max_price, Concerts.rate AS Concerts_rate, Concerts.voter_amount as Concerts_voter_amount, Concerts.image_path AS Concerts_image_path, Users.id AS Users_id, Users.name AS Users_name, Users.email AS Users_email, Users.followers AS Users_followers, Users.followings AS Users_followings, Users.photo_path AS Users_photo_path, Users.created_at AS Users_created_at, Users.updated_at AS Users_updated_at, Users.last_login AS Users_last_login, Artists.id AS Artists_id, Artists.name AS Artists_name, Locations.id AS Locations_id, Locations.longitude AS Locations_longitude,Locations.latitude AS Locations_latitude, Locations.city AS Locations_city, Locations.address as Locations_address FROM Concerts INNER JOIN Users ON Concerts.created_by = Users.id INNER JOIN Artists ON Concerts.artist = Artists.id INNER JOIN Locations ON Concerts.location = Locations.id WHERE Concerts.created_by="+user_id+";";
+				query = "SELECT Concerts.ticket AS Concerts_ticket,Concerts.id AS Concerts_id, Concerts.name AS Concerts_name, Concerts.date_time AS Concerts_date_time, Concerts.min_price, Concerts.max_price, Concerts.rate AS Concerts_rate, Concerts.voter_amount as Concerts_voter_amount, Concerts.image_path AS Concerts_image_path, Users.id AS Users_id, Users.name AS Users_name, Users.email AS Users_email, Users.followers AS Users_followers, Users.followings AS Users_followings, Users.photo_path AS Users_photo_path, Users.created_at AS Users_created_at, Users.updated_at AS Users_updated_at, Users.last_login AS Users_last_login, Artists.id AS Artists_id, Artists.name AS Artists_name, Locations.id AS Locations_id, Locations.longitude AS Locations_longitude,Locations.latitude AS Locations_latitude, Locations.city AS Locations_city, Locations.address as Locations_address FROM Concerts INNER JOIN Users ON Concerts.created_by = Users.id INNER JOIN Artists ON Concerts.artist = Artists.id INNER JOIN Locations ON Concerts.location = Locations.id WHERE Concerts.created_by="+user_id+";";
 			}
 			else if(status.equals("attended")) {
-				query = "SELECT Concerts.id AS Concerts_id, Concerts.name AS Concerts_name, Concerts.date_time AS Concerts_date_time, Concerts.min_price, Concerts.max_price, Concerts.rate AS Concerts_rate, Concerts.voter_amount as Concerts_voter_amount, Concerts.image_path AS Concerts_image_path, Users.id AS Users_id, Users.name AS Users_name, Users.email AS Users_email, Users.followers AS Users_followers, Users.followings AS Users_followings, Users.photo_path AS Users_photo_path, Users.created_at AS Users_created_at, Users.updated_at AS Users_updated_at, Users.last_login AS Users_last_login, Artists.id AS Artists_id, Artists.name AS Artists_name, Locations.id AS Locations_id, Locations.longitude AS Locations_longitude,Locations.latitude AS Locations_latitude, Locations.city AS Locations_city, Locations.address as Locations_address FROM Attendees INNER JOIN Concerts ON Attendees.concert_id = Concerts.id INNER JOIN Users ON Attendees.user_id = Users.id INNER JOIN Artists ON Concerts.artist = Artists.id INNER JOIN Locations ON Concerts.location = Locations.id WHERE Attendees.user_id="+user_id+" AND Attendees.status =2;";
+				query = "SELECT Concerts.ticket AS Concerts_ticket,Concerts.id AS Concerts_id, Concerts.name AS Concerts_name, Concerts.date_time AS Concerts_date_time, Concerts.min_price, Concerts.max_price, Concerts.rate AS Concerts_rate, Concerts.voter_amount as Concerts_voter_amount, Concerts.image_path AS Concerts_image_path, Users.id AS Users_id, Users.name AS Users_name, Users.email AS Users_email, Users.followers AS Users_followers, Users.followings AS Users_followings, Users.photo_path AS Users_photo_path, Users.created_at AS Users_created_at, Users.updated_at AS Users_updated_at, Users.last_login AS Users_last_login, Artists.id AS Artists_id, Artists.name AS Artists_name, Locations.id AS Locations_id, Locations.longitude AS Locations_longitude,Locations.latitude AS Locations_latitude, Locations.city AS Locations_city, Locations.address as Locations_address FROM Attendees INNER JOIN Concerts ON Attendees.concert_id = Concerts.id INNER JOIN Users ON Attendees.user_id = Users.id INNER JOIN Artists ON Concerts.artist = Artists.id INNER JOIN Locations ON Concerts.location = Locations.id WHERE Attendees.user_id="+user_id+" AND Attendees.status =2;";
 			}else if(status.equals("attending")) {
-				query = "SELECT Concerts.id AS Concerts_id, Concerts.name AS Concerts_name, Concerts.date_time AS Concerts_date_time, Concerts.min_price, Concerts.max_price, Concerts.rate AS Concerts_rate, Concerts.voter_amount as Concerts_voter_amount, Concerts.image_path AS Concerts_image_path, Users.id AS Users_id, Users.name AS Users_name, Users.email AS Users_email, Users.followers AS Users_followers, Users.followings AS Users_followings, Users.photo_path AS Users_photo_path, Users.created_at AS Users_created_at, Users.updated_at AS Users_updated_at, Users.last_login AS Users_last_login, Artists.id AS Artists_id, Artists.name AS Artists_name, Locations.id AS Locations_id, Locations.longitude AS Locations_longitude,Locations.latitude AS Locations_latitude, Locations.city AS Locations_city, Locations.address as Locations_address FROM Attendees INNER JOIN Concerts ON Attendees.concert_id = Concerts.id INNER JOIN Users ON Attendees.user_id = Users.id INNER JOIN Artists ON Concerts.artist = Artists.id INNER JOIN Locations ON Concerts.location = Locations.id WHERE Attendees.user_id="+user_id+" AND Attendees.status =1;";
+				query = "SELECT Concerts.ticket AS Concerts_ticket,Concerts.id AS Concerts_id, Concerts.name AS Concerts_name, Concerts.date_time AS Concerts_date_time, Concerts.min_price, Concerts.max_price, Concerts.rate AS Concerts_rate, Concerts.voter_amount as Concerts_voter_amount, Concerts.image_path AS Concerts_image_path, Users.id AS Users_id, Users.name AS Users_name, Users.email AS Users_email, Users.followers AS Users_followers, Users.followings AS Users_followings, Users.photo_path AS Users_photo_path, Users.created_at AS Users_created_at, Users.updated_at AS Users_updated_at, Users.last_login AS Users_last_login, Artists.id AS Artists_id, Artists.name AS Artists_name, Locations.id AS Locations_id, Locations.longitude AS Locations_longitude,Locations.latitude AS Locations_latitude, Locations.city AS Locations_city, Locations.address as Locations_address FROM Attendees INNER JOIN Concerts ON Attendees.concert_id = Concerts.id INNER JOIN Users ON Attendees.user_id = Users.id INNER JOIN Artists ON Concerts.artist = Artists.id INNER JOIN Locations ON Concerts.location = Locations.id WHERE Attendees.user_id="+user_id+" AND Attendees.status =1;";
 			}else {
-				query = "SELECT Concerts.id AS Concerts_id, Concerts.name AS Concerts_name, Concerts.date_time AS Concerts_date_time, Concerts.min_price, Concerts.max_price, Concerts.rate AS Concerts_rate, Concerts.voter_amount as Concerts_voter_amount, Concerts.image_path AS Concerts_image_path, Users.id AS Users_id, Users.name AS Users_name, Users.email AS Users_email, Users.followers AS Users_followers, Users.followings AS Users_followings, Users.photo_path AS Users_photo_path, Users.created_at AS Users_created_at, Users.updated_at AS Users_updated_at, Users.last_login AS Users_last_login, Artists.id AS Artists_id, Artists.name AS Artists_name, Locations.id AS Locations_id, Locations.longitude AS Locations_longitude,Locations.latitude AS Locations_latitude, Locations.city AS Locations_city, Locations.address as Locations_address FROM Attendees INNER JOIN Concerts ON Attendees.concert_id = Concerts.id INNER JOIN Users ON Attendees.user_id = Users.id INNER JOIN Artists ON Concerts.artist = Artists.id INNER JOIN Locations ON Concerts.location = Locations.id WHERE Attendees.user_id="+user_id+" AND Attendees.status =3;";
+				query = "SELECT Concerts.ticket AS Concerts_ticket,Concerts.id AS Concerts_id, Concerts.name AS Concerts_name, Concerts.date_time AS Concerts_date_time, Concerts.min_price, Concerts.max_price, Concerts.rate AS Concerts_rate, Concerts.voter_amount as Concerts_voter_amount, Concerts.image_path AS Concerts_image_path, Users.id AS Users_id, Users.name AS Users_name, Users.email AS Users_email, Users.followers AS Users_followers, Users.followings AS Users_followings, Users.photo_path AS Users_photo_path, Users.created_at AS Users_created_at, Users.updated_at AS Users_updated_at, Users.last_login AS Users_last_login, Artists.id AS Artists_id, Artists.name AS Artists_name, Locations.id AS Locations_id, Locations.longitude AS Locations_longitude,Locations.latitude AS Locations_latitude, Locations.city AS Locations_city, Locations.address as Locations_address FROM Attendees INNER JOIN Concerts ON Attendees.concert_id = Concerts.id INNER JOIN Users ON Attendees.user_id = Users.id INNER JOIN Artists ON Concerts.artist = Artists.id INNER JOIN Locations ON Concerts.location = Locations.id WHERE Attendees.user_id="+user_id+" AND Attendees.status =3;";
 			}
 			
 		}else { //get all concerts
-			query = "SELECT Concerts.id AS Concerts_id, Concerts.name AS Concerts_name, Concerts.date_time AS Concerts_date_time, Concerts.min_price, Concerts.max_price, Concerts.rate AS Concerts_rate, Concerts.voter_amount as Concerts_voter_amount, Concerts.image_path AS Concerts_image_path, Users.id AS Users_id, Users.name AS Users_name, Users.email AS Users_email, Users.followers AS Users_followers, Users.followings AS Users_followings, Users.photo_path AS Users_photo_path, Users.created_at AS Users_created_at, Users.updated_at AS Users_updated_at, Users.last_login AS Users_last_login, Artists.id AS Artists_id, Artists.name AS Artists_name, Locations.id AS Locations_id, Locations.longitude AS Locations_longitude,Locations.latitude AS Locations_latitude, Locations.city AS Locations_city, Locations.address as Locations_address FROM Concerts INNER JOIN Users ON Concerts.created_by = Users.id INNER JOIN Artists ON Concerts.artist = Artists.id INNER JOIN Locations ON Concerts.location = Locations.id;";
+			query = "SELECT Concerts.ticket AS Concerts_ticket,Concerts.id AS Concerts_id, Concerts.name AS Concerts_name, Concerts.date_time AS Concerts_date_time, Concerts.min_price, Concerts.max_price, Concerts.rate AS Concerts_rate, Concerts.voter_amount as Concerts_voter_amount, Concerts.image_path AS Concerts_image_path, Users.id AS Users_id, Users.name AS Users_name, Users.email AS Users_email, Users.followers AS Users_followers, Users.followings AS Users_followings, Users.photo_path AS Users_photo_path, Users.created_at AS Users_created_at, Users.updated_at AS Users_updated_at, Users.last_login AS Users_last_login, Artists.id AS Artists_id, Artists.name AS Artists_name, Locations.id AS Locations_id, Locations.longitude AS Locations_longitude,Locations.latitude AS Locations_latitude, Locations.city AS Locations_city, Locations.address as Locations_address FROM Concerts INNER JOIN Users ON Concerts.created_by = Users.id INNER JOIN Artists ON Concerts.artist = Artists.id INNER JOIN Locations ON Concerts.location = Locations.id;";
 		}
 		
-		System.out.println(query);
+		//System.out.println(query);
 		ResultSet rs;
 		Concerts concert;
 		ArrayList<Concerts> concertList = new ArrayList<Concerts>();
@@ -145,6 +145,8 @@ public class ConcertController {
 				user = new Users();
 				artist = new Artists();
 				location = new Locations();
+
+				concert.setTicket(rs.getString("Concerts_ticket"));
 				concert.setId(rs.getInt("Concerts_id"));
 				concert.setName(rs.getString("Concerts_name"));
 				concert.setMin_price(rs.getInt("min_price"));
@@ -232,7 +234,102 @@ public class ConcertController {
 	}
 	@RequestMapping(value="concert/{concertID}/attendee/{userID}",method=RequestMethod.POST)
 	public String attendConcert(@PathVariable int concertID, @PathVariable int userID) {
-		ConcertChecker.attend(concertID,userID);
-		return "OK.";
+		String query=ConcertChecker.attend(concertID,userID);
+		try{
+			Database.connect(query, Application.MODE_UPDATE);
+			return "OK";
+		}catch(SQLException ex) {
+			ex.printStackTrace();
+			return "SQL Error occured.";
+		}catch(NotSavedException ex) {
+			ex.printStackTrace();
+			return "Not saved.";
+		}
+
+	}
+
+	@RequestMapping(value = "concert/{concert_id}/{current_rate}" , method = RequestMethod.POST)
+	public String postConcertRate(@PathVariable(value = "concert_id") int concert_id , @PathVariable(value = "current_rate") int current_rate){
+		String rateNumberQuery = ConcertChecker.updateRateNumber(concert_id);
+		String postRatequery = ConcertChecker.postConcertRate(concert_id, current_rate);
+
+		//System.out.println(rateNumberQuery);
+		//System.out.println(postRatequery);
+
+		try{
+			Database.connect(rateNumberQuery, Application.MODE_UPDATE);
+			Database.connect(postRatequery, Application.MODE_UPDATE);
+		}catch(SQLException ex) {
+			System.out.println("SQL Exception occured");
+			ex.printStackTrace();
+			return "SQL Error occured.";
+		}catch(NotSavedException ex) {
+			ex.printStackTrace();
+			return "Not saved.";
+		}
+		return "Saved.";
+	}
+	@RequestMapping(value="active-concerts",method=RequestMethod.GET)
+	public static String allActiveConcerts() {
+		String jsonString="";
+		String query;
+		query = "SELECT Concerts.ticket AS Concerts_ticket,Concerts.id AS Concerts_id, Concerts.name AS Concerts_name, Concerts.date_time AS Concerts_date_time, Concerts.min_price, Concerts.max_price, Concerts.rate AS Concerts_rate, Concerts.voter_amount as Concerts_voter_amount, Concerts.image_path AS Concerts_image_path, Users.id AS Users_id, Users.name AS Users_name, Users.email AS Users_email, Users.followers AS Users_followers, Users.followings AS Users_followings, Users.photo_path AS Users_photo_path, Users.created_at AS Users_created_at, Users.updated_at AS Users_updated_at, Users.last_login AS Users_last_login, Artists.id AS Artists_id, Artists.name AS Artists_name, Locations.id AS Locations_id, Locations.longitude AS Locations_longitude,Locations.latitude AS Locations_latitude, Locations.city AS Locations_city, Locations.address as Locations_address FROM Concerts INNER JOIN Users ON Concerts.created_by = Users.id INNER JOIN Artists ON Concerts.artist = Artists.id INNER JOIN Locations ON Concerts.location = Locations.id WHERE Concerts.date_time>CURDATE();";
+		ResultSet rs;
+		Concerts concert;
+		ArrayList<Concerts> concertList = new ArrayList<Concerts>();
+		Users user;
+		Artists artist;
+		Locations location;
+		try {
+			rs = Database.connect(query, Application.MODE_GET);
+			while(rs.next()) {
+				concert = new Concerts();
+				user = new Users();
+				artist = new Artists();
+				location = new Locations();
+
+				concert.setTicket(rs.getString("Concerts_ticket"));
+				concert.setId(rs.getInt("Concerts_id"));
+				concert.setName(rs.getString("Concerts_name"));
+				concert.setMin_price(rs.getInt("min_price"));
+				concert.setMax_price(rs.getInt("max_price"));
+				concert.setRate(rs.getFloat("Concerts_rate"));
+				concert.setVoter_amount(rs.getInt("Concerts_voter_amount"));
+				concert.setImage_path(rs.getString("Concerts_image_path"));
+				concert.setDate_time(rs.getTimestamp("Concerts_date_time"));
+				user.setId(rs.getInt("Users_id"));
+				user.setName(rs.getString("Users_name"));
+				user.setEmail(rs.getString("Users_email"));
+				user.setFollowers(rs.getInt("Users_followers"));
+				user.setFollowings(rs.getInt("Users_followings"));
+				user.setPhoto_path(rs.getString("Users_photo_path"));
+				user.setCreated_at(rs.getTimestamp("Users_created_at"));
+				user.setUpdated_at(rs.getTimestamp("Users_updated_at"));
+				user.setLast_login(rs.getTimestamp("Users_last_login"));
+				concert.setCreated_by(user);
+				artist.setId(rs.getInt("Artists_id"));
+				artist.setName(rs.getString("Artists_name"));
+				concert.setArtist(artist);
+				location.setId(rs.getInt("Locations_id"));
+				location.setLatitude(rs.getDouble("Locations_latitude"));
+				location.setLongitude(rs.getDouble("Locations_longitude"));
+				location.setCity(rs.getString("Locations_city"));
+				location.setAddress(rs.getString("Locations_address"));
+				concert.setLocation(location);
+				concertList.add(concert);
+			}
+			jsonString = Application.gson.toJson(concertList);
+		}catch(SQLException ex) {
+			System.out.println("SQL Exception occured");
+			ex.printStackTrace();
+			return "SQL Error occured.";
+		}catch(NotSavedException ex) {
+			ex.printStackTrace();
+			return "Not saved.";
+		}
+
+
+
+		return jsonString;
 	}
 }

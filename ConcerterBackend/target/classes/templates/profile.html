@@ -3,7 +3,7 @@
 <head>
 	<title>ConcerterBackend Test</title>
 	<meta http-equiv="Content-Type" content="text/html;" charset="UTF-8" />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"></link>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" ></link>
 	<link rel="stylesheet" href="/css/style1.css"></link>
 </head>
 <body>
@@ -69,6 +69,52 @@
   					<a th:href="${'/profile/'+user.id+'/thinking'}" class="btn btn-info">Thinking Concerts</a>
   					<a th:href="${'/profile/'+user.id+'/attended'}" class="btn btn-info">Attended Concerts</a>
 				</div>
+				
+				<hr/>
+					<form class="form-inline my-2 my-lg-0" th:Action="@{/search-interests}"  method="get">
+			  	  		<input type="search" th:name="search" th:placeholder="interest" />    
+			          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search Interest</button>
+			    </form>
+				
+				<hr />
+				
+				
+				<hr />
+ 	   				<p><b>Musical Interests :</b></p>
+      
+    				<div class="media comment" th:each="musicalInterests : ${user.musical_interests}">
+  
+	  						<div class="profile-usertitle">
+							<div class="profile-usertitle-name" >
+								<span th:text="${musicalInterests.label}"></span>
+								<a th:href="@{/deleteInterest(interestID=${musicalInterests.id})}" class="btn btn-danger">Delete</a>  
+ 	
+							</div>
+							</div>
+				     
+   					</div>
+  
+ 			 <hr/>
+ 			 
+ 			 <hr/>  
+ 			       <p> <b>Size : </b> <span th:text="${interestSearchList.size()}"></span></p>  
+   			
+ 	<div class="media comment" th:each="musical_interest : ${interestSearchList}"  th:if="${interestSearchList.size() != 0}">
+  	<div class="media-body" >
+  	       
+ 			       
+		 	<form class="form-inline my-2 my-lg-0" th:Action="@{/new-musical-interests}"  th:object="${musical_interest}" method="post"> 
+			     <input type="hidden"  th:value="${user.id}" th:id="user_id" th:name="user_id"></input>
+			     <input type="hidden"  th:value="${musical_interest.label}"  th:name="label"></input>
+			    <input type="hidden"  th:value="${musical_interest.musicalInterestId}" th:id="musicalInterestId" th:name="musicalInterestId"></input>	    
+			    	<p> <b>Label : </b> <span th:text="${musical_interest.label}"></span></p>  
+   			
+			    	<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Add Interest</button>
+			</form>
+				
+		</div>
+	</div>			
+  			<hr />
 
 				<!-- END MENU -->
 			</div>
@@ -88,10 +134,14 @@
     <div class="col-4">
     <p><b>Artist : </b> <span th:text="${concert.artist.name}"></span></p>
     <p><b>Created By :</b> <span th:text="${concert.created_by.name}"></span> </p>
+    <a th:href="${concert.ticket}">Ticket</a>
+  
     </div>
     <div class="col-4">
     <p><b>Location : </b> <span th:text="${concert.location.city}"> </span></p>
     <p><b>Date :</b> <span th:text="${concert.date_str}"></span></p>
+    <p><b>Time :</b> <span th:text="${concert.time_str}"></span> </p>
+    
     </div>
     <div class="col-4">
     <p><b>Min Price : </b> <span th:text="${concert.min_price}"></span></p>
@@ -121,7 +171,7 @@
 </div>
 
 </body>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" ></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" ></script>
 </html>

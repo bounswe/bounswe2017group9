@@ -2,7 +2,10 @@ package boun.group9.webservice.app.controller;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import boun.group9.webservice.app.data.MusicalInterests;
+import boun.group9.webservice.helper.MusicalInterestChecker;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -50,7 +53,9 @@ public class UserController {
 				query = UserChecker.insertUserQuery(user);
 				System.out.println(query);
 				rs = Database.connect(query,Application.MODE_UPDATE);
-				return "OK.";
+				user.setId(Database.last_generated_id);
+				json = Application.gson.toJson(user);
+				return json;
 			}else { // if it's spotify signup
 				user = UserChecker.insertSpotifyUser(user);
 				json = Application.gson.toJson(user);
@@ -99,10 +104,8 @@ public class UserController {
 		}catch(NotSavedException ex) {
 			throw new InternalServerException();
 		}
-				finally {
-			Database.closeConnection();
-		}
-		
+
+
 	}
 	// bu userID birini follow etti
 	@RequestMapping(value="follow/{userID}")
@@ -176,5 +179,8 @@ public class UserController {
 		
 
 	}
+
+
+
 
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import boun.group9.backend.app.Application;
@@ -92,4 +93,24 @@ public class ConcertController {
 			return new ModelAndView("redirect:/error");
 		}
 	}
+	
+	
+	@RequestMapping(value = "/rateConcert", method=RequestMethod.GET)
+    public ModelAndView RateForConcert( @RequestParam(name="concert_id") String concertID ,@RequestParam(name="rate") String rate,  HttpSession session){
+		Users user = (Users)session.getAttribute("loggedInUser");
+    	int userID = user.getId(); 	
+    	int concertid=Integer.parseInt(concertID);
+    	int rate_=Integer.parseInt(rate);
+		status= ConcertOperations.submitRateForConcert(concertid, rate_);
+        System.out.println(status);
+        if(status == Application.STATUS.SUCCESS){
+        	return new ModelAndView("redirect:/index");
+        }else{
+            return new ModelAndView("redirect:/error");
+        }
+
+    }
+	
+	
+	
 }

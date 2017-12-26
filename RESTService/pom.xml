@@ -2,15 +2,24 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>boun.group9.webservice</groupId>
   <artifactId>RESTService</artifactId>
-  <version>0.3.0</version>
+  <version>0.2.2</version>
   <packaging>war</packaging>
   <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.5.8.RELEASE</version>
     </parent>
+
+
     
     <dependencies>
+        <dependency>
+            <groupId>org.nd4j</groupId>
+            <artifactId>nd4j-backends</artifactId>
+            <version>0.9.1</version>
+            <type>pom</type>
+        </dependency>
+
     <dependency>
          <groupId>com.amazonaws</groupId>
          <artifactId>aws-java-sdk-bom</artifactId>
