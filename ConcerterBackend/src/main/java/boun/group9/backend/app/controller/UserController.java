@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import boun.group9.backend.app.data.Concerts;
+import boun.group9.backend.app.data.MusicalInterests;
 import boun.group9.backend.app.data.SpotifyTokenBody;
 import boun.group9.backend.app.data.Spotify_user;
 import boun.group9.backend.app.data.Users;
@@ -135,8 +136,11 @@ public class UserController {
 	@RequestMapping("/profile/{userID}")
 	public String profilePage(@PathVariable("userID") int userID,Model model) {
 		Users user = UserOperations.getUser(userID);
-		System.out.println(user.getName());
+		//System.out.println(user.getName());
 		model.addAttribute("user",user);
+		System.out.println(user.getName()+" Profile");
+		model.addAttribute("musical_interest",new MusicalInterests());
+		//model.addAttribute("interestSearchList",new ArrayList<>());
 		return "profile";
 	}
 	@RequestMapping("/me")

@@ -17,13 +17,7 @@ public class ConcertChecker {
 	}
 	public static String attend(int concertID,int userID) {
 		String query = "INSERT INTO Attendees (concert_id,status,user_id) VALUES("+concertID+",1,"+userID+");";
-		try {
-			Database.connect(query, Application.MODE_UPDATE);
-			return "OK.";
-		}catch(Exception ex) {
-			ex.printStackTrace();
-			return "error";
-		}
+		return query;
 	}
 	public static String postConcertRate(int concert_id , int current_rate){
 		return "Update concerts Set concerts.rate = Truncate ((" + current_rate + " + concerts.rate * (concerts.voter_amount-1))/concerts.voter_amount , 2) where concerts.id = "+concert_id + ";";
@@ -32,4 +26,6 @@ public class ConcertChecker {
 	public static String updateRateNumber(int concert_id){
 		return "Update concerts Set concerts.voter_amount = concerts.voter_amount + 1 where concerts.id = "+ concert_id +";";
 	}
+
+
 }

@@ -2,7 +2,10 @@ package boun.group9.webservice.app.controller;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import boun.group9.webservice.app.data.MusicalInterests;
+import boun.group9.webservice.helper.MusicalInterestChecker;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -101,10 +104,8 @@ public class UserController {
 		}catch(NotSavedException ex) {
 			throw new InternalServerException();
 		}
-				finally {
-			Database.closeConnection();
-		}
-		
+
+
 	}
 	// bu userID birini follow etti
 	@RequestMapping(value="follow/{userID}")
@@ -178,5 +179,8 @@ public class UserController {
 		
 
 	}
+
+
+
 
 }

@@ -1,6 +1,7 @@
 package boun.group9.backend.app.data;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Users {
@@ -17,9 +18,18 @@ public class Users {
 	private Date last_login;
 	private String username;
 	private String spotify_id;
+	public ArrayList<MusicalInterests> musical_interests;
 	public Users() {
 		
 	}
+	
+	public ArrayList<MusicalInterests> getMusicalInterestList(){
+		return this.musical_interests;
+	}
+	public void setMusicalInterestList(ArrayList<MusicalInterests> interests) {
+		this.musical_interests = interests;
+	}
+	
 	
 	public Users(Spotify_user spotifyUser) {
 		this.name = spotifyUser.getDisplay_name();

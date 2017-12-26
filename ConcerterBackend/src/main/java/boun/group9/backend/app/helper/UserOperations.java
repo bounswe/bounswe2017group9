@@ -2,6 +2,8 @@ package boun.group9.backend.app.helper;
 
 import boun.group9.backend.app.Application;
 import boun.group9.backend.app.data.Concerts;
+import boun.group9.backend.app.data.MusicalInterests;
+import boun.group9.backend.app.data.SemanticTag;
 import boun.group9.backend.app.data.Users;
 
 import boun.group9.backend.app.Application.STATUS;
@@ -13,11 +15,14 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class UserOperations {
 	
 	public static Users getUser(int userID) {
 			String resultJson="";
+			Users user;
 			try {
 				URL url = new URL(Application.API_ENDPOINT+"/user/"+userID);
 				HttpURLConnection connection =(HttpURLConnection) url.openConnection();
@@ -27,7 +32,22 @@ public class UserOperations {
 				BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 				resultJson = br.readLine();
 				System.out.println(resultJson);
-				return Application.gson.fromJson(resultJson, Users.class);
+				user=Application.gson.fromJson(resultJson, Users.class);
+				
+				ArrayList<MusicalInterests> musical_interests;
+				url = new URL(Application.API_ENDPOINT+"/user/"+userID+"/musical-interests");
+				connection = (HttpURLConnection) url.openConnection();
+				connection.setRequestMethod("GET");
+				connection.setDoInput(true);
+				connection.connect();
+				br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+				resultJson = br.readLine();
+				musical_interests = new ArrayList<MusicalInterests> (Arrays.asList(Application.gson.fromJson(resultJson, MusicalInterests[].class)));
+				user.setMusicalInterestList(musical_interests);
+				
+				
+				
+				return user;
 			}catch(MalformedURLException ex) {
 				ex.printStackTrace();
 			}catch(IOException ex) {
@@ -97,5 +117,7 @@ public class UserOperations {
 		}
 		return user;
 	}
+	
+	
 
 }

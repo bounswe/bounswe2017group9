@@ -144,6 +144,18 @@ CREATE TABLE `SemanticTags` (
 
 
 
+
+DROP TABLE IF EXISTS `MusicalInterests`;
+CREATE TABLE `MusicalInterests` (
+`id` int NOT NULL AUTO_INCREMENT,
+ `label` varchar(100) DEFAULT NULL,  
+ `user_id` int(11) NOT NULL,
+ `musicalInterestId` varchar(100) DEFAULT NULL,
+ PRIMARY KEY (id));
+
+
+
+
 --
 -- Table structure for table `Concerts`
 --

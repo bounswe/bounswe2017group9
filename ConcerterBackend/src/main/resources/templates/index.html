@@ -136,10 +136,8 @@
     
     <hr />
     <div class="media comment" th:each="comment : ${concert.commentList}">
-  <!--<a href="/profile/{userID}(userID=${comment.commented_by})}"><img class="align-self-center mr-3 commenterPhoto" src="${comment.commented_user.photo_path}" alt="Generic placeholder image"></img></a>
-    --> 
-     <a href="/profile/1"><img class="align-self-center mr-3 commenterPhoto" src="/fatihGuven.jpg" alt="Generic placeholder image"></img></a>
- 
+  <a href="/profile/{userID}(userID=${comment.commented_by})}"><img class="align-self-center mr-3 commenterPhoto" th:src="${comment.commented_user.photo_path}" alt="Generic placeholder image"></img></a>
+  
    <div class="media-body" >
     
    	

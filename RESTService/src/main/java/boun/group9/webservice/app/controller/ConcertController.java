@@ -234,8 +234,18 @@ public class ConcertController {
 	}
 	@RequestMapping(value="concert/{concertID}/attendee/{userID}",method=RequestMethod.POST)
 	public String attendConcert(@PathVariable int concertID, @PathVariable int userID) {
-		ConcertChecker.attend(concertID,userID);
-		return "OK.";
+		String query=ConcertChecker.attend(concertID,userID);
+		try{
+			Database.connect(query, Application.MODE_UPDATE);
+			return "OK";
+		}catch(SQLException ex) {
+			ex.printStackTrace();
+			return "SQL Error occured.";
+		}catch(NotSavedException ex) {
+			ex.printStackTrace();
+			return "Not saved.";
+		}
+
 	}
 
 	@RequestMapping(value = "concert/{concert_id}/{current_rate}" , method = RequestMethod.POST)

@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+import boun.group9.webservice.helper.WikiDataUtility;
 import com.sun.xml.internal.bind.v2.util.QNameMap;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;  
@@ -121,36 +122,14 @@ public class SemanticTagsController {
 		return jsonString;
 	}
 
+	@SuppressWarnings("TryWithIdenticalCatches")
 	@RequestMapping(value="searchWikidata/{search}",method=RequestMethod.GET)
 	public String getSementicTagsFromWikidata(@PathVariable(value="search") String search) {
 		String jsonString="";
 		ArrayList<SemanticTags> tagList = new ArrayList<SemanticTags>();
 		SemanticTags tag;
 		try {
-
-			URL url = new URL("https://www.wikidata.org/w/api.php?action=wbsearchentities&search="+search+"&language=en&format=json");
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setRequestMethod("GET");
-			conn.setRequestProperty("Accept", "application/json");
-
-			if (conn.getResponseCode() != 200) {
-				throw new RuntimeException("Failed : HTTP error code : "
-						+ conn.getResponseCode());
-			}
-
-			BufferedReader br = new BufferedReader(new InputStreamReader(
-				(conn.getInputStream())));
-
-			String output="";
-			String line;
-			while ((line = br.readLine()) != null) {
-				output += line;
-			}
-			Object obj=JSONValue.parse(output);  
-		    JSONObject jsonObject = (JSONObject) obj;  
-		    
-		    jsonString =  jsonObject.get("search").toString(); 
-		    JSONArray result= (JSONArray) jsonObject.get("search");
+			JSONArray result= WikiDataUtility.searchData(search);
 		    Iterator i = result.iterator();
 		    while (i.hasNext()) {
 		    		JSONObject innerObj = (JSONObject) i.next();
@@ -160,11 +139,10 @@ public class SemanticTagsController {
 		    		tag.setSearch(search);
 		    		tag.setDescription(innerObj.get("description").toString());
 		    		tagList.add(tag);
-		    	    
-		    	    }
+
+			}
 
 		    jsonString = Application.gson.toJson(tagList);
-			conn.disconnect();
 
 		  } catch (MalformedURLException e) {
 

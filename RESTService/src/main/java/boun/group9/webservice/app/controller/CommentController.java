@@ -14,22 +14,6 @@ import boun.group9.webservice.helper.Database;
 @RestController
 public class CommentController {
 
-	//fatihin yazdıgı bu doctada bu var
-	@RequestMapping(value="comments",method=RequestMethod.POST)
-	public String createComment(@RequestBody String body) {
-		String query = CommentChecker.insertCommentQuery(body);
-		try {
-			Database.connect(query, Application.MODE_UPDATE);
-			return "Saved.";
-		}catch(SQLException ex) {
-			ex.printStackTrace();
-			return "SQL error occured.";
-		}catch(NotSavedException ex) {
-			ex.printStackTrace();
-			return "Not saved.";
-		}
-	}
-
 	@RequestMapping(value="newcomment",method=RequestMethod.POST)
 	public String createCommentwithCategory(@RequestBody String body) {
 		String query = CommentChecker.insertCommentQuerywithCategory(body);
@@ -48,7 +32,7 @@ public class CommentController {
 
 
 
-	@RequestMapping(value="{userID}/comments/{commentID}/deleteComment",method=RequestMethod.GET)
+	@RequestMapping(value="{userID}/comments/{commentID}/deleteComment",method=RequestMethod.DELETE)
 	public String deleteComment(@PathVariable(value="commentID") int commentID , @PathVariable(value = "userID") int userID){
 		String query = CommentChecker.deleteComment(commentID, userID);
 		try {
