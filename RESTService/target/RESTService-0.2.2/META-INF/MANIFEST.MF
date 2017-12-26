@@ -1,8 +1,0 @@
-Manifest-Version: 1.0
-Implementation-Version: 0.2.2
-Built-By: HİLAL DÖNMEZ
-Implementation-Vendor-Id: boun.group9.webservice
-Created-By: IntelliJ IDEA
-Build-Jdk: 1.8.0_131
-Main-Class: ${start-class}
-

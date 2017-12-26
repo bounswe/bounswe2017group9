@@ -54,6 +54,7 @@ public class UserController {
 				System.out.println(query);
 				rs = Database.connect(query,Application.MODE_UPDATE);
 				user.setId(Database.last_generated_id);
+				Database.closeConnection();
 				json = Application.gson.toJson(user);
 				return json;
 			}else { // if it's spotify signup
@@ -93,8 +94,10 @@ public class UserController {
 				user.setCreated_at(rs.getTimestamp("created_at"));
 				user.setLast_login(rs.getTimestamp("last_login"));
 				user.setUpdated_at(rs.getTimestamp("updated_at"));
+				Database.closeConnection();
 				return Application.gson.toJson(user);
 			}else {
+				Database.closeConnection();
 				throw new UserNotFoundException();
 			}
 		}catch(JsonSyntaxException ex) {
@@ -114,6 +117,7 @@ public class UserController {
 		try {
 			System.out.println(query);
 			Database.connect(query, Application.MODE_UPDATE);
+			Database.closeConnection();
 			return "Following count is increased.";
 		}catch(SQLException ex) {
 			ex.printStackTrace();
@@ -130,6 +134,7 @@ public class UserController {
 		try {
 			System.out.println(query);
 			Database.connect(query, Application.MODE_UPDATE);
+			Database.closeConnection();
 			return "Following count is decreased.";
 		}catch(SQLException ex) {
 			ex.printStackTrace();
@@ -146,6 +151,7 @@ public class UserController {
 		try {
 			System.out.println(query);
 			Database.connect(query, Application.MODE_UPDATE);
+			Database.closeConnection();
 			return "Followers count is increased.";
 		}catch(SQLException ex) {
 			ex.printStackTrace();
@@ -162,6 +168,7 @@ public class UserController {
 		try {
 			System.out.println(query);
 			Database.connect(query, Application.MODE_UPDATE);
+			Database.closeConnection();
 			return "Followers count is decreased.";
 		}catch(SQLException ex) {
 			ex.printStackTrace();

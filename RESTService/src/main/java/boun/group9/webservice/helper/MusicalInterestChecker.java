@@ -42,6 +42,7 @@ public class MusicalInterestChecker {
             ex.printStackTrace();
             return null;
         }
+        Database.closeConnection();
         return result;
     }
 

@@ -20,16 +20,19 @@ public class UserChecker {
 				user.setEmail(rs.getString("email"));
 				user.setSpotify_id(rs.getString("spotify_id"));
 				user.setPhoto_path(rs.getString("photo_path"));
+				Database.closeConnection();
 				return user;
 			}else {
 				query = "INSERT INTO Users (name,email,photo_path,spotify_id,created_at,updated_at,last_login) VALUES('"+user.getName()+"','"+user.getEmail()+"','"+user.getPhoto_path()+"','"+user.getSpotify_id()+"','"+currentTime+"','"+currentTime+"','"+currentTime+"');";
 				rs = Database.connect(query, Application.MODE_UPDATE);
+				Database.closeConnection();
 				System.out.println(query);
 				query = "SELECT * FROM Users WHERE spotify_id="+user.getSpotify_id()+";";
 				rs = Database.connect(query, Application.MODE_GET);
 				if(rs.next()) { 
 					user.setId(rs.getInt("id"));
 				}
+				Database.closeConnection();
 				return user;
 			}
 		}catch(Exception ex) {

@@ -20,6 +20,7 @@ public class CommentController {
 		System.out.println(query);
 		try {
 			Database.connect(query, Application.MODE_UPDATE);
+			Database.closeConnection();
 			return "Saved.";
 		}catch(SQLException ex) {
 			ex.printStackTrace();
@@ -38,6 +39,7 @@ public class CommentController {
 		try {
 			System.out.println(query);
 			Database.connect(query, Application.MODE_UPDATE);
+			Database.closeConnection();
 			return "Deleted.";
 		}catch(SQLException ex) {
 			ex.printStackTrace();
@@ -54,6 +56,7 @@ public class CommentController {
 
 		try {
 			Database.connect(query, Application.MODE_UPDATE);
+			Database.closeConnection();
 			return "Updated.";
 		}catch(SQLException ex) {
 			ex.printStackTrace();
@@ -71,6 +74,7 @@ public class CommentController {
 
 		try {
 			Database.connect(query, Application.MODE_UPDATE);
+			Database.closeConnection();
 			return "Updated.";
 		}catch(SQLException ex) {
 			ex.printStackTrace();

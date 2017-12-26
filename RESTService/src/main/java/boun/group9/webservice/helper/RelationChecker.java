@@ -8,6 +8,7 @@ public class RelationChecker {
 	   String query = "INSERT INTO Relations (follower_id,following_id) VALUES ("+follower+","+following+");";
 	   try {
 		   Database.connect(query, Application.MODE_UPDATE);
+		   Database.closeConnection();
 	   }catch(Exception ex) {
 		   ex.printStackTrace();
 	   }
@@ -18,6 +19,7 @@ public class RelationChecker {
 	   System.out.println(query);
 	   try {
 		   Database.connect(query, Application.MODE_UPDATE);
+		   Database.closeConnection();
 	   }catch(Exception ex) {
 		   ex.printStackTrace();
 	   }

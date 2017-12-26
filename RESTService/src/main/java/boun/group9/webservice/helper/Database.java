@@ -5,7 +5,7 @@ import boun.group9.webservice.app.Application;
 import boun.group9.webservice.exception.NotSavedException;
 public class Database {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	public static String DB_URL = "jdbc:mysql://localhost:3306/concerter_db";
+	public static String DB_URL = "jdbc:mysql://localhost:3306/concerter_db?autoReconnect=true&useSSL=false";
 	//public static String DB_URL= "jdbc:mysql://concerter.csosuob9ic2u.eu-central-1.rds.amazonaws.com:3306/concerter_db?autoReconnect=true&useSSL=false";
 	static Connection conn;
 	static Statement stmt;

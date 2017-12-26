@@ -40,6 +40,7 @@ public class SearchChecker {
     	}catch(Exception ex) {
     		ex.printStackTrace();
     	}
+    	Database.closeConnection();
     	return result;
     }
     public static ArrayList<Concerts> searchConcerts(String searchKey){

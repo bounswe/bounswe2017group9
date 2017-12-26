@@ -66,6 +66,7 @@ public class MusicalInterestsController {
             query= MusicalInterestChecker.insertMusicalInterestsQuery(interest);
             System.out.println(query);
             Database.connect(query, Application.MODE_UPDATE);
+            Database.closeConnection();
             return "Saved.";
         }catch(SQLException ex) {
             ex.printStackTrace();
@@ -95,6 +96,7 @@ public class MusicalInterestsController {
         try {
             System.out.println(query);
             Database.connect(query, Application.MODE_UPDATE);
+            Database.closeConnection();
             return "Deleted.";
         }catch(SQLException ex) {
             ex.printStackTrace();

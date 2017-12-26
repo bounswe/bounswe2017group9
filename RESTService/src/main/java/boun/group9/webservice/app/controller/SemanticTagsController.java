@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.util.*;
 
 import boun.group9.webservice.helper.WikiDataUtility;
-import com.sun.xml.internal.bind.v2.util.QNameMap;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;  
 import org.json.simple.JSONValue;  
@@ -50,6 +49,7 @@ public class SemanticTagsController {
 			query = SemanticTagsChecker.insertSemanticTagsQuery(tag);
 			System.out.println(query);
 			rs = Database.connect(query,Application.MODE_UPDATE);
+			Database.closeConnection();
 			return "OK.";
 		}catch(JsonSyntaxException ex) {
 			ex.printStackTrace();
@@ -91,6 +91,7 @@ public class SemanticTagsController {
 			ex.printStackTrace();
 			return "Not saved.";
 		}
+		Database.closeConnection();
 		return jsonString;
 	}
 	@RequestMapping(value="semantictags/{tagID}",method=RequestMethod.GET)
@@ -119,6 +120,7 @@ public class SemanticTagsController {
 			ex.printStackTrace();
 			return "Not saved.";
 		}
+		Database.closeConnection();
 		return jsonString;
 	}
 
@@ -214,6 +216,7 @@ public class SemanticTagsController {
 			ex.printStackTrace();
 			return "Not saved.";
 		}
+		Database.closeConnection();
 		return jsonString;
 	}
 
@@ -302,6 +305,7 @@ public class SemanticTagsController {
 			ex.printStackTrace();
 			return "Not saved.";
 		}
+		Database.closeConnection();
 		return jsonString;
 	}
 

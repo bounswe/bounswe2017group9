@@ -97,7 +97,7 @@ public class ConcertController {
 				concert.setLocation(location);
 				jsonString = Application.gson.toJson(concert,Concerts.class);
 				//System.out.println(jsonString);
-				return jsonString;
+				
 			}
 		}catch(SQLException ex) {
 			System.out.println("SQL Exception occured");
@@ -107,6 +107,7 @@ public class ConcertController {
 			ex.printStackTrace();
 			return "Not saved.";
 		}
+		Database.closeConnection();
 		return jsonString;
 	}
 	
@@ -185,6 +186,7 @@ public class ConcertController {
 			ex.printStackTrace();
 			return "Not saved.";
 		}
+		Database.closeConnection();
 		return jsonString;
 	}
 	@RequestMapping(value="concerts",method=RequestMethod.POST)
@@ -201,6 +203,7 @@ public class ConcertController {
 		try {
 				
 				Database.connect(artistQuery, Application.MODE_UPDATE);
+				
 				/*
 				rs = Database.connect("SELECT LAST_INSERT_ID();", Application.MODE_GET);
 				if(rs.next()) {
@@ -208,8 +211,10 @@ public class ConcertController {
 				}
 				*/
 				artist_id = Database.last_generated_id;
+				Database.closeConnection();
 				Database.connect(locationQuery, Application.MODE_UPDATE);
 				location_id = Database.last_generated_id;
+				Database.closeConnection();
 				/*
 				rs = Database.connect("SELECT LAST_INSERT_ID();", Application.MODE_GET);
 				if(rs.next()) {
@@ -223,6 +228,7 @@ public class ConcertController {
 				concertQuery = ConcertChecker.insertConcertQuery(concert);
 				System.out.println(concertQuery);
 				Database.connect(concertQuery, Application.MODE_UPDATE);
+				Database.closeConnection();
 		}catch(SQLException ex) {
 			ex.printStackTrace();
 			return "SQL Error occured.";
@@ -237,6 +243,7 @@ public class ConcertController {
 		String query=ConcertChecker.attend(concertID,userID);
 		try{
 			Database.connect(query, Application.MODE_UPDATE);
+			Database.closeConnection();
 			return "OK";
 		}catch(SQLException ex) {
 			ex.printStackTrace();
@@ -258,7 +265,9 @@ public class ConcertController {
 
 		try{
 			Database.connect(rateNumberQuery, Application.MODE_UPDATE);
+			Database.closeConnection();
 			Database.connect(postRatequery, Application.MODE_UPDATE);
+			Database.closeConnection();
 		}catch(SQLException ex) {
 			System.out.println("SQL Exception occured");
 			ex.printStackTrace();
@@ -319,6 +328,7 @@ public class ConcertController {
 				concertList.add(concert);
 			}
 			jsonString = Application.gson.toJson(concertList);
+			Database.closeConnection();
 		}catch(SQLException ex) {
 			System.out.println("SQL Exception occured");
 			ex.printStackTrace();

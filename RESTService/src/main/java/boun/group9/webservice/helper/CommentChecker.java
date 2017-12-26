@@ -63,6 +63,7 @@ public class CommentChecker {
 			ex.printStackTrace();
 			return null;
 		}
+		Database.closeConnection();
 		return result;
 	}
 

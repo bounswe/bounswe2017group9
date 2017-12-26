@@ -105,6 +105,7 @@ public class RecommendationsController {
 			json=Application.gson.toJson(resultList);
 		}catch(java.lang.NullPointerException ex){}
 		//json = new ObjectMapper().writeValueAsString(n);
+		Database.closeConnection();
 		return json;
 	}
 	@RequestMapping(value="recommendations2/{userID}",method=RequestMethod.GET)
@@ -134,6 +135,7 @@ public class RecommendationsController {
 					
 				}
 			}
+			Database.closeConnection();
 			for(String tag:tags.keySet()) {
 				query="SELECT ConcertTags.concert_id As concert_id FROM ConcertTags INNER JOIN Concerts ON Concerts.id=ConcertTags.concert_id WHERE tag_id=\""+tag+"\" AND Concerts.date_time > now();";
 				rs3 = Database.connect(query, Application.MODE_GET);
@@ -147,6 +149,7 @@ public class RecommendationsController {
 					recommendations.put(concert_id,score);
 				}
 			}
+			Database.closeConnection();
 		}catch(SQLException ex) {
 			System.out.println("SQL Exception occured");
 			ex.printStackTrace();
