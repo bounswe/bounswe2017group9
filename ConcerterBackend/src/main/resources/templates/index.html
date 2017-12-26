@@ -66,12 +66,13 @@
     <div class="col-4">
     <p><b>Artist : </b> <span th:text="${concert.artist.name}"></span></p>
     <p><b>Created By :</b> <span th:text="${concert.created_by.name}"></span> </p>
+    <a th:href="${concert.ticket}">Ticket</a>
+  
     </div>
     <div class="col-4">
     <p><b>Location : </b> <span th:text="${concert.location.city}"> </span></p>
     <p><b>Date :</b><span th:text="${concert.date_str}"></span></p>
-	<a th:href="${concert.ticket}">Ticket</a>
-  
+	<p><b>Time :</b><span th:text="${concert.time_str}"></span></p>
     </div>
     <div class="col-4">
     <p><b>Min Price : </b> <span th:text="${concert.min_price}"></span></p>
