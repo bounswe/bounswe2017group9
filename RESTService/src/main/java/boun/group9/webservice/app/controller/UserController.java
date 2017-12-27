@@ -4,8 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import boun.group9.webservice.app.data.MusicalInterests;
-import boun.group9.webservice.helper.MusicalInterestChecker;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -54,7 +52,6 @@ public class UserController {
 				System.out.println(query);
 				rs = Database.connect(query,Application.MODE_UPDATE);
 				user.setId(Database.last_generated_id);
-				Database.closeConnection();
 				json = Application.gson.toJson(user);
 				return json;
 			}else { // if it's spotify signup
@@ -94,10 +91,8 @@ public class UserController {
 				user.setCreated_at(rs.getTimestamp("created_at"));
 				user.setLast_login(rs.getTimestamp("last_login"));
 				user.setUpdated_at(rs.getTimestamp("updated_at"));
-				Database.closeConnection();
 				return Application.gson.toJson(user);
 			}else {
-				Database.closeConnection();
 				throw new UserNotFoundException();
 			}
 		}catch(JsonSyntaxException ex) {
@@ -107,8 +102,10 @@ public class UserController {
 		}catch(NotSavedException ex) {
 			throw new InternalServerException();
 		}
-
-
+				finally {
+			Database.closeConnection();
+		}
+		
 	}
 	// bu userID birini follow etti
 	@RequestMapping(value="follow/{userID}")
@@ -117,7 +114,6 @@ public class UserController {
 		try {
 			System.out.println(query);
 			Database.connect(query, Application.MODE_UPDATE);
-			Database.closeConnection();
 			return "Following count is increased.";
 		}catch(SQLException ex) {
 			ex.printStackTrace();
@@ -134,7 +130,6 @@ public class UserController {
 		try {
 			System.out.println(query);
 			Database.connect(query, Application.MODE_UPDATE);
-			Database.closeConnection();
 			return "Following count is decreased.";
 		}catch(SQLException ex) {
 			ex.printStackTrace();
@@ -151,7 +146,6 @@ public class UserController {
 		try {
 			System.out.println(query);
 			Database.connect(query, Application.MODE_UPDATE);
-			Database.closeConnection();
 			return "Followers count is increased.";
 		}catch(SQLException ex) {
 			ex.printStackTrace();
@@ -168,7 +162,6 @@ public class UserController {
 		try {
 			System.out.println(query);
 			Database.connect(query, Application.MODE_UPDATE);
-			Database.closeConnection();
 			return "Followers count is decreased.";
 		}catch(SQLException ex) {
 			ex.printStackTrace();
@@ -186,8 +179,16 @@ public class UserController {
 		
 
 	}
-
-
+	@RequestMapping(value="followings/{userID}",method= RequestMethod.GET)
+	public static String getFollowings(@PathVariable(value = "userID") int userID){
+		ArrayList<Users> users  = UserChecker.getFollowings(userID);
+		return Application.gson.toJson(users);
+	}
+	@RequestMapping(value="followers/{userID}",method= RequestMethod.GET)
+	public static String getFollowers(@PathVariable(value = "userID") int userID){
+		ArrayList<Users> users  = UserChecker.getFollowers(userID);
+		return Application.gson.toJson(users);
+	}
 
 
 }
