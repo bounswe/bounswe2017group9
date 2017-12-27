@@ -178,6 +178,8 @@ public class ConcertController {
 				concert.setLocation(location);
 				concertList.add(concert);
 			}
+			concertList=ConcertChecker.sortByDate(concertList);
+			
 			jsonString = Application.gson.toJson(concertList);
 		}catch(SQLException ex) {
 			System.out.println("SQL Exception occured");
@@ -329,6 +331,8 @@ public class ConcertController {
 				concert.setLocation(location);
 				concertList.add(concert);
 			}
+			concertList=ConcertChecker.sortByDate(concertList);
+			
 			jsonString = Application.gson.toJson(concertList);
 		}catch(SQLException ex) {
 			System.out.println("SQL Exception occured");

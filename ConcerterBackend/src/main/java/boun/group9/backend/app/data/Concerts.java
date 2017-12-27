@@ -188,4 +188,10 @@ public class Concerts {
 	public void setLat(String lat) {
 		this.lat = lat;
 	}
+
+	public  void parseDate(Date date){
+        String[] strn=date.toString().split(" ");
+        setDate_str(strn[2]+" "+strn[1]+" "+strn[5]+" "+strn[0]);
+        setTime_str(strn[3]);
+	}
 }

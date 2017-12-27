@@ -3,6 +3,9 @@ package boun.group9.webservice.helper;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import java.util.Collections;
+import java.util.Comparator;
+
 import boun.group9.webservice.app.Application;
 import boun.group9.webservice.app.data.Concerts;
 
@@ -23,9 +26,7 @@ public class ConcertChecker {
 		return "Update concerts Set concerts.rate = Truncate ((" + current_rate + " + concerts.rate * (concerts.voter_amount-1))/concerts.voter_amount , 2) where concerts.id = "+concert_id + ";";
 	}
 
-	public static String updateRateNumber(int concert_id){
-		return "Update concerts Set concerts.voter_amount = concerts.voter_amount + 1 where concerts.id = "+ concert_id +";";
-	}
+	
 
 	//concerts that the user attended is considered.
 	public static String postRate(int userID , int concert_id , int current_rate){
@@ -36,6 +37,9 @@ public class ConcertChecker {
 				"WHERE concerts.id = " + concert_id + " and attendees.user_id = " + userID + " and attendees.status = 2;";
 	}
 
+	public static String updateRateNumber(int concert_id){
+		return "Update concerts Set concerts.voter_amount = concerts.voter_amount + 1 where concerts.id = "+ concert_id +";";
+	}
 	//concerts that the user attended is considered.
 	public static String updateRateNum(int concert_id){
 		return "Update concerts Set concerts.voter_amount = concerts.voter_amount + 1 where concerts.id = "+ concert_id +";";
@@ -68,6 +72,20 @@ public class ConcertChecker {
 				"AS Locations_city, Locations.address as Locations_address FROM Concerts INNER JOIN Users ON " +
 				"Concerts.created_by = Users.id INNER JOIN Artists ON Concerts.artist = Artists.id INNER JOIN " +
 				"Locations ON Concerts.location = Locations.id WHERE concerts.date_time < now();";
+	}
+
+
+	public static ArrayList<Concerts> sortByDate(ArrayList<Concerts> concertList){
+		Collections.sort(concertList, new Comparator<Concerts>() {
+			public int compare(Concerts o1, Concerts o2) {
+				if (o1.getDate_time() == null || o2.getDate_time() == null)
+					return 0;
+				return o1.getDate_time().compareTo(o2.getDate_time());
+			}
+		});
+
+		Collections.sort(concertList, Collections.reverseOrder());
+		return concertList;
 	}
 
 }
