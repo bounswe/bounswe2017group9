@@ -27,5 +27,17 @@ public class ConcertChecker {
 		return "Update concerts Set concerts.voter_amount = concerts.voter_amount + 1 where concerts.id = "+ concert_id +";";
 	}
 
+	//concerts that the user attended is considered.
+	public static String postRate(int userID , int concert_id , int current_rate){
 
+		return "UPDATE concerts\n" +
+				"INNER JOIN attendees ON concerts.id = attendees.concert_id\n" +
+				"Set concerts.rate = Truncate (( " + current_rate + " + concerts.rate * (concerts.voter_amount-1))/concerts.voter_amount , 2) \n" +
+				"WHERE concerts.id = " + concert_id + " and attendees.user_id = " + userID + " and attendees.status = 2;";
+	}
+
+	//concerts that the user attended is considered.
+	public static String updateRateNum(int concert_id){
+		return "Update concerts Set concerts.voter_amount = concerts.voter_amount + 1 where concerts.id = "+ concert_id +";";
+	}
 }

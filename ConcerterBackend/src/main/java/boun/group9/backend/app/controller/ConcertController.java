@@ -113,6 +113,19 @@ public class ConcertController {
 
     }
 	
-	
+	//concerts that the user attended is considered.
+		@RequestMapping(value = "/concert/{concertID}/{rate}")
+		public ModelAndView submitRateForConcert(@PathVariable("concertID") int concertID, @PathVariable("rate") int rate , HttpSession session)
+		{
+			Users user = (Users)session.getAttribute("loggedInUser");
+			int userID = user.getId();
+			
+			Application.STATUS status= ConcertOperations.submitRateConcert(userID ,concertID, rate);
+			if(status == STATUS.SUCCESS) {
+				return new ModelAndView("redirect:/concert");
+			}else {
+				return new ModelAndView("redirect:/error");
+			}
+		}	
 	
 }
