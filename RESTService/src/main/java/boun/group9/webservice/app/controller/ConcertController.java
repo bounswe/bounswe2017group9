@@ -255,6 +255,32 @@ public class ConcertController {
 
 	}
 
+	//concerts that the user attended is considered.
+	@RequestMapping(value = "concert/{concert_id}/{userID}/{current_rate}" , method = RequestMethod.POST)
+	public String postRateForaConcert(@PathVariable(value = "concert_id") int concert_id ,
+									  @PathVariable(value = "current_rate") int current_rate,
+									  @PathVariable(value = "userID") int userID ){
+
+		String rateNumberQuery = ConcertChecker.updateRateNum(concert_id);
+		String postRatequery = ConcertChecker.postRate(userID ,concert_id, current_rate);
+
+		System.out.println(rateNumberQuery);
+		System.out.println(postRatequery);
+
+		try{
+			Database.connect(rateNumberQuery, Application.MODE_UPDATE);
+			Database.connect(postRatequery, Application.MODE_UPDATE);
+		}catch(SQLException ex) {
+			System.out.println("SQL Exception occured");
+			ex.printStackTrace();
+			return "SQL Error occured.";
+		}catch(NotSavedException ex) {
+			ex.printStackTrace();
+			return "Not saved.";
+		}
+		return "Saved.";
+	}
+	
 	@RequestMapping(value = "concert/{concert_id}/{current_rate}" , method = RequestMethod.POST)
 	public String postConcertRate(@PathVariable(value = "concert_id") int concert_id , @PathVariable(value = "current_rate") int current_rate){
 		String rateNumberQuery = ConcertChecker.updateRateNumber(concert_id);
