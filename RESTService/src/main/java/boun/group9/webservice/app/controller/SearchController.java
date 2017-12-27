@@ -8,6 +8,7 @@ import boun.group9.webservice.app.data.Concerts;
 import boun.group9.webservice.app.data.Locations;
 import boun.group9.webservice.app.data.Users;
 import boun.group9.webservice.exception.NotSavedException;
+import boun.group9.webservice.helper.ConcertChecker;
 import boun.group9.webservice.helper.Database;
 import boun.group9.webservice.helper.SearchChecker;
 import boun.group9.webservice.helper.UserChecker;
@@ -29,7 +30,8 @@ public class SearchController {
     	BasicSearch bs;
     	ArrayList<Users> userList = SearchChecker.searchUsers(searchKey);
     	ArrayList<Concerts> concertList = SearchChecker.searchConcerts(searchKey);
-    	ArrayList<Artists> artistList = SearchChecker.searchArtists(searchKey);
+    	concertList= ConcertChecker.sortByDate(concertList);
+        ArrayList<Artists> artistList = SearchChecker.searchArtists(searchKey);
     	bs = new BasicSearch(userList,concertList,artistList);
     	result = Application.gson.toJson(bs);
     	return result;
@@ -39,6 +41,7 @@ public class SearchController {
     public String advancedSearch(@RequestBody String body) {
     	AdvancedSearch as = Application.gson.fromJson(body, AdvancedSearch.class);
     	ArrayList<Concerts> concertList = SearchChecker.advancedSearch(as);
+        concertList= ConcertChecker.sortByDate(concertList);
     	return Application.gson.toJson(concertList);
     }
 

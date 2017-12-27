@@ -3,6 +3,8 @@ package boun.group9.webservice.helper;
 import boun.group9.webservice.app.data.ConcertTags;
 import boun.group9.webservice.app.data.SemanticTags;
 
+import java.util.*;
+
 public class SemanticTagsChecker {
 	public static String insertSemanticTagsQuery(SemanticTags tag) {
 
@@ -19,14 +21,7 @@ public class SemanticTagsChecker {
 
 			return query;
 	}
-	/*public static String insertConcertTagsQuery(ConcertTags ctag) {
-		String query="INSERT INTO ConcertTags(id,tag_id,concert_id,created_at) VALUES (";
-		query+=ctag.getId()+", ";
-		query+="\""+ctag.getTag_id()+"\", ";
-		query+=ctag.getConcert_id()+", ";
-		query+="\""+ctag.getCreated_at()+"\");";
-		return query;
-	}*/
+
 
 	public static String findConcertsWithSameTags(String semanticTagId,int concertId){
 		String query=
@@ -49,4 +44,46 @@ public class SemanticTagsChecker {
 		return query;
 
 	}
+	public static <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> unsortMap) {
+
+		List<Map.Entry<K, V>> list =
+				new LinkedList<Map.Entry<K, V>>(unsortMap.entrySet());
+
+		Collections.sort(list, new Comparator<Map.Entry<K, V>>() {
+			public int compare(Map.Entry<K, V> o1, Map.Entry<K, V> o2) {
+				return (o1.getValue()).compareTo(o2.getValue());
+			}
+		});
+
+		Map<K, V> result = new LinkedHashMap<K, V>();
+		for (Map.Entry<K, V> entry : list) {
+			result.put(entry.getKey(), entry.getValue());
+		}
+
+		return result;
+
+	}
+
+
+
+	public static String getBaseQuery(String base){
+		String query="";
+		query= "Select * from WordVec Where WordVec.base='"+base+"';";
+		return query;
+	}
+
+	public static String getScoreQuery(String base,String compare){
+		String query="";
+		query="Select score from WordVec Where WordVec.base='"+base+"' and WordVec.compare='"+compare+"';";
+		return query;
+	}
+
+	public static String addWord(String base,String compare,double score){
+		String query="";
+		query="Insert into WordVec (base,compare,score) Values('"+base+"','"+compare+"',"+score+");";
+		return query;
+	}
+
+
+
 }
