@@ -30,21 +30,7 @@ import boun.group9.webservice.helper.NotificationChecker;
 
 @RestController
 public class ConcertController {
-	@RequestMapping(value="concerts/{concertID}/photo",method=RequestMethod.POST)
-	public String uploadConcertPhoto(@PathVariable(value="concertID") int concertID,@RequestParam(value="file") MultipartFile file) {
-		if(!file.isEmpty()) {
-			try {
-				FileChecker.imageUpload(file);
-			}catch(IOException ex) {
-				System.out.println("IO Exception occured.");
-				ex.printStackTrace();
-			}
-			
-			return "File saved.";
-		}else {
-			return "File is empty.";
-		}
-	}
+	
 	@RequestMapping(value="concerts/{concertID}/comments",method=RequestMethod.GET)
 	public String getCommentsForConcert(@PathVariable(value="concertID") int concertID) {
 		ArrayList<Comments> commentList = CommentChecker.getCommentList(concertID);
