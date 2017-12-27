@@ -1,6 +1,7 @@
 package boun.group9.webservice.helper;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import boun.group9.webservice.app.Application;
 import boun.group9.webservice.app.data.Users;
@@ -20,19 +21,16 @@ public class UserChecker {
 				user.setEmail(rs.getString("email"));
 				user.setSpotify_id(rs.getString("spotify_id"));
 				user.setPhoto_path(rs.getString("photo_path"));
-				Database.closeConnection();
 				return user;
 			}else {
 				query = "INSERT INTO Users (name,email,photo_path,spotify_id,created_at,updated_at,last_login) VALUES('"+user.getName()+"','"+user.getEmail()+"','"+user.getPhoto_path()+"','"+user.getSpotify_id()+"','"+currentTime+"','"+currentTime+"','"+currentTime+"');";
 				rs = Database.connect(query, Application.MODE_UPDATE);
-				Database.closeConnection();
 				System.out.println(query);
 				query = "SELECT * FROM Users WHERE spotify_id="+user.getSpotify_id()+";";
 				rs = Database.connect(query, Application.MODE_GET);
 				if(rs.next()) { 
 					user.setId(rs.getInt("id"));
 				}
-				Database.closeConnection();
 				return user;
 			}
 		}catch(Exception ex) {
@@ -83,6 +81,41 @@ public class UserChecker {
 	public static String unFollowed(int userID){
 		String query = "Update users SET followers = followers - 1 WHERE users.id = "+ userID +  ";";
 		return query;
+	}
+	public static ArrayList<Users> getFollowings(int userID){
+		String query = "SELECT following_id FROM Relations WHERE follower_id = " + userID + ";";
+		ResultSet rs;
+		ArrayList<Users> users = new ArrayList<Users>();
+		int f_id;
+		try{
+			rs = Database.connect(query, Application.MODE_GET);
+			while(rs.next()){
+				f_id = rs.getInt("following_id");
+				users.add(getUser(f_id));
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+		return users;
+	}
+
+	public static ArrayList<Users> getFollowers(int userID){
+		String query = "SELECT follower_id FROM Relations WHERE following_id = " + userID + ";";
+		ResultSet rs;
+		ArrayList<Users> users = new ArrayList<Users>();
+		int f_id;
+		try{
+			rs = Database.connect(query, Application.MODE_GET);
+			while(rs.next()){
+				f_id = rs.getInt("follower_id");
+				users.add(getUser(f_id));
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+		return users;
 	}
 
 
