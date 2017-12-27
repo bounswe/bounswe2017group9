@@ -143,6 +143,21 @@ CREATE TABLE `SemanticTags` (
 
 
 
+--
+-- Table structure for table `WordVec`
+--
+
+
+
+DROP TABLE IF EXISTS `WordVec`;
+CREATE TABLE `WordVec` (
+`id` int NOT NULL AUTO_INCREMENT,
+ `base` varchar(100) DEFAULT NULL,  
+ `compare` varchar(100) DEFAULT NULL, 
+ `score` double NOT NULL,
+ PRIMARY KEY (id));
+
+
 
 
 DROP TABLE IF EXISTS `MusicalInterests`;
