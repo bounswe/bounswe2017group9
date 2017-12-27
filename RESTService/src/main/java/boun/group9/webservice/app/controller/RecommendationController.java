@@ -18,19 +18,4 @@ public class RecommendationController {
 		ArrayList<Concerts> concertList = RecommendationChecker.recommend(userID);
 		return Application.gson.toJson(concertList);
 	}
-	@RequestMapping(value="recommend2/{userID}",method=RequestMethod.POST)
-	public String recommend2(@PathVariable(value="userID") int userID) {
-		ArrayList<Concerts> concertList = RecommendationChecker.recommend2(userID);
-		return Application.gson.toJson(concertList);
-	}
-	@RequestMapping(value="recommend3/{userID}",method=RequestMethod.POST)
-	public String recommend3(@PathVariable(value="userID") int userID) {
-		ArrayList<Concerts> concertList = RecommendationChecker.recommend3(userID);
-		return Application.gson.toJson(concertList);
-	}
-	@RequestMapping(value="recommend4/{userID}",method=RequestMethod.POST)
-	public String recommend4(@PathVariable(value="userID") int userID) {
-		ArrayList<Concerts> concertList = RecommendationChecker.recommend4(userID);
-		return Application.gson.toJson(concertList);
-	}
 }
