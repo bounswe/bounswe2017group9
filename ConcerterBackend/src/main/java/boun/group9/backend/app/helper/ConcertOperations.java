@@ -294,7 +294,7 @@ public class ConcertOperations {
 	public static STATUS createConcert(Concerts concert) {
 		//concert.setCreated_by_id(7);
 		concert.setArtist(new Artists(concert.getArtist_name()));
-		concert.setLocation(new Locations(45.12312,63.43432,concert.getLocation_name(),concert.getLocation_name()));
+		concert.setLocation(new Locations(Double.parseDouble(concert.getLng()),Double.parseDouble(concert.getLat()),concert.getLocation_name(),concert.getLocation_name()));
 		Date date;
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		try {

@@ -68,6 +68,8 @@ public class ConcertController {
 		System.out.println(concert.getMin_price());
 		System.out.println(concert.getMax_price());
 		System.out.println(concert.getImage_path());
+		System.out.println(concert.getLat());
+		System.out.println(concert.getLng());
 		concert.setCreated_by_id(user.getId());
 		status = ConcertOperations.createConcert(concert);
 		if(status == STATUS.SUCCESS) {

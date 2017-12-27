@@ -13,6 +13,8 @@ public class Concerts {
 	private String artist_name;
 	private String location_name;
 	private Locations location;
+	private String lng;
+	private String lat;
 	private Date date_time;
 	private String date_str;
 	private String time_str;
@@ -169,5 +171,21 @@ public class Concerts {
 	}
 	public void setTicket(String ticket){
 		 this.ticket=ticket;
+	}
+
+	public String getLng() {
+		return lng;
+	}
+
+	public void setLng(String lng) {
+		this.lng = lng;
+	}
+
+	public String getLat() {
+		return lat;
+	}
+
+	public void setLat(String lat) {
+		this.lat = lat;
 	}
 }

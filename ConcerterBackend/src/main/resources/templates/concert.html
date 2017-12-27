@@ -6,6 +6,28 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" ></link>
 	<link rel="stylesheet" href="/css/style.css"></link> 
 	<link rel="stylesheet" href="/css/style1.css"></link> 
+	<script>
+	/* <![CDATA[ */
+	window.initMap = function (){
+		
+		  var uluru = {lat: 41.0678, lng: 29.0154};
+		  console.log(document.getElementById("latitude").value);
+		  console.log(document.getElementById("longitude").value);
+		  uluru.lat = parseFloat(document.getElementById("latitude").value);
+		  uluru.lng = parseFloat(document.getElementById("longitude").value);
+		  console.log(uluru.lat);
+		  console.log(uluru.lng);
+		  var map = new google.maps.Map(document.getElementById('map'), {
+		    zoom: 17,
+		    center: uluru
+		  });
+		  var marker = new google.maps.Marker({
+		    position: uluru,
+		    map: map
+		  });
+		}
+	 /* ]]> */
+	</script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light">
@@ -43,7 +65,7 @@
   </div>
 </nav>
 <div class="row">
-  <div class="col-6 offset-3">
+  <div class="col-5 offset-1">
     <div class="card border-success">
       <img class="card-img-top" th:src="${concert.image_path}" alt="Card image cap"></img>
 		<div class="card-body">
@@ -62,6 +84,8 @@
 
           <div class="col-4">
           <p><b>Location : </b> <span th:text="${concert.location.city}"></span> </p>
+          <input type="hidden" th:value="${concert.location.latitude}" id="latitude"></input>
+          <input type="hidden" th:value="${concert.location.longitude}" id="longitude"></input>
           <p><b>Date :</b> <span th:text="${concert.date_str}"></span> </p>
           <p><b>Time :</b> <span th:text="${concert.time_str}"></span> </p>
           </div>
@@ -101,6 +125,11 @@
     
     
     
+  </div>
+  <div class="col-4">
+  <div id ="map"></div>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgzdTu4z9H3Uq4qRhe87inKbVwHuzk4b8&amp;libraries=places&amp;callback=initMap" async='async' defer='defer'></script>
+  
   </div>
 </div>
 </body>
