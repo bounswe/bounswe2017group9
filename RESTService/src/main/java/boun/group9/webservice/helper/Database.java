@@ -59,6 +59,5 @@ public class Database {
 		}catch(SQLException ex) {
 			ex.printStackTrace();
 		}
-		
 	}
 }

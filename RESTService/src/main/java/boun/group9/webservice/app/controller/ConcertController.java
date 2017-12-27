@@ -327,9 +327,6 @@ public class ConcertController {
 			ex.printStackTrace();
 			return "Not saved.";
 		}
-
-
-
 		return jsonString;
 	}
 }
