@@ -2,6 +2,9 @@ package boun.group9.webservice.helper;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 
 import boun.group9.webservice.app.Application;
 import boun.group9.webservice.app.data.Concerts;
@@ -39,5 +42,18 @@ public class ConcertChecker {
 	//concerts that the user attended is considered.
 	public static String updateRateNum(int concert_id){
 		return "Update concerts Set concerts.voter_amount = concerts.voter_amount + 1 where concerts.id = "+ concert_id +";";
+	}
+
+	public static ArrayList<Concerts> sortByDate(ArrayList<Concerts> concertList){
+		Collections.sort(concertList, new Comparator<Concerts>() {
+			public int compare(Concerts o1, Concerts o2) {
+				if (o1.getDate_time() == null || o2.getDate_time() == null)
+					return 0;
+				return o1.getDate_time().compareTo(o2.getDate_time());
+			}
+		});
+
+		Collections.sort(concertList, Collections.reverseOrder());
+		return concertList;
 	}
 }

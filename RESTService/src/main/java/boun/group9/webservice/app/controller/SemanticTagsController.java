@@ -1,6 +1,7 @@
 package boun.group9.webservice.app.controller;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -13,12 +14,8 @@ import java.util.*;
 import boun.group9.webservice.helper.WikiDataUtility;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;  
-import org.json.simple.JSONValue;  
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.json.simple.JSONValue;
+import org.springframework.web.bind.annotation.*;
 
 import com.google.gson.JsonSyntaxException;
 
@@ -47,7 +44,7 @@ public class SemanticTagsController {
 		try {
 			tag = Application.gson.fromJson(body, SemanticTags.class);
 			query = SemanticTagsChecker.insertSemanticTagsQuery(tag);
-			System.out.println(query);
+		//	System.out.println(query);
 			rs = Database.connect(query,Application.MODE_UPDATE);
 			Database.closeConnection();
 			return "OK.";
@@ -67,7 +64,7 @@ public class SemanticTagsController {
 	public String getsemanticTags(@PathVariable(value="concertID") int concertID) {
 		String jsonString="";
 		String query="SELECT * FROM SemanticTags WHERE concert_id="+concertID+";";
-		System.out.println(query);
+		//System.out.println(query);
 		ResultSet rs;
 		SemanticTags tag;
 		ArrayList<SemanticTags> tagList = new ArrayList<SemanticTags>();
@@ -98,7 +95,7 @@ public class SemanticTagsController {
 	public String getsemanticTag(@PathVariable(value="tagID") String tagID) {
 		String jsonString="";
 		String query="SELECT * FROM SemanticTags WHERE id=\""+tagID+"\";";
-		System.out.println(query);
+		//System.out.println(query);
 		ResultSet rs;
 		SemanticTags tag;
 		try {
@@ -124,7 +121,6 @@ public class SemanticTagsController {
 		return jsonString;
 	}
 
-	@SuppressWarnings("TryWithIdenticalCatches")
 	@RequestMapping(value="searchWikidata/{search}",method=RequestMethod.GET)
 	public String getSementicTagsFromWikidata(@PathVariable(value="search") String search) {
 		String jsonString="";
@@ -139,7 +135,12 @@ public class SemanticTagsController {
 		    		tag.setSemanticTagId(innerObj.get("id").toString());
 		    		tag.setLabel(innerObj.get("label").toString());
 		    		tag.setSearch(search);
-		    		tag.setDescription(innerObj.get("description").toString());
+
+		    		if(innerObj.containsKey("description")) {
+						tag.setDescription(innerObj.get("description").toString());
+					}else{
+						tag.setDescription("");
+					}
 		    		tagList.add(tag);
 
 			}
@@ -220,32 +221,6 @@ public class SemanticTagsController {
 		return jsonString;
 	}
 
-	public static <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> unsortMap) {
-
-		List<Map.Entry<K, V>> list =
-				new LinkedList<Map.Entry<K, V>>(unsortMap.entrySet());
-
-		Collections.sort(list, new Comparator<Map.Entry<K, V>>() {
-			public int compare(Map.Entry<K, V> o1, Map.Entry<K, V> o2) {
-				return (o1.getValue()).compareTo(o2.getValue());
-			}
-		});
-
-		Map<K, V> result = new LinkedHashMap<K, V>();
-		for (Map.Entry<K, V> entry : list) {
-			result.put(entry.getKey(), entry.getValue());
-		}
-
-		return result;
-
-	}
-
-	/*public static <K, V> void printMap(Map<K, V> map) {
-		for (Map.Entry<K, V> entry : map.entrySet()) {
-			System.out.println("Key : " + entry.getKey()
-					+ " Value : " + entry.getValue());
-		}
-	}*/
 
 
 	@RequestMapping(value="same-tags/{tagID}/{concertID}",method=RequestMethod.GET)
@@ -309,15 +284,15 @@ public class SemanticTagsController {
 		return jsonString;
 	}
 
-
+//return similar concerts
 	@RequestMapping(value="semantic-search/{concertID}",method=RequestMethod.GET)
 	public String semanticSearch(@PathVariable(value="concertID") int concertID) {
 		String jsonString = "";
 		String resultJson=ConcertController.allActiveConcerts();
 		ArrayList<Concerts> activeConcerts = new ArrayList<Concerts>(Arrays.asList(Application.gson.fromJson(resultJson, Concerts[].class)));
-		Map<Integer,Integer> map=new HashMap<Integer,Integer>();
+		Map<Integer,Double> map=new HashMap<Integer,Double>();
 		for(int i=0;i<activeConcerts.size();i++){
-			map.put(activeConcerts.get(i).getId(),0);
+			map.put(activeConcerts.get(i).getId(),0.0);
 		}
 
 		resultJson=getsemanticTags(concertID);
@@ -325,24 +300,48 @@ public class SemanticTagsController {
 
 		for(int i=0;i<baseTags.size();i++){
 			String semanticTagId=baseTags.get(i).getSemanticTagId();
+			String base_label=baseTags.get(i).getLabel();
+			//System.out.println("BASE LABEL "+base_label);
 			resultJson=findConcertsWithSameTags(semanticTagId,concertID);
 			ArrayList<Concerts> compareConcerts=new ArrayList<Concerts>(Arrays.asList(Application.gson.fromJson(resultJson, Concerts[].class)));
 			for (int j=0;j<compareConcerts.size();j++){
 				if(map.containsKey(compareConcerts.get(j).getId())){
-					int count=map.get(compareConcerts.get(j).getId());
+					double count=map.get(compareConcerts.get(j).getId());
 					count--;
+					//System.out.println("same id: "+compareConcerts.get(j).getId()+"count: "+count);
 					map.put(compareConcerts.get(j).getId(),count);
 				}
 			}
+//ERROR varsa KAPA burayı -------------------------
+			for(int j=0;j<map.size();j++){
+				int compare_concert_id=activeConcerts.get(j).getId();
+				resultJson=getsemanticTags(compare_concert_id);
+				ArrayList<SemanticTags> compareTags=new ArrayList<SemanticTags>(Arrays.asList(Application.gson.fromJson(resultJson, SemanticTags[].class)));
+
+				if(compareTags.size()>0 && compare_concert_id!=concertID){
+					double score=0;
+					for(int h=0;h<compareTags.size();h++){
+						if(!compareTags.get(h).getLabel().equals(base_label)) {
+							String compare_label = compareTags.get(h).getLabel();
+							score += Double.parseDouble(getAverageScore(base_label, compare_label));
+						}
+					}
+					double prev_count=map.get(compare_concert_id);
+					map.put(compare_concert_id,prev_count-score);
+					//System.out.println("similar id:"+compare_concert_id+" score:"+map.get(compare_concert_id));
+				}
+			}
+//--------------------------------------------------------------------------
 
 		}
 
 
-		Map<Integer, Integer> sortedMap = sortByValue(map);
+		Map<Integer, Double> sortedMap = SemanticTagsChecker.sortByValue(map);
 		ArrayList<Concerts> resultList=new ArrayList<Concerts>();
 
-		for (Map.Entry<Integer, Integer> entry : sortedMap.entrySet()) {
-			if(entry.getValue()!=0) {
+		for (Map.Entry<Integer,Double> entry : sortedMap.entrySet()) {
+			if(entry.getValue()<=-0.13  && entry.getKey()!=concertID) {
+				System.out.println("FINAL id: "+entry.getKey()+"score: "+entry.getValue());
 				String concert_ = ConcertController.getConcert(entry.getKey());
 				Concerts concert=Application.gson.fromJson(concert_, Concerts.class);
 				resultList.add(concert);
@@ -352,6 +351,216 @@ public class SemanticTagsController {
 		jsonString = Application.gson.toJson(resultList);
 		return jsonString;
 	}
+
+
+
+	@RequestMapping(value="word-vec/base")
+	public String getBaseValue(@RequestParam(value="base") String base) {
+		String jsonString="";
+		String query;
+		ResultSet rs;
+		try {
+			query = SemanticTagsChecker.getBaseQuery(base);
+			//System.out.println(query);
+			rs = Database.connect(query,Application.MODE_GET);
+			while(rs.next()){
+				String compare=rs.getString("compare");
+				double score=rs.getDouble("score");
+				jsonString+=compare+" "+score+"\n";
+			}
+
+			Database.closeConnection();
+			return jsonString;
+		}catch(JsonSyntaxException ex) {
+			ex.printStackTrace();
+			throw new IJsonSyntaxException();
+		}catch(SQLException ex) {
+			ex.printStackTrace();
+			throw new ISQLException();
+		}catch(NotSavedException ex) {
+			ex.printStackTrace();
+			throw new InternalServerException();
+		}
+	}
+
+	//bu bireysel score
+	//@RequestMapping(value="word-vec/score")
+	public String getScore(@RequestParam(value="base") String base,@RequestParam(value="compare") String compare) {
+		String jsonString="";
+		String query;
+		ResultSet rs;
+		try {
+			query = SemanticTagsChecker.getScoreQuery(base,compare);
+			//System.out.println(query);
+			rs = Database.connect(query,Application.MODE_GET);
+
+			if(rs.next()){
+				double score=rs.getDouble("score");
+				jsonString=""+score;
+			}else{
+				jsonString="0";
+			}
+
+			Database.closeConnection();
+			return jsonString;
+		}catch(JsonSyntaxException ex) {
+			ex.printStackTrace();
+			throw new IJsonSyntaxException();
+		}catch(SQLException ex) {
+			ex.printStackTrace();
+			throw new ISQLException();
+		}catch(NotSavedException ex) {
+			ex.printStackTrace();
+			throw new InternalServerException();
+		}
+	}
+
+	@RequestMapping(value="word-vec/score")
+	public String getAverageScore(@RequestParam(value="base") String base,@RequestParam(value="compare") String compare) {
+		String jsonString=""+getSimilarity(base,compare);
+		return jsonString;
+	}
+
+
+
+
+	public  double getSimilarity(String base, String compare) {
+
+		ArrayList<String> ar1 = new ArrayList<String>();
+		ArrayList<String> ar2 = new ArrayList<String>();
+		double average=0;
+		base=base.toLowerCase();
+		compare=compare.toLowerCase();
+		if(base.contains(compare) || compare.contains(base)){
+			average+=0.5;
+		}
+
+		if (base.contains(" ")) {
+			String[] inner = base.split(" ");
+			ar1.add(inner[0]);
+			ar1.add(inner[1]);
+
+		} else {
+			ar1.add(base);
+		}
+		if (compare.contains(" ")) {
+			String[] inner = compare.split(" ");
+			ar2.add(inner[0]);
+			ar2.add(inner[1]);
+
+		} else {
+			ar2.add(compare);
+		}
+
+		if(base.contains(" ") && compare.contains(" ")){
+			double first=Double.parseDouble(getScore(ar1.get(0),ar2.get(0)));
+			double second=Double.parseDouble(getScore(ar1.get(0),ar2.get(1)));
+			double third=Double.parseDouble(getScore(ar1.get(1),ar2.get(0)));
+			double fourth=Double.parseDouble(getScore(ar1.get(1),ar2.get(1)));
+			if(base.contains(ar2.get(0)) || base.contains(ar2.get(1)) || compare.contains(ar1.get(0)) || compare.contains(ar1.get(1))){
+				average+=0.5;
+			}
+
+			average+=first+second+third+fourth;
+			average=average/4;
+		}else if(base.contains(" ")){
+
+			double first=Double.parseDouble(getScore(ar1.get(0),ar2.get(0)));
+			double third=Double.parseDouble(getScore(ar1.get(1),ar2.get(0)));
+			if(base.contains(ar2.get(0)) || compare.contains(ar1.get(0)) || compare.contains(ar1.get(1)) ){
+				average+=0.5;
+			}
+
+			average+=first+third;
+			average=average/2;
+		}else if(compare.contains(" ")){
+
+			double first=Double.parseDouble(getScore(ar1.get(0),ar2.get(0)));
+			double second=Double.parseDouble(getScore(ar1.get(0),ar2.get(1)));
+			if(base.contains(ar2.get(0)) || base.contains(ar2.get(1)) || compare.contains(base)){
+				average+=0.5;
+			}
+			average+=first+second;
+			average=average/2;
+		}else{
+
+			double first=Double.parseDouble(getScore(ar1.get(0),ar2.get(0)));
+			average+=first;
+		}
+
+		return average;
+	}
+
+	// data are load into DB.
+
+	@RequestMapping(value="add-db",method =RequestMethod.GET)
+	public  String cleanData() {
+		String FILENAME = "C:\\Users\\hilaldonmez\\Desktop\\tagsimilarities.txt";  //change filename
+		System.out.print(FILENAME);
+		BufferedReader br = null;
+		FileReader fr = null;
+		String query="";
+		try {
+			fr = new FileReader(FILENAME);
+			br = new BufferedReader(fr);
+
+			String sCurrentLine;
+
+			while ((sCurrentLine = br.readLine()) != null) {
+				String[] list = sCurrentLine.split("\\n");
+				for (int i = 0; i < list.length; i++) {
+					String[] inner = list[i].split(" ");
+					double score=Double.parseDouble(inner[2]);
+					String a= addMethod(inner[0],inner[1],score);
+				}
+			}
+			return "OK";
+		} catch (IOException e) {
+
+			e.printStackTrace();
+
+		} finally {
+
+			try {
+
+				if (br != null)
+					br.close();
+
+				if (fr != null)
+					fr.close();
+
+			} catch (IOException ex) {
+
+				ex.printStackTrace();
+
+			}
+
+		}
+		return "Error";
+	}
+
+	public String addMethod(String base,String compare,double Score) {
+
+		String query;
+		ResultSet rs;
+		try {
+			query = SemanticTagsChecker.addWord(base,compare,Score);
+			System.out.println(query);
+			rs = Database.connect(query,Application.MODE_UPDATE);
+			Database.closeConnection();
+			return "OK.";
+		}catch(JsonSyntaxException ex) {
+			ex.printStackTrace();
+			throw new IJsonSyntaxException();
+		}catch(SQLException ex) {
+			ex.printStackTrace();
+			throw new ISQLException();
+		}catch(NotSavedException ex) {
+			ex.printStackTrace();
+			throw new InternalServerException();
+		}
+	}
+
 
 
 
