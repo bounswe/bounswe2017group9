@@ -231,6 +231,8 @@ public class ConcertOperations {
 			connection.connect();
 			br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			resultJson = br.readLine();
+			System.out.println("concertResultJson");
+			System.out.println(resultJson);
 			similarConcerts = new ArrayList<Concerts> (Arrays.asList(Application.gson.fromJson(resultJson, Concerts[].class)));
 			concert.setSimilarConcerts(similarConcerts);
 			
