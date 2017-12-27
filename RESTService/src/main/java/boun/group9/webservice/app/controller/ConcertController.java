@@ -26,6 +26,7 @@ import boun.group9.webservice.helper.ConcertChecker;
 import boun.group9.webservice.helper.Database;
 import boun.group9.webservice.helper.FileChecker;
 import boun.group9.webservice.helper.LocationChecker;
+import boun.group9.webservice.helper.NotificationChecker;
 
 @RestController
 public class ConcertController {
@@ -244,6 +245,7 @@ public class ConcertController {
 		try{
 			Database.connect(query, Application.MODE_UPDATE);
 			Database.closeConnection();
+			NotificationChecker.notify(concertID,userID);
 			return "OK";
 		}catch(SQLException ex) {
 			ex.printStackTrace();
@@ -252,7 +254,7 @@ public class ConcertController {
 			ex.printStackTrace();
 			return "Not saved.";
 		}
-
+		
 	}
 
 	//concerts that the user attended is considered.
