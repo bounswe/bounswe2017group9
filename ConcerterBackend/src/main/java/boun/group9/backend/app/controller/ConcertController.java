@@ -127,5 +127,32 @@ public class ConcertController {
 				return new ModelAndView("redirect:/error");
 			}
 		}	
+
+
+	@RequestMapping(value = "/pastconcerts",method=RequestMethod.GET)
+	public String getPastConcerts(Model model) {
+		ArrayList<Concerts> concertList;
+        concertList = ConcertOperations.getPastConcerts();
+		
+        for (Concerts oneConcert : concertList) {
+			System.out.println(oneConcert.getId());
+		}
+        
+        model.addAttribute("concertList",concertList);
+		return "index";
+	}
+	
+	@RequestMapping(value = "/nextconcerts",method=RequestMethod.GET)
+	public String getNextConcerts(Model model) {
+		ArrayList<Concerts> concertList;
+        concertList = ConcertOperations.getNextConcerts();
+        
+        for (Concerts oneConcert : concertList) {
+			System.out.println(oneConcert.getId());
+		}
+        
+        model.addAttribute("concertList",concertList);
+		return "index";
+	}
 	
 }

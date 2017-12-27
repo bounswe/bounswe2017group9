@@ -407,5 +407,48 @@ public class ConcertOperations {
 			return Application.STATUS.SUCCESS;
 			
 		}	
+
+
+	public static ArrayList<Concerts> getPastConcerts(){
+		String resultJson="";
+		ArrayList<Concerts> resultList;
+		try {
+			URL url = new URL(Application.API_ENDPOINT+"/pastconcerts");
+			HttpURLConnection connection =(HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setDoInput(true);
+			connection.connect();
+			BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			resultJson = br.readLine();
+			resultList = new ArrayList<Concerts>(Arrays.asList(Application.gson.fromJson(resultJson, Concerts[].class)));
+			return resultList;
+		}catch(MalformedURLException ex) {
+			ex.printStackTrace();
+		}catch(IOException ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	public static ArrayList<Concerts> getNextConcerts(){
+		String resultJson="";
+		ArrayList<Concerts> resultList;
+		try {
+			URL url = new URL(Application.API_ENDPOINT+"/nextconcerts");
+			HttpURLConnection connection =(HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setDoInput(true);
+			connection.connect();
+			BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			resultJson = br.readLine();
+			resultList = new ArrayList<Concerts>(Arrays.asList(Application.gson.fromJson(resultJson, Concerts[].class)));
+			return resultList;
+		}catch(MalformedURLException ex) {
+			ex.printStackTrace();
+		}catch(IOException ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
 }
 
