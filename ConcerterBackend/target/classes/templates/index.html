@@ -21,6 +21,9 @@
       <li class="nav-item">
       <a class="nav-link" th:text="${loggedInUser != null} ? ${loggedInUser.name} : 'Not logged in'" th:href="@{${loggedInUser != null} ? '/profile/'+${loggedInUser.id} : '#'}"></a>
       </li>
+      <li class="nav-item">
+		 <a class="nav-link" th:text="${'Notifications'}" th:href="@{${loggedInUser != null} ? '/notifications/'+${loggedInUser.id} : '#'}"></a>      
+      </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Concerts
