@@ -1,4 +1,4 @@
-package boun.group9.webservice.app.controller;
+		package boun.group9.webservice.app.controller;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -46,6 +46,7 @@ public class SemanticTagsController {
 			query = SemanticTagsChecker.insertSemanticTagsQuery(tag);
 		//	System.out.println(query);
 			rs = Database.connect(query,Application.MODE_UPDATE);
+			rs.close();
 			Database.closeConnection();
 			return "OK.";
 		}catch(JsonSyntaxException ex) {
@@ -79,6 +80,7 @@ public class SemanticTagsController {
 				tag.setDescription(rs.getString("description"));
 				tagList.add(tag);
 			}
+			rs.close();
 			jsonString = Application.gson.toJson(tagList);
 		}catch(SQLException ex) {
 			System.out.println("SQL Exception occured");
@@ -109,6 +111,7 @@ public class SemanticTagsController {
 				tag.setDescription(rs.getString("description"));
 				jsonString = Application.gson.toJson(tag);
 			}
+			rs.close();
 		}catch(SQLException ex) {
 			System.out.println("SQL Exception occured");
 			ex.printStackTrace();
@@ -208,6 +211,7 @@ public class SemanticTagsController {
 				concert.setLocation(location);
 				concertList.add(concert);
 			}
+			rs.close();
 			jsonString = Application.gson.toJson(concertList);
 		}catch(SQLException ex) {
 			System.out.println("SQL Exception occured");
@@ -271,6 +275,7 @@ public class SemanticTagsController {
 				concert.setLocation(location);
 				concertList.add(concert);
 			}
+			rs.close();
 			jsonString = Application.gson.toJson(concertList);
 		}catch(SQLException ex) {
 			System.out.println("SQL Exception occured");
@@ -368,7 +373,7 @@ public class SemanticTagsController {
 				double score=rs.getDouble("score");
 				jsonString+=compare+" "+score+"\n";
 			}
-
+			rs.close();
 			Database.closeConnection();
 			return jsonString;
 		}catch(JsonSyntaxException ex) {
@@ -400,7 +405,7 @@ public class SemanticTagsController {
 			}else{
 				jsonString="0";
 			}
-
+			rs.close();
 			Database.closeConnection();
 			return jsonString;
 		}catch(JsonSyntaxException ex) {
@@ -547,6 +552,7 @@ public class SemanticTagsController {
 			query = SemanticTagsChecker.addWord(base,compare,Score);
 			System.out.println(query);
 			rs = Database.connect(query,Application.MODE_UPDATE);
+			rs.close();
 			Database.closeConnection();
 			return "OK.";
 		}catch(JsonSyntaxException ex) {

@@ -84,7 +84,7 @@ public class ConcertController {
 				concert.setLocation(location);
 				jsonString = Application.gson.toJson(concert,Concerts.class);
 				//System.out.println(jsonString);
-				
+				rs.close();
 			}
 		}catch(SQLException ex) {
 			System.out.println("SQL Exception occured");
@@ -94,6 +94,7 @@ public class ConcertController {
 			ex.printStackTrace();
 			return "Not saved.";
 		}
+		
 		Database.closeConnection();
 		return jsonString;
 	}
@@ -168,6 +169,7 @@ public class ConcertController {
 				concert.setLocation(location);
 				concertList.add(concert);
 			}
+			rs.close();
 			concertList=ConcertChecker.sortByDate(concertList);
 			
 			jsonString = Application.gson.toJson(concertList);
@@ -224,9 +226,11 @@ public class ConcertController {
 				Database.closeConnection();
 		}catch(SQLException ex) {
 			ex.printStackTrace();
+			Database.closeConnection();
 			return "SQL Error occured.";
 		}catch(NotSavedException ex) {
 			ex.printStackTrace();
+			Database.closeConnection();
 			return "Not saved.";
 		}
 		return "Saved.";
@@ -234,18 +238,22 @@ public class ConcertController {
 	@RequestMapping(value="concert/{concertID}/attendee/{userID}",method=RequestMethod.POST)
 	public String attendConcert(@PathVariable int concertID, @PathVariable int userID) {
 		String query=ConcertChecker.attend(concertID,userID);
+		String result;
 		try{
 			Database.connect(query, Application.MODE_UPDATE);
 			Database.closeConnection();
 			NotificationChecker.notify(concertID,userID);
-			return "OK";
+			result="OK";
 		}catch(SQLException ex) {
 			ex.printStackTrace();
-			return "SQL Error occured.";
+			Database.closeConnection();
+			result = "SQL Error occured.";
 		}catch(NotSavedException ex) {
 			ex.printStackTrace();
-			return "Not saved.";
+			Database.closeConnection();
+			result = "Not saved.";
 		}
+		return result;
 		
 	}
 
@@ -321,6 +329,7 @@ public class ConcertController {
 				concert.setLocation(location);
 				concertList.add(concert);
 			}
+			rs.close();
 			concertList=ConcertChecker.sortByDate(concertList);
 			
 			jsonString = Application.gson.toJson(concertList);
@@ -381,13 +390,16 @@ public class ConcertController {
 				concert.setLocation(location);
 				concertList.add(concert);
 			}
+			rs.close();
 			jsonString = Application.gson.toJson(concertList);
 		}catch(SQLException ex) {
 			System.out.println("SQL Exception occured");
+			Database.closeConnection();
 			ex.printStackTrace();
 			return "SQL Error occured.";
 		}catch(NotSavedException ex) {
 			ex.printStackTrace();
+			Database.closeConnection();
 			return "Not saved.";
 		}
 
@@ -425,6 +437,7 @@ public class ConcertController {
 	public static String allActiveConcerts() {
 		String jsonString="";
 		String query;
+		String result;
 		query = "SELECT Concerts.ticket AS Concerts_ticket,Concerts.id AS Concerts_id, Concerts.name AS Concerts_name, Concerts.date_time AS Concerts_date_time, Concerts.min_price, Concerts.max_price, Concerts.rate AS Concerts_rate, Concerts.voter_amount as Concerts_voter_amount, Concerts.image_path AS Concerts_image_path, Users.id AS Users_id, Users.name AS Users_name, Users.email AS Users_email, Users.followers AS Users_followers, Users.followings AS Users_followings, Users.photo_path AS Users_photo_path, Users.created_at AS Users_created_at, Users.updated_at AS Users_updated_at, Users.last_login AS Users_last_login, Artists.id AS Artists_id, Artists.name AS Artists_name, Locations.id AS Locations_id, Locations.longitude AS Locations_longitude,Locations.latitude AS Locations_latitude, Locations.city AS Locations_city, Locations.address as Locations_address FROM Concerts INNER JOIN Users ON Concerts.created_by = Users.id INNER JOIN Artists ON Concerts.artist = Artists.id INNER JOIN Locations ON Concerts.location = Locations.id WHERE Concerts.date_time>CURDATE();";
 		ResultSet rs;
 		Concerts concert;
@@ -470,19 +483,21 @@ public class ConcertController {
 				concert.setLocation(location);
 				concertList.add(concert);
 			}
+			rs.close();
 			jsonString = Application.gson.toJson(concertList);
 			Database.closeConnection();
 		}catch(SQLException ex) {
 			System.out.println("SQL Exception occured");
 			ex.printStackTrace();
-			return "SQL Error occured.";
+			Database.closeConnection();
+			jsonString = "SQL Error occured.";
 		}catch(NotSavedException ex) {
 			ex.printStackTrace();
-			return "Not saved.";
+			Database.closeConnection();
+				jsonString = "Not saved.";
+		}finally {
+			Database.closeConnection();
 		}
-
-
-
 		return jsonString;
 	}
 }

@@ -24,9 +24,11 @@ public class CommentController {
 			return "Saved.";
 		}catch(SQLException ex) {
 			ex.printStackTrace();
+			Database.closeConnection();
 			return "SQL error occured.";
 		}catch(NotSavedException ex) {
 			ex.printStackTrace();
+			Database.closeConnection();
 			return "Not saved.";
 		}
 	}
@@ -43,9 +45,11 @@ public class CommentController {
 			return "Deleted.";
 		}catch(SQLException ex) {
 			ex.printStackTrace();
+			Database.closeConnection();
 			return "SQL error occured.";
 		}catch(NotSavedException ex) {
 			ex.printStackTrace();
+			Database.closeConnection();
 			return "Not deleted.";
 		}
 	}
@@ -60,9 +64,11 @@ public class CommentController {
 			return "Updated.";
 		}catch(SQLException ex) {
 			ex.printStackTrace();
+			Database.closeConnection();
 			return "SQL error occured.";
 		}catch(NotSavedException ex) {
 			ex.printStackTrace();
+			Database.closeConnection();
 			return "Not updateted.";
 		}
 	}
@@ -78,9 +84,11 @@ public class CommentController {
 			return "Updated.";
 		}catch(SQLException ex) {
 			ex.printStackTrace();
+			Database.closeConnection();
 			return "SQL error occured.";
 		}catch(NotSavedException ex) {
 			ex.printStackTrace();
+			Database.closeConnection();
 			return "Not updateted.";
 		}
 	}

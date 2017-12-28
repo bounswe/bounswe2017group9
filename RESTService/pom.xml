@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>boun.group9.webservice</groupId>
   <artifactId>RESTService</artifactId>
-  <version>0.2.2</version>
+  <version>0.5.5</version>
   <packaging>war</packaging>
   <parent>
         <groupId>org.springframework.boot</groupId>

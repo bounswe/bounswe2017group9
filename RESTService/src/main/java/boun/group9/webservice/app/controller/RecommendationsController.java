@@ -75,6 +75,7 @@ public class RecommendationsController {
 					score+=recommendations.get(concert_id);
 				recommendations.put(concert_id, score);
 			}
+			rs.close();
 		}catch(SQLException ex) {
 			System.out.println("SQL Exception occured");
 			ex.printStackTrace();
@@ -134,7 +135,9 @@ public class RecommendationsController {
 					tags.put(tag_id, score);
 					
 				}
+				rs2.close();
 			}
+			rs.close();
 			Database.closeConnection();
 			for(String tag:tags.keySet()) {
 				query="SELECT ConcertTags.concert_id As concert_id FROM ConcertTags INNER JOIN Concerts ON Concerts.id=ConcertTags.concert_id WHERE tag_id=\""+tag+"\" AND Concerts.date_time > now();";
@@ -148,6 +151,7 @@ public class RecommendationsController {
 					}
 					recommendations.put(concert_id,score);
 				}
+				rs3.close();
 			}
 			Database.closeConnection();
 		}catch(SQLException ex) {

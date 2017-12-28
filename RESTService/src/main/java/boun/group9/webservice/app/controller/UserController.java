@@ -53,6 +53,8 @@ public class UserController {
 				rs = Database.connect(query,Application.MODE_UPDATE);
 				user.setId(Database.last_generated_id);
 				json = Application.gson.toJson(user);
+				rs.close();
+				Database.closeConnection();
 				return json;
 			}else { // if it's spotify signup
 				user = UserChecker.insertSpotifyUser(user);
@@ -91,8 +93,10 @@ public class UserController {
 				user.setCreated_at(rs.getTimestamp("created_at"));
 				user.setLast_login(rs.getTimestamp("last_login"));
 				user.setUpdated_at(rs.getTimestamp("updated_at"));
+				rs.close();
 				return Application.gson.toJson(user);
 			}else {
+				rs.close();
 				throw new UserNotFoundException();
 			}
 		}catch(JsonSyntaxException ex) {
