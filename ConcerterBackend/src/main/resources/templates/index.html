@@ -63,7 +63,6 @@
 	            <a href="/index" class="list-group-item list-group-item-action">Home Page</a>
 	            <a href="/advanced-search" class="list-group-item list-group-item-action">Search Concerts</a>
 	            <a href="/new-concert" class="list-group-item list-group-item-action">Create Concerts</a>
-	            <a href="/new-concert" class="list-group-item list-group-item-action">Create Concerts</a>
 	            <a th:href="'/notifications/'+ ${loggedInUser.id}" class="list-group-item list-group-item-action ">Notifications</a>
 	           	<div><a class="list-group-item list-group-item-action" style="background-color:#fff" th:text="${loggedInUser != null} ? 'Logged in as ' +  ${loggedInUser.name} : 'Not logged in'" th:href="@{${loggedInUser != null} ? '/profile/'+${loggedInUser.id} : '#'}"></a></div>
 	           	<img th:src="${loggedInUser.photo_path}" style="width:100%"></img>
