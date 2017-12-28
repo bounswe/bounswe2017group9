@@ -374,13 +374,9 @@ public class ConcertOperations {
 	}
 	public static STATUS submitRateForConcert(int concertID , int rate) {
 		try {
-			URL url = new URL(Application.API_ENDPOINT+"/concert/" + concertID+ "/" + rate );
+			URL url = new URL(Application.API_ENDPOINT+"/rate-concert?id="+concertID+"&rate="+rate );
 			HttpURLConnection connection = (HttpURLConnection)url.openConnection();
 			connection.setRequestMethod("POST");
-			connection.setDoOutput(true);
-			connection.setRequestProperty("Content-Type", "application/json");
-			OutputStream os = connection.getOutputStream();
-			os.close();
 			connection.connect();
 			int status = connection.getResponseCode();
 			System.out.println("Response status: "+status);

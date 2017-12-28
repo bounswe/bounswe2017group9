@@ -97,7 +97,11 @@ public class ConcertController {
 		Database.closeConnection();
 		return jsonString;
 	}
-	
+	@RequestMapping(value="rate-concert",method=RequestMethod.POST)
+	public String rateConcert(@RequestParam(value="id",required=true) int concertId, @RequestParam(value="rate",required=true) int rate) {
+		ConcertChecker.rateConcert(concertId, rate);
+		return "OK.";
+	}
 	@RequestMapping(value="concerts",method = RequestMethod.GET)
 	public String getConcertsForUser(@RequestParam(value="user_id",required=false) Integer user_id,@RequestParam(value="status",required=false) String status,@RequestParam(value="created_by",required=false) String created_by) {
 		String jsonString="";
