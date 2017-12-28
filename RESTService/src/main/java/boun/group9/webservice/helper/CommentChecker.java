@@ -69,9 +69,9 @@ public class CommentChecker {
 		return result;
 	}
 
-	public static String deleteComment(int commentID, int userID){
+	public static String deleteComment(int commentID){
 
-		String query = "DELETE FROM comments WHERE comments.id = " + commentID + " and comments.commented_by = "+ userID +";" ;
+		String query = "DELETE FROM Comments WHERE id = " + commentID + ";" ;
 		return query;
 	}
 

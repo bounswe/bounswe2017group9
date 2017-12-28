@@ -89,7 +89,7 @@ public class CommentOperations {
 		public static STATUS deleteComment(int commentID , int userID){
 
 			try {
-				URL url = new URL(Application.API_ENDPOINT+ "/"+ userID + "/comments/" + commentID + "/deleteComment");
+				URL url = new URL(Application.API_ENDPOINT+ "/comments?"+"id="+commentID);
 				HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 				connection.setRequestMethod("DELETE");
 				connection.setDoOutput(true);
