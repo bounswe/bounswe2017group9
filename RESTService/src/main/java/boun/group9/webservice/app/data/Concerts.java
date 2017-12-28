@@ -3,7 +3,7 @@ package boun.group9.webservice.app.data;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class Concerts {
+public class Concerts implements Comparable<Concerts> {
 	private int id;
 	private String name;
 	private Users created_by;
@@ -115,5 +115,11 @@ public class Concerts {
 	}
 	public void setTicket(String ticket){
 		this.ticket=ticket;
+	}
+	@Override
+	public int compareTo(Concerts o) {
+		if (getDate_time() == null || o.getDate_time() == null)
+			return 0;
+		return getDate_time().compareTo(o.getDate_time());
 	}
 }

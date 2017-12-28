@@ -49,7 +49,10 @@ public class SearchController {
 	@RequestMapping(value="advanced-search",method=RequestMethod.POST)
 	public String doAdvancedSearch(@ModelAttribute AdvancedSearch search,HttpSession session,Model model) {
 		String json = Application.gson.toJson(search,AdvancedSearch.class);
+		
 		ArrayList<Concerts> concertList = SearchOperations.advancedSearch(search);
+		System.out.println("coming json");
+		System.out.println(Application.gson.toJson(concertList));
 		model.addAttribute("concertList",concertList);
 		model.addAttribute("userList",new ArrayList<Users>());
 		model.addAttribute("artistList",new ArrayList<Artists>());

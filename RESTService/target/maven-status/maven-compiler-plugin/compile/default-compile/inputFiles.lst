@@ -43,7 +43,6 @@
 /home/ffguven/Documents/isGuc/CMPE451/bounswe2017group9/RESTService/src/main/java/boun/group9/webservice/app/controller/NotificationController.java
 /home/ffguven/Documents/isGuc/CMPE451/bounswe2017group9/RESTService/src/main/java/boun/group9/webservice/app/data/Notification_type.java
 /home/ffguven/Documents/isGuc/CMPE451/bounswe2017group9/RESTService/src/main/java/boun/group9/webservice/app/data/Report_types.java
-/home/ffguven/Documents/isGuc/CMPE451/bounswe2017group9/RESTService/src/main/java/boun/group9/webservice/helper/word2vec.java
 /home/ffguven/Documents/isGuc/CMPE451/bounswe2017group9/RESTService/src/main/java/boun/group9/webservice/app/controller/RecommendationsController.java
 /home/ffguven/Documents/isGuc/CMPE451/bounswe2017group9/RESTService/src/main/java/boun/group9/webservice/app/controller/RelationController.java
 /home/ffguven/Documents/isGuc/CMPE451/bounswe2017group9/RESTService/src/main/java/boun/group9/webservice/app/controller/UserController.java

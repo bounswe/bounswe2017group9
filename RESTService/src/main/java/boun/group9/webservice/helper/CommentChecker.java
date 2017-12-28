@@ -38,16 +38,18 @@ public class CommentChecker {
 		ArrayList<Comments> result = new ArrayList<Comments>();
 		Comments comment;
 		Users user;
-		String query = "SELECT Comments.id AS Comments_id, Comments.category AS Comments_category , Comments.up_votes AS Comments_up_votes, Comments.down_votes AS Comments_down_votes, Comments.comment AS Comments_comment, Users.name AS Users_name, Users.email AS Users_email, Users.photo_path AS Users_photo_path FROM Comments INNER JOIN Users ON Users.id = Comments.commented_by WHERE Comments.concert_id="+concertID+";";
+		String query = "SELECT Comments.id AS Comments_id, Comments.category AS Comments_category , Comments.up_votes AS Comments_up_votes, Comments.down_votes AS Comments_down_votes, Comments.comment AS Comments_comment, Users.name AS Users_name, Users.email AS Users_email, Users.photo_path AS Users_photo_path,Users.id AS Users_id FROM Comments INNER JOIN Users ON Users.id = Comments.commented_by WHERE Comments.concert_id="+concertID+";";
 		ResultSet rs;
 		try {
 			rs = Database.connect(query, Application.MODE_GET);
 			while(rs.next()) {
 				comment = new Comments();
 				user = new Users();
+				user.setId(rs.getInt("Users_id"));
 				user.setName(rs.getString("Users_name"));
 				user.setPhoto_path(rs.getString("Users_photo_path"));
 				user.setEmail(rs.getString("Users_email"));
+				comment.setCommented_by(rs.getInt("Users_id"));
 				comment.setComment(rs.getString("Comments_comment"));
 				comment.setCategory(rs.getInt("Comments_category"));
 				comment.setId(rs.getInt("Comments_id"));
@@ -67,9 +69,9 @@ public class CommentChecker {
 		return result;
 	}
 
-	public static String deleteComment(int commentID, int userID){
+	public static String deleteComment(int commentID){
 
-		String query = "DELETE FROM comments WHERE comments.id = " + commentID + " and comments.commented_by = "+ userID +";" ;
+		String query = "DELETE FROM Comments WHERE id = " + commentID + ";" ;
 		return query;
 	}
 

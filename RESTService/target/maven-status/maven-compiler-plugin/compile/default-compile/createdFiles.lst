@@ -24,7 +24,9 @@ boun/group9/webservice/exception/NotSavedException.class
 boun/group9/webservice/helper/ArtistChecker.class
 boun/group9/webservice/app/controller/ConcertController.class
 boun/group9/webservice/helper/UserChecker.class
+boun/group9/webservice/helper/ConcertChecker$1.class
 boun/group9/webservice/app/data/Concerts.class
+boun/group9/webservice/helper/SemanticTagsChecker$1.class
 boun/group9/webservice/app/data/Comments.class
 boun/group9/webservice/app/controller/MusicalInterestsController.class
 boun/group9/webservice/helper/ConcertChecker.class
@@ -35,7 +37,6 @@ boun/group9/webservice/app/controller/RecommendationsController.class
 boun/group9/webservice/app/data/Users.class
 boun/group9/webservice/app/controller/SearchController.class
 boun/group9/webservice/exception/UserNotFoundException.class
-boun/group9/webservice/app/controller/SemanticTagsController$1.class
 boun/group9/webservice/exception/IJsonSyntaxException.class
 boun/group9/webservice/app/data/Report_types.class
 boun/group9/webservice/app/data/Comments_categories.class
@@ -48,5 +49,4 @@ boun/group9/webservice/app/data/Reports.class
 boun/group9/webservice/app/data/BasicSearch.class
 boun/group9/webservice/helper/SearchChecker.class
 boun/group9/webservice/app/controller/CommentController.class
-boun/group9/webservice/helper/word2vec.class
 boun/group9/webservice/app/data/Relations.class

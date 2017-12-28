@@ -30,21 +30,7 @@ import boun.group9.webservice.helper.NotificationChecker;
 
 @RestController
 public class ConcertController {
-	@RequestMapping(value="concerts/{concertID}/photo",method=RequestMethod.POST)
-	public String uploadConcertPhoto(@PathVariable(value="concertID") int concertID,@RequestParam(value="file") MultipartFile file) {
-		if(!file.isEmpty()) {
-			try {
-				FileChecker.imageUpload(file);
-			}catch(IOException ex) {
-				System.out.println("IO Exception occured.");
-				ex.printStackTrace();
-			}
-			
-			return "File saved.";
-		}else {
-			return "File is empty.";
-		}
-	}
+	
 	@RequestMapping(value="concerts/{concertID}/comments",method=RequestMethod.GET)
 	public String getCommentsForConcert(@PathVariable(value="concertID") int concertID) {
 		ArrayList<Comments> commentList = CommentChecker.getCommentList(concertID);
@@ -111,7 +97,11 @@ public class ConcertController {
 		Database.closeConnection();
 		return jsonString;
 	}
-	
+	@RequestMapping(value="rate-concert",method=RequestMethod.POST)
+	public String rateConcert(@RequestParam(value="id",required=true) int concertId, @RequestParam(value="rate",required=true) int rate) {
+		ConcertChecker.rateConcert(concertId, rate);
+		return "OK.";
+	}
 	@RequestMapping(value="concerts",method = RequestMethod.GET)
 	public String getConcertsForUser(@RequestParam(value="user_id",required=false) Integer user_id,@RequestParam(value="status",required=false) String status,@RequestParam(value="created_by",required=false) String created_by) {
 		String jsonString="";
@@ -178,6 +168,8 @@ public class ConcertController {
 				concert.setLocation(location);
 				concertList.add(concert);
 			}
+			concertList=ConcertChecker.sortByDate(concertList);
+			
 			jsonString = Application.gson.toJson(concertList);
 		}catch(SQLException ex) {
 			System.out.println("SQL Exception occured");
@@ -283,6 +275,129 @@ public class ConcertController {
 		return "Saved.";
 	}
 	
+		@RequestMapping(value="nextconcerts",method = RequestMethod.GET)
+	public String getAllNextConcerts() {
+		String jsonString="";
+		ResultSet rs;
+		Users user;
+		Artists artist;
+		Locations location;
+		Concerts concert;
+		ArrayList<Concerts> concertList = new ArrayList<Concerts>();
+		try {
+			String query = ConcertChecker.getNextConcertsQuery();
+			rs = Database.connect(query, Application.MODE_GET);
+			while(rs.next()) {
+				concert = new Concerts();
+				user = new Users();
+				artist = new Artists();
+				location = new Locations();
+				concert.setId(rs.getInt("Concerts_id"));
+				concert.setName(rs.getString("Concerts_name"));
+				concert.setMin_price(rs.getInt("min_price"));
+				concert.setMax_price(rs.getInt("max_price"));
+				concert.setRate(rs.getFloat("Concerts_rate"));
+				concert.setVoter_amount(rs.getInt("Concerts_voter_amount"));
+				concert.setImage_path(rs.getString("Concerts_image_path"));
+				concert.setDate_time(rs.getTimestamp("Concerts_date_time"));
+				user.setId(rs.getInt("Users_id"));
+				user.setName(rs.getString("Users_name"));
+				user.setEmail(rs.getString("Users_email"));
+				user.setFollowers(rs.getInt("Users_followers"));
+				user.setFollowings(rs.getInt("Users_followings"));
+				user.setPhoto_path(rs.getString("Users_photo_path"));
+				user.setCreated_at(rs.getTimestamp("Users_created_at"));
+				user.setUpdated_at(rs.getTimestamp("Users_updated_at"));
+				user.setLast_login(rs.getTimestamp("Users_last_login"));
+				concert.setCreated_by(user);
+				artist.setId(rs.getInt("Artists_id"));
+				artist.setName(rs.getString("Artists_name"));
+				concert.setArtist(artist);
+				location.setId(rs.getInt("Locations_id"));
+				location.setLatitude(rs.getDouble("Locations_latitude"));
+				location.setLongitude(rs.getDouble("Locations_longitude"));
+				location.setCity(rs.getString("Locations_city"));
+				location.setAddress(rs.getString("Locations_address"));
+				concert.setLocation(location);
+				concertList.add(concert);
+			}
+			concertList=ConcertChecker.sortByDate(concertList);
+			
+			jsonString = Application.gson.toJson(concertList);
+		}catch(SQLException ex) {
+			System.out.println("SQL Exception occured");
+			ex.printStackTrace();
+			return "SQL Error occured.";
+		}catch(NotSavedException ex) {
+			ex.printStackTrace();
+			return "Not saved.";
+		}
+		return jsonString;
+	}
+
+	@RequestMapping(value="pastconcerts",method = RequestMethod.GET)
+	public String getAllPastConcerts() {
+		String jsonString="";
+		ResultSet rs;
+		Users user;
+		Artists artist;
+		Locations location;
+		Concerts concert;
+		ArrayList<Concerts> concertList = new ArrayList<Concerts>();
+		try {
+			String query = ConcertChecker.getPastConcertsQuery();
+			rs = Database.connect(query, Application.MODE_GET);
+			while(rs.next()) {
+				concert = new Concerts();
+				user = new Users();
+				artist = new Artists();
+				location = new Locations();
+				concert.setId(rs.getInt("Concerts_id"));
+				concert.setName(rs.getString("Concerts_name"));
+				concert.setMin_price(rs.getInt("min_price"));
+				concert.setMax_price(rs.getInt("max_price"));
+				concert.setRate(rs.getFloat("Concerts_rate"));
+				concert.setVoter_amount(rs.getInt("Concerts_voter_amount"));
+				concert.setImage_path(rs.getString("Concerts_image_path"));
+				concert.setDate_time(rs.getTimestamp("Concerts_date_time"));
+				user.setId(rs.getInt("Users_id"));
+				user.setName(rs.getString("Users_name"));
+				user.setEmail(rs.getString("Users_email"));
+				user.setFollowers(rs.getInt("Users_followers"));
+				user.setFollowings(rs.getInt("Users_followings"));
+				user.setPhoto_path(rs.getString("Users_photo_path"));
+				user.setCreated_at(rs.getTimestamp("Users_created_at"));
+				user.setUpdated_at(rs.getTimestamp("Users_updated_at"));
+				user.setLast_login(rs.getTimestamp("Users_last_login"));
+				concert.setCreated_by(user);
+				artist.setId(rs.getInt("Artists_id"));
+				artist.setName(rs.getString("Artists_name"));
+				concert.setArtist(artist);
+				location.setId(rs.getInt("Locations_id"));
+				location.setLatitude(rs.getDouble("Locations_latitude"));
+				location.setLongitude(rs.getDouble("Locations_longitude"));
+				location.setCity(rs.getString("Locations_city"));
+				location.setAddress(rs.getString("Locations_address"));
+				concert.setLocation(location);
+				concertList.add(concert);
+			}
+			jsonString = Application.gson.toJson(concertList);
+		}catch(SQLException ex) {
+			System.out.println("SQL Exception occured");
+			ex.printStackTrace();
+			return "SQL Error occured.";
+		}catch(NotSavedException ex) {
+			ex.printStackTrace();
+			return "Not saved.";
+		}
+
+
+		
+		return jsonString;
+	}
+
+
+
 	@RequestMapping(value = "concert/{concert_id}/{current_rate}" , method = RequestMethod.POST)
 	public String postConcertRate(@PathVariable(value = "concert_id") int concert_id , @PathVariable(value = "current_rate") int current_rate){
 		String rateNumberQuery = ConcertChecker.updateRateNumber(concert_id);
