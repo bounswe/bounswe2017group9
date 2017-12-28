@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: ConcerterBackend
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: ffguven
+Built-By: raiff
 Implementation-Vendor-Id: boun.group9.backend
-Build-Jdk: 1.8.0_151
+Build-Jdk: 1.8.0_121
 Implementation-URL: http://projects.spring.io/spring-boot/ConcerterBac
  kend/
 Created-By: Maven Integration for Eclipse

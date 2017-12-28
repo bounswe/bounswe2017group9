@@ -1,0 +1,13 @@
+
+.date-picker{
+    display: inline-block;
+    margin: 20px;
+}
+
+.datepicker,
+.timepicker,
+.datetimepicker {
+	.form-control {
+		background: #fff;
+	}
+}
