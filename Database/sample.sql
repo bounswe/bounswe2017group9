@@ -26,7 +26,7 @@ CREATE TABLE `Artists` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -35,7 +35,7 @@ CREATE TABLE `Artists` (
 
 LOCK TABLES `Artists` WRITE;
 /*!40000 ALTER TABLE `Artists` DISABLE KEYS */;
-INSERT INTO `Artists` VALUES (45,'Kursat Basar'),(46,'Test Artist'),(47,'Test Artist'),(48,'Pentagram'),(49,''),(50,'Hamza Bekir');
+INSERT INTO `Artists` VALUES (51,'Turgay Erdener');
 /*!40000 ALTER TABLE `Artists` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -66,7 +66,6 @@ CREATE TABLE `Attendees` (
 
 LOCK TABLES `Attendees` WRITE;
 /*!40000 ALTER TABLE `Attendees` DISABLE KEYS */;
-INSERT INTO `Attendees` VALUES (4,24,1,54,NULL);
 /*!40000 ALTER TABLE `Attendees` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -89,7 +88,7 @@ CREATE TABLE `Comments` (
   PRIMARY KEY (`id`),
   KEY `FK_Comments_Users` (`commented_by`),
   CONSTRAINT `FK_Comments_Users` FOREIGN KEY (`commented_by`) REFERENCES `Users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,7 +97,7 @@ CREATE TABLE `Comments` (
 
 LOCK TABLES `Comments` WRITE;
 /*!40000 ALTER TABLE `Comments` DISABLE KEYS */;
-INSERT INTO `Comments` VALUES (1,54,22,0,0,'ehehe','2017-12-26 23:34:59',1);
+INSERT INTO `Comments` VALUES (3,55,25,0,0,'eheheh','2017-12-28 03:11:24',1);
 /*!40000 ALTER TABLE `Comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -153,7 +152,7 @@ CREATE TABLE `Concerts` (
   CONSTRAINT `FK_Concerts_Artists` FOREIGN KEY (`artist`) REFERENCES `Artists` (`id`),
   CONSTRAINT `FK_Concerts_Location` FOREIGN KEY (`location`) REFERENCES `Locations` (`id`),
   CONSTRAINT `FK_Concerts_Users` FOREIGN KEY (`created_by`) REFERENCES `Users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -162,7 +161,7 @@ CREATE TABLE `Concerts` (
 
 LOCK TABLES `Concerts` WRITE;
 /*!40000 ALTER TABLE `Concerts` DISABLE KEYS */;
-INSERT INTO `Concerts` VALUES (24,'Loc Test',54,50,43,'2017-12-29 13:00:00',10,120,0,0,'https://cdn.londonandpartners.com/visit/london-organisations/alexandra-palace/92923-640x360-alexandra-palace-gig-640.jpg','http://www.biletix.com/etkinlik-grup/134359460/TURKIYE/tr');
+INSERT INTO `Concerts` VALUES (25,'Azizname',55,51,44,'2017-12-30 12:00:00',10,110,0,0,'http://www.biletix.com/static/images/live/event/groupimages/azizznaame-002017.png','http://www.biletix.com/etkinlik-grup/130983896/TURKIYE/tr');
 /*!40000 ALTER TABLE `Concerts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -180,7 +179,7 @@ CREATE TABLE `Locations` (
   `city` varchar(100) DEFAULT NULL,
   `address` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -189,7 +188,7 @@ CREATE TABLE `Locations` (
 
 LOCK TABLES `Locations` WRITE;
 /*!40000 ALTER TABLE `Locations` DISABLE KEYS */;
-INSERT INTO `Locations` VALUES (38,45.12312,63.43432,'Trump Kultur Merkezi','Trump Kultur Merkezi'),(39,45.12312,63.43432,'Beykoz','Beykoz'),(40,45.12312,63.43432,'Istanbul','Istanbul'),(41,45.12312,63.43432,'Zorlu PSM','Zorlu PSM'),(42,45.12312,63.43432,'null','null'),(43,28.978551400000015,41.0349374,'Hüseyina?a Mahallesi, Balo Sokak No:22','Hüseyina?a Mahallesi, Balo Sokak No:22');
+INSERT INTO `Locations` VALUES (38,45.12312,63.43432,'Trump Kultur Merkezi','Trump Kultur Merkezi'),(39,45.12312,63.43432,'Beykoz','Beykoz'),(40,45.12312,63.43432,'Istanbul','Istanbul'),(41,45.12312,63.43432,'Zorlu PSM','Zorlu PSM'),(42,45.12312,63.43432,'null','null'),(43,28.978551400000015,41.0349374,'Hüseyina?a Mahallesi, Balo Sokak No:22','Hüseyina?a Mahallesi, Balo Sokak No:22'),(44,27.207383400000026,38.4500228,'KidsMall AVM 367/6 Sok. No:5/11 Bornava/','KidsMall AVM 367/6 Sok. No:5/11 Bornava/');
 /*!40000 ALTER TABLE `Locations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -265,7 +264,6 @@ CREATE TABLE `Notifications` (
 
 LOCK TABLES `Notifications` WRITE;
 /*!40000 ALTER TABLE `Notifications` DISABLE KEYS */;
-INSERT INTO `Notifications` VALUES (4,'test is attending to Loc Test.',48,24),(5,'test is attending to Loc Test.',51,24);
 /*!40000 ALTER TABLE `Notifications` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -294,7 +292,6 @@ CREATE TABLE `Relations` (
 
 LOCK TABLES `Relations` WRITE;
 /*!40000 ALTER TABLE `Relations` DISABLE KEYS */;
-INSERT INTO `Relations` VALUES (2,48,54,NULL),(3,51,54,NULL);
 /*!40000 ALTER TABLE `Relations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -378,36 +375,6 @@ LOCK TABLES `SemanticTags` WRITE;
 /*!40000 ALTER TABLE `SemanticTags` ENABLE KEYS */;
 UNLOCK TABLES;
 
-
-
-
---
--- Table structure for table `WordVec`
---
-
-
-
-DROP TABLE IF EXISTS `WordVec`;
-CREATE TABLE `WordVec` (
-`id` int NOT NULL AUTO_INCREMENT,
- `base` varchar(100) DEFAULT NULL,  
- `compare` varchar(100) DEFAULT NULL, 
- `score` double NOT NULL,
- PRIMARY KEY (id));
-
---
--- Dumping data for table `WordVec`
---
-
-LOCK TABLES `WordVec` WRITE;
-/*!40000 ALTER TABLE `WordVec` DISABLE KEYS */;
-/*!40000 ALTER TABLE `WordVec` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-
-
-
 --
 -- Table structure for table `Users`
 --
@@ -429,7 +396,7 @@ CREATE TABLE `Users` (
   `username` varchar(100) DEFAULT NULL,
   `spotify_id` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -438,7 +405,7 @@ CREATE TABLE `Users` (
 
 LOCK TABLES `Users` WRITE;
 /*!40000 ALTER TABLE `Users` DISABLE KEYS */;
-INSERT INTO `Users` VALUES (48,'Fatih Güven','fatih.guven@hotmail.com',NULL,0,0,'https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/12042817_10206845907799008_1170828127403682503_n.jpg?oh=0690ae3394ceb9d99b87b10dc5063031&oe=5A9B890B','2017-12-04 20:22:53','2017-12-04 20:22:53','2017-12-04 20:22:53',NULL,'11128938007'),(51,'Test User','tuser@gmail.com','654321',0,0,'https://www.randomlists.com/img/people/arnold_schwarzenegger.jpg','2017-12-06 00:05:57','2017-12-06 00:05:57','2017-12-06 00:05:57','tuser',NULL),(54,'test','test@test.com','121212',0,0,'https://i1.wp.com/visboo.com/img/29042010/66120.jpg','2017-12-26 23:34:23','2017-12-26 23:34:23','2017-12-26 23:34:23','test',NULL);
+INSERT INTO `Users` VALUES (55,'Fatih Guven','fatihguven26@gmail.com','121212',0,0,'https://pm1.narvii.com/5866/76b201e12343e860570c62f4067307e04ed545fe_hq.jpg','2017-12-28 02:52:20','2017-12-28 02:52:20','2017-12-28 02:52:20','ffguven',NULL);
 /*!40000 ALTER TABLE `Users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -451,4 +418,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-27 23:52:27
+-- Dump completed on 2017-12-28  3:24:01
