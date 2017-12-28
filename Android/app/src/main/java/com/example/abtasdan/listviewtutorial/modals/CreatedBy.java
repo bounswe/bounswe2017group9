@@ -1,10 +1,12 @@
 package com.example.abtasdan.listviewtutorial.modals;
 
+import java.io.Serializable;
+
 /**
  * Created by abtasdan on 2.11.2017.
  */
 
-public class CreatedBy {
+public class CreatedBy implements Serializable{
     int id;
     String name;
     String email;

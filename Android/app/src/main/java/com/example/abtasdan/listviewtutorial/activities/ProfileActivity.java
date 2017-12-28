@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.abtasdan.listviewtutorial.R;
 
 import butterknife.BindView;
@@ -32,7 +34,8 @@ public class ProfileActivity extends Activity {
     TextView followingsText;
     @BindView(R.id.tv_last_update)
     TextView lastUpText;
-
+    @BindView(R.id.iv_image)
+    ImageView image;
 
 
     public static final String MyPREFERENCES = "MyPrefs" ;
@@ -50,9 +53,10 @@ public class ProfileActivity extends Activity {
             String lastUp = prefs.getString("updated_at","No update defined");
             int followings = prefs.getInt("followings", 0);
             int followers = prefs.getInt("followers", 0);
-
+            String photo = prefs.getString("photo_path","no photo path");
             String temp1= followers+" Followers";
             String temp2= followings+" Followings";
+            Glide.with(this).load(photo).into(image);
             nameText.setText(name);
             emailText.setText(email);
             lastUpText.setText(lastUp);

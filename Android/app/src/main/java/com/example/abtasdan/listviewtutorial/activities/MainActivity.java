@@ -1,10 +1,14 @@
 package com.example.abtasdan.listviewtutorial.activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -101,6 +105,9 @@ public class MainActivity extends Activity {
 
         concertifyApiRequest = restAdapter.create(ConcertifyApiRequest.class);
         refreshItems();
+        this.getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
 
 
     }
@@ -118,11 +125,11 @@ public class MainActivity extends Activity {
         if (restoredText != null) {
             userId = prefs.getInt("idName", 0); //0 is the default value.
         }
-        concertifyApiRequest.getConcerts(userId, new Callback<ArrayList<Concert>>() {
+        concertifyApiRequest.getConcerts( new Callback<ArrayList<Concert>>() {
             @Override
             public void success(ArrayList<Concert> concerts, Response response) {
 
-                ConcertAdapter concertAdapter = new ConcertAdapter(MainActivity.this, concerts, false);
+                ConcertAdapter concertAdapter = new ConcertAdapter(MainActivity.this, concerts,null, false);
                 lvConcerts.setAdapter(concertAdapter);
             }
 
@@ -140,7 +147,8 @@ public class MainActivity extends Activity {
             @Override
             public void success(SearchResult searchResult, Response response) {
 
-                ConcertAdapter concertAdapter = new ConcertAdapter(MainActivity.this, searchResult.getConcerts(), false);
+                ConcertAdapter concertAdapter = new ConcertAdapter(MainActivity.this, searchResult.getConcerts(),
+                        searchResult.getUsers(),false);
                 lvConcerts.setAdapter(concertAdapter);
 
 
@@ -160,6 +168,11 @@ public class MainActivity extends Activity {
        }else{
            tvTitle.setText("Search");
            search(etSearch.getText().toString());
+           View view = this.getCurrentFocus();
+           if (view != null) {
+               InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+               imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+           }
 
        }
     }

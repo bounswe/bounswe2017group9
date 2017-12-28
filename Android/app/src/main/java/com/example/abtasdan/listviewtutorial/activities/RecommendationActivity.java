@@ -100,7 +100,7 @@ public class RecommendationActivity extends Activity {
             @Override
             public void success(ArrayList<Concert> concerts, Response response) {
 
-                ConcertAdapter concertAdapter = new ConcertAdapter(RecommendationActivity.this, concerts, false);
+                ConcertAdapter concertAdapter = new ConcertAdapter(RecommendationActivity.this, concerts,null, false);
                 recomendationList.setAdapter(concertAdapter);
             }
 

@@ -1,12 +1,13 @@
 package com.example.abtasdan.listviewtutorial.modals;
 
 
+import java.io.Serializable;
 
 /**
  * Created by abtasdan on 24.10.2017.
  */
 
-public class Concert {
+public class Concert  implements Serializable{
     long id;
     String name;
     CreatedBy created_by;

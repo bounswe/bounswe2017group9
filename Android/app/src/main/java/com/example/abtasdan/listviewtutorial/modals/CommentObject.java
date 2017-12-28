@@ -6,9 +6,10 @@ package com.example.abtasdan.listviewtutorial.modals;
 
 public class CommentObject {
     String comment;
-    long comment_id;
-    long comment_by;
-    long category;
+    int comment_id;
+    int comment_by;
+    int category;
+
     public String getComment() {
         return comment;
     }
@@ -17,30 +18,27 @@ public class CommentObject {
         this.comment = comment;
     }
 
-    public long getComment_id() {
+    public int getComment_id() {
         return comment_id;
     }
 
-    public void setComment_id(long comment_id) {
+    public void setComment_id(int comment_id) {
         this.comment_id = comment_id;
     }
 
-    public long getComment_by() {
+    public int getComment_by() {
         return comment_by;
     }
 
-    public void setComment_by(long comment_by) {
+    public void setComment_by(int comment_by) {
         this.comment_by = comment_by;
     }
 
-    public long getCategory() {
+    public int getCategory() {
         return category;
     }
 
-    public void setCategory(long category) {
+    public void setCategory(int category) {
         this.category = category;
     }
-
-
-
 }

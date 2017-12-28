@@ -113,7 +113,7 @@ public class CreateConcertActivity extends Activity {
     @OnClick(R.id.btn_create_concert)
     public void createConcert() {
         final String artist = artistText.getText().toString();
-        final String date = dateText.getText().toString();
+        final String date = "29.12.2017 15.00 PM";
         final String name = nameText.getText().toString();
         final String city = cityText.getText().toString();
         final String address = addressText.getText().toString();
@@ -155,7 +155,7 @@ public class CreateConcertActivity extends Activity {
             String restoredText = prefs.getString("name", null);
 
             if (restoredText != null) {
-                long id = prefs.getLong("id", 0); //0 is the default value.
+                int id = prefs.getInt("id", 0); //0 is the default value.
                 newConcertObject.setCreated_by_id(id);
 
             }

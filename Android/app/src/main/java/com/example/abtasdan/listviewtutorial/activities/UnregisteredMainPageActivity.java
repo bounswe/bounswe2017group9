@@ -47,7 +47,7 @@ public class UnregisteredMainPageActivity extends Activity {
         String restoredText = prefs.getString("name", null);
         if (restoredText != null) {
             String name = prefs.getString("name", "No name defined");//"No name defined" is the default value.
-            long id = prefs.getLong("id", 0); //0 is the default value.
+            int id = prefs.getInt("id", 0); //0 is the default value.
             if(id !=0 ){
                 finish();
                 Intent intent = new Intent(UnregisteredMainPageActivity.this,MainActivity.class);
@@ -102,7 +102,7 @@ public class UnregisteredMainPageActivity extends Activity {
 
 
         concertifyApiRequest = restAdapter.create(ConcertifyApiRequest.class);
-       // refreshItems();
+        refreshItems();
 
     }
 
@@ -120,11 +120,11 @@ public class UnregisteredMainPageActivity extends Activity {
 
     }
     private void refreshItems() {
-        int userId = 7;
-        concertifyApiRequest.getConcerts(userId, new Callback<ArrayList<Concert>>() {
+
+        concertifyApiRequest.getConcerts( new Callback<ArrayList<Concert>>() {
             @Override
             public void success(ArrayList<Concert> concerts, Response response) {
-                ConcertAdapter concertAdapter = new ConcertAdapter(UnregisteredMainPageActivity.this, concerts, false);
+                ConcertAdapter concertAdapter = new ConcertAdapter(UnregisteredMainPageActivity.this, concerts,null, false);
                 lvConcerts.setAdapter(concertAdapter);
             }
 

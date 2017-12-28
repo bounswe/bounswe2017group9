@@ -98,7 +98,7 @@ public class ProfileConcertsActivity extends AppCompatActivity {
             @Override
             public void success(ArrayList<Concert> concerts, Response response) {
 
-                ConcertAdapter concertAdapter = new ConcertAdapter(ProfileConcertsActivity.this, concerts, false);
+                ConcertAdapter concertAdapter = new ConcertAdapter(ProfileConcertsActivity.this, concerts,null, false);
                 lvConcerts.setAdapter(concertAdapter);
             }
 

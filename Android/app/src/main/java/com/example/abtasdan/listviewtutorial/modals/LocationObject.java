@@ -1,10 +1,12 @@
 package com.example.abtasdan.listviewtutorial.modals;
 
+import java.io.Serializable;
+
 /**
  * Created by abtasdan on 2.11.2017.
  */
 
-public class LocationObject {
+public class LocationObject implements Serializable{
     long id;
     double longitude;
     double latitude;
