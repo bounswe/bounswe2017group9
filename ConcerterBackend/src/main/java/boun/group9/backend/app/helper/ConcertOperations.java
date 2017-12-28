@@ -259,7 +259,7 @@ public class ConcertOperations {
 			connection.connect();
 			BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			resultJson = br.readLine();
-			//System.out.println(resultJson);
+			System.out.println(resultJson);
 			resultList = new ArrayList<Concerts>(Arrays.asList(Application.gson.fromJson(resultJson, Concerts[].class)));
 			//System.out.println(resultList.get(0).getDate_time());
 			for(Concerts oneConcert : resultList) {
@@ -273,6 +273,7 @@ public class ConcertOperations {
 				connection.connect();
 				br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 				resultJson = br.readLine();
+				System.out.println(resultJson);
 				commentList = new ArrayList<Comments> (Arrays.asList(Application.gson.fromJson(resultJson, Comments[].class)));
 				oneConcert.setCommentList(commentList);
 				

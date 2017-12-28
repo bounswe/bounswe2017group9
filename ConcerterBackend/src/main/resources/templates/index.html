@@ -52,7 +52,7 @@
             </div>
         </div>
         <div class= "clearfix">
-        	<a class="nav-link float-right" th:text="${loggedInUser != null} ? 'Logged in as ' +  ${loggedInUser.name} : 'Not logged in'" th:href="@{${loggedInUser != null} ? '/profile/'+${loggedInUser.id} : '#'}"></a>
+        	
     	</div>
     </div>
 </header>
@@ -61,11 +61,12 @@
     <div class="row">
         <div class="col-sm-2 side-menu" >
             <ul class="list-group ">
-                <a href="#" class="list-group-item list-group-item-action">Home Page</a>
-                <a href="#" class="list-group-item list-group-item-action">Search Concerts</a>
-                <a href="#" class="list-group-item list-group-item-action">Create Concerts</a>
-                <a href="#" class="list-group-item list-group-item-action">Recommendations</a>
-                <a href="#" class="list-group-item list-group-item-action ">Contact Us</a>
+                <a href="/index" class="list-group-item list-group-item-action">Home Page</a>
+                <a class="list-group-item list-group-item-action" th:text="${loggedInUser != null} ? 'Logged in as ' +  ${loggedInUser.name} : 'Not logged in'" th:href="@{${loggedInUser != null} ? '/profile/'+${loggedInUser.id} : '#'}"></a>
+                <a href="/advanced-search" class="list-group-item list-group-item-action">Search Concerts</a>
+                <a href="/new-concert" class="list-group-item list-group-item-action">Create Concerts</a>
+                <a href="/contact-us" class="list-group-item list-group-item-action ">Contact Us</a>
+                <a href="/logout" class="list-group-item list-group-item-action ">Logout</a>
             </ul>
         </div>
         <!--
@@ -193,7 +194,7 @@
 				                    </div>
 			                     </div>
 			                   
-	                             <div class="media concert-comment" th:each="comtment : ${concert.commentList}">
+	                             <div class="media concert-comment" th:each="comment : ${concert.commentList}">
 								  	<a href="/profile/{userID}(userID=${comment.commented_by})}"> <img class="align-self-center mr-3 commenterPhoto" th:src="${comment.commented_user.photo_path}" alt="img"></img>	</a>
 								  	 <div class="media-body" >
 								    	<a class="card-title" th:href="@{~/profile/{userID}(userID=${comment.commented_by})}" th:text="${comment.commented_user.name}"></a>
