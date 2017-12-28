@@ -34,6 +34,7 @@ public class CommentController {
     	Users user = (Users)session.getAttribute("loggedInUser");
     	int userID = user.getId();
     	int commentid=Integer.parseInt(commentID);
+    	System.out.println("Deleting comment id: "+commentid);
         status = CommentOperations.deleteComment(commentid, userID);
         System.out.println(status);
         if(status == Application.STATUS.SUCCESS){

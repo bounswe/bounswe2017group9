@@ -1,5 +1,6 @@
 package boun.group9.webservice.helper;
 
+import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -25,7 +26,32 @@ public class ConcertChecker {
 	public static String postConcertRate(int concert_id , int current_rate){
 		return "Update concerts Set concerts.rate = Truncate ((" + current_rate + " + concerts.rate * (concerts.voter_amount-1))/concerts.voter_amount , 2) where concerts.id = "+concert_id + ";";
 	}
-
+	public static void rateConcert(int concertId,int rate) {
+		String query = "SELECT * FROM Concerts WHERE id="+concertId+";";
+		ResultSet rs;
+		Concerts concert;
+		float pastRate;
+		float nextRate;
+		try {
+			rs = Database.connect(query, Application.MODE_GET);
+			if(rs.next()) {
+				concert = new Concerts();
+				concert.setId(rs.getInt("id"));
+				concert.setRate(rs.getFloat("rate"));
+				concert.setVoter_amount(rs.getInt("voter_amount"));
+				pastRate = concert.getRate()*concert.getVoter_amount();
+				concert.setVoter_amount(concert.getVoter_amount()+1);
+				concert.setRate((pastRate+rate)/concert.getVoter_amount());
+				query = "UPDATE Concerts SET rate="+concert.getRate()+",voter_amount="+concert.getVoter_amount()+" WHERE id="+concert.getId()+";";
+				System.out.println(query);
+				Database.closeConnection();
+				Database.connect(query, Application.MODE_UPDATE);
+				Database.closeConnection();
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 	
 
 	//concerts that the user attended is considered.

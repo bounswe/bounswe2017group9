@@ -33,9 +33,9 @@ public class CommentController {
 
 
 
-	@RequestMapping(value="{userID}/comments/{commentID}/deleteComment",method=RequestMethod.DELETE)
-	public String deleteComment(@PathVariable(value="commentID") int commentID , @PathVariable(value = "userID") int userID){
-		String query = CommentChecker.deleteComment(commentID, userID);
+	@RequestMapping(value="comments",method=RequestMethod.DELETE)
+	public String deleteComment(@RequestParam(value="id") int commentID){
+		String query = CommentChecker.deleteComment(commentID);
 		try {
 			System.out.println(query);
 			Database.connect(query, Application.MODE_UPDATE);
