@@ -43,8 +43,7 @@
             </div>
             <div class="registration col-sm">
                 <div class="row">
-                    <a href="#" class="btn btn-primary btn-lg active login-button registration-button">Log In</a>
-                    <a href="#" class="btn btn-secondary btn-lg active signup-button registration-button">Sign Up</a>
+                    <a href="/logout" class="btn btn-secondary btn-lg active signup-button registration-button">Log Out</a>
                 </div>
             </div>
         </div>
@@ -61,12 +60,12 @@
 	<div class="col-sm-2 side-menu" >
         <ul class="list-group ">
             <a href="/index" class="list-group-item list-group-item-action">Home Page</a>
-            <a class="list-group-item list-group-item-action" th:text="${loggedInUser != null} ? 'Logged in as ' +  ${loggedInUser.name} : 'Not logged in'" th:href="@{${loggedInUser != null} ? '/profile/'+${loggedInUser.id} : '#'}"></a>
             <a href="/advanced-search" class="list-group-item list-group-item-action">Search Concerts</a>
             <a href="/new-concert" class="list-group-item list-group-item-action">Create Concerts</a>
             <a href="/new-concert" class="list-group-item list-group-item-action">Create Concerts</a>
             <a th:href="'/notifications/'+ ${loggedInUser.id}" class="list-group-item list-group-item-action ">Notifications</a>
-            <a href="/logout" class="list-group-item list-group-item-action ">Logout</a>
+            <div><a class="list-group-item list-group-item-action" style="background-color:#fff" th:text="${loggedInUser != null} ? 'Logged in as ' +  ${loggedInUser.name} : 'Not logged in'" th:href="@{${loggedInUser != null} ? '/profile/'+${loggedInUser.id} : '#'}"></a></div>
+	        <img th:src="${loggedInUser.photo_path}" style="width:100%"></img>
         </ul>
     </div>
 	<div class="col-6 offset-3" style="margin:20px">

@@ -18,7 +18,7 @@
     
     <!-- Main StyleSheet for Home Page CSS-->
     <link rel="stylesheet" href="/css/style.css" type="text/css"></link>
-    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.2/css/star-rating.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.2/css/star-rating.min.css" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.2/js/star-rating.min.js"></script>
 </head>
 
@@ -46,8 +46,7 @@
             </div>
             <div class="registration col-sm">
                 <div class="row">
-                    <a href="#" class="btn btn-primary btn-lg active login-button registration-button">Log In</a>
-                    <a href="#" class="btn btn-secondary btn-lg active signup-button registration-button">Sign Up</a>
+                    <a href="/logout" class="btn btn-secondary btn-lg active signup-button registration-button">Log Out</a>
                 </div>
             </div>
         </div>
@@ -60,14 +59,16 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-2 side-menu" >
-            <ul class="list-group ">
-                <a href="#" class="list-group-item list-group-item-action">Home Page</a>
-                <a href="#" class="list-group-item list-group-item-action">Search Concerts</a>
-                <a href="#" class="list-group-item list-group-item-action">Create Concerts</a>
-                <a href="#" class="list-group-item list-group-item-action">Recommendations</a>
-                <a href="#" class="list-group-item list-group-item-action ">Contact Us</a>
-            </ul>
-        </div>
+	        <ul class="list-group ">
+	            <a href="/index" class="list-group-item list-group-item-action">Home Page</a>
+	            <a href="/advanced-search" class="list-group-item list-group-item-action">Search Concerts</a>
+	            <a href="/new-concert" class="list-group-item list-group-item-action">Create Concerts</a>
+	            <a href="/new-concert" class="list-group-item list-group-item-action">Create Concerts</a>
+	            <a th:href="'/notifications/'+ ${loggedInUser.id}" class="list-group-item list-group-item-action ">Notifications</a>
+	           	<div><a class="list-group-item list-group-item-action" style="background-color:#fff" th:text="${loggedInUser != null} ? 'Logged in as ' +  ${loggedInUser.name} : 'Not logged in'" th:href="@{${loggedInUser != null} ? '/profile/'+${loggedInUser.id} : '#'}"></a></div>
+	           	<img th:src="${loggedInUser.photo_path}" style="width:100%"></img>
+	        </ul>
+    	</div>
         <!--
             Home Page Main Concert Listing Section
         -->
@@ -105,7 +106,7 @@
 	                                </div>
 	                                <div class="col-4">
 	                                    <p>
-	                                        <i class="fa fa-calendar" aria-hidden="true"></i> 21.06.2019 18:00
+	                                        <i class="fa fa-calendar" aria-hidden="true"></i> <span th:text="${concert.date_str}"></span>    <span th:text="${concert.time_str}"></span> 
 	                                    </p>
 	                                </div>
 	                                <div class="col-4">
@@ -258,19 +259,18 @@
 	    <div class="col-sm-3 past-concert justify-content-center">
 	        <a href="#" id="past-concert-title">RECOMMENDED CONCERTS</a>
 	        <div class="card" style="width: 20rem;" th:each="concert : ${recommendConcertList}">
-	            <img class="card-img-top" src="images/rihanna-concert.jpg" alt="Card image cap"></img>
+	            <img class="card-img-top" th:src="${concert.image_path}" alt="Card image cap"></img>
 	            <div class="card-body">
 	                <h4 class="card-title"><a th:href="@{~/concert/{id}(id=${concert.id})}" th:text="${concert.name}" ></a></h4>
 	            </div>
 	            <ul class="list-group list-group-flush">
 	                <li class="list-group-item"><i class="fa fa-map-marker" aria-hidden="true"></i> <span th:text="${concert.location.city}"></span></li>
-	                <li class="list-group-item"><i class="fa fa-calendar" aria-hidden="true"></i> 21.06.2019 18:00/ Ended</li>
+	                <li class="list-group-item"><i class="fa fa-calendar" aria-hidden="true"></i> <span th:text="${concert.date_str}"></span>    <span th:text="${concert.time_str}"></span> </li>
 	                <li class="list-group-item">
 	                    <div class="card-detailed-info">
 	                        <i class="fa fa-money" aria-hidden="true"></i> <span th:text="${concert.min_price}"></span>$ - <span th:text="${concert.max_price}"></span>$
 	                    </div>
 	                </li>
-	                
 	            </ul>
 	        </div>
 	    </div>
