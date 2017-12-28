@@ -1,176 +1,217 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>ConcerterBackend Test</title>
-	<meta http-equiv="Content-Type" content="text/html;" charset="UTF-8" />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" ></link>
-	<link rel="stylesheet" href="/css/style1.css"></link>
+    <title>ConcerterBackend Test</title>
+    <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" ></link>
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+    <!-- Fonts CSS-->
+    <link rel="stylesheet" href="/fonts/fonts.css" type="text/css"></link>
+    <link rel="stylesheet" href="/css/advanced-search.css" type="text/css"></link>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"></link>
+    <!-- Main StyleSheet for Home Page CSS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.2/js/star-rating.min.js"></script>
+    <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
+    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" ></link>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"></link>
+    <link rel="stylesheet" href="/css/style.css" type="text/css"></link>
 </head>
+
 <body>
-<nav class="navbar navbar-expand-lg navbar-light">
-  <a class="navbar-brand" href="/index">Concerter</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="/profile/1">Profile</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Concerts
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/new-concert">Create Concert</a>
+<header>
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="logo col-sm-2">
+                <div class="col-xs-12">
+                    <img src="/images/concerter-logo.png" width="50%" alt="Image Not Available"></img>
+                </div>
+                <p>Concerter</p>
+            </div>
+            <div class="search-bar col-sm-7">
+                <div class="row">
+                <!--th:Action="@{/basic-search}" th:object="${search}"-->
+                    <form class="" style="width:100%"  method="post">
+	                    <div class="input-group">
+	                    <!--th:field="*{searchKey}" -->
+	                        <input type="text" class="form-control" placeholder="Search for..." aria-label="Search for..." ></input>
+	                        <span class="input-group-btn">
+	                            <button class="btn btn-secondary" type="submit">Go!</button>
+	                        </span>
+	                    </div>
+	                </form>
+                </div>
+            </div>
+            <div class="registration col-sm">
+                <div class="row">
+                    <a href="#" class="btn btn-primary btn-lg active login-button registration-button">Log In</a>
+                    <a href="#" class="btn btn-secondary btn-lg active signup-button registration-button">Sign Up</a>
+                </div>
+            </div>
         </div>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
+    </div>
+</header>
+
 <div class="container">
     <div class="row profile">
 		<div class="col-md-3">
-			<div class="profile-sidebar">
+			<div class="profile-sidebar card">
 				<!-- SIDEBAR USERPIC -->
 				<div class="profile-userpic">
-					<img th:src="${user.photo_path}" class="img-responsive" alt=""></img>
+					<img th:src="${user.photo_path}" class="img-responsive card-img-top"  alt=""></img>
 				</div>
 				<!-- END SIDEBAR USERPIC -->
 				<!-- SIDEBAR USER TITLE -->
-				<div class="profile-usertitle">
+				<div class="profile-usertitle card-body">
 					<div class="profile-usertitle-name" >
 						<span th:text="${user.name}"></span>	
-					</div>
-					
+					</div>			
 				</div>
 				<!-- END SIDEBAR USER TITLE -->
 				<!-- SIDEBAR BUTTONS -->
-				<div class="profile-userbuttons">
-					<form th:Action="@{${'/follow/' + user.id}}" method="POST">
-						<button type="submit" class="btn btn-success btn-sm">Follow</button>
-					</form>
-					
-				</div>
-				<div class="profile-userbuttons">
-					<form th:Action="@{${'/unfollow/'+user.id}}" method="POST">
-						<button type="submit" class="btn btn-success btn-sm">Unfollow</button>
-					</form>
-					
-				</div>
-				<!-- END SIDEBAR BUTTONS -->
-				<!-- SIDEBAR MENU -->
-				<div class="nav flex-column nav-pills profile-usermenu" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-  					<a th:href="${'/profile/'+user.id+'/attending'}" class="btn btn-info">Attending Concerts</a>
-  					<a th:href="${'/profile/'+user.id+'/thinking'}" class="btn btn-info">Thinking Concerts</a>
-  					<a th:href="${'/profile/'+user.id+'/attended'}" class="btn btn-info">Attended Concerts</a>
-				</div>
+				<ul class="list-group list-group-flush">
+					<li class = "list-group-item">
+						<div class = "clearfix">
+							<div class="profile-userbuttons float-left">
+								<form th:Action="@{${'/follow/' + user.id}}" method="POST">
+									<button type="submit" class="btn btn-success btn-sm">Follow</button>
+								</form>
+							</div>
+							<div class="profile-userbuttons float-right">
+								<form th:Action="@{${'/unfollow/'+user.id}}" method="POST">
+									<button type="submit" class="btn btn-danger btn-sm">Unfollow</button>
+								</form>
+							</div>
+						</div>
+					</li>
+					<li class = "list-group-item">
+					  	<a th:href="${'/profile/'+user.id+'/attending'}" class="btn btn-info profile-subbutton">Attending Concerts</a>
+						<a th:href="${'/profile/'+user.id+'/thinking'}" class="btn btn-info profile-subbutton">Thinking Concerts</a>
+					  	<a th:href="${'/profile/'+user.id+'/attended'}" class="btn btn-info profile-subbutton">Attended Concerts</a>
+					</li>
+				</ul>
 				
-				<hr/>
-					<form class="form-inline my-2 my-lg-0" th:Action="@{/search-interests}"  method="get">
-			  	  		<input type="search" th:name="search" th:placeholder="interest" />    
-			          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search Interest</button>
+				<form class="form-inline my-2 my-lg-0" th:Action="@{/search-interests}"  method="get">
+			  	  	<input type="search" th:name="search" th:placeholder="interest" />    
+			        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search Interest</button>
 			    </form>
-				
-				<hr />
-				
-				
-				<hr />
- 	   				<p><b>Musical Interests :</b></p>
-      
-    				<div class="media comment" th:each="musicalInterests : ${user.musical_interests}">
+				<p><b>Musical Interests :</b></p>
   
-	  						<div class="profile-usertitle">
-							<div class="profile-usertitle-name" >
-								<span th:text="${musicalInterests.label}"></span>
-								<a th:href="@{/deleteInterest(interestID=${musicalInterests.id})}" class="btn btn-danger">Delete</a>  
- 	
-							</div>
-							</div>
-				     
-   					</div>
-  
- 			 <hr/>
- 			 
- 			 <hr/>  
- 			       
- 	<div class="media comment" th:each="musical_interest : ${interestSearchList}"  th:if="${interestSearchList.size() != 0}">
-  	<div class="media-body" >
-  	       
- 			       
-		 	<form class="form-inline my-2 my-lg-0" th:Action="@{/new-musical-interests}"  th:object="${musical_interest}" method="post"> 
-			     <input type="hidden"  th:value="${user.id}" th:id="user_id" th:name="user_id"></input>
-			     <input type="hidden"  th:value="${musical_interest.label}"  th:name="label"></input>
-			    <input type="hidden"  th:value="${musical_interest.musicalInterestId}" th:id="musicalInterestId" th:name="musicalInterestId"></input>	    
-			    	<p> <b>Label : </b> <span th:text="${musical_interest.label}"></span></p>  
-   			
-			    	<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Add Interest</button>
-			</form>
-				
-		</div>
-	</div>			
-  			<hr />
+				<div class="media comment" th:each="musicalInterests : ${user.musical_interests}">
 
-				<!-- END MENU -->
+						<div class="profile-usertitle">
+						<div class="profile-usertitle-name" >
+							<span th:text="${musicalInterests.label}"></span>
+							<a th:href="@{/deleteInterest(interestID=${musicalInterests.id})}" class="btn btn-danger">Delete</a>  
+
+						</div>
+						</div>
+				 
+				</div>
+				
+				<div class="media comment" th:each="musical_interest : ${interestSearchList}"  th:if="${interestSearchList.size() != 0}">
+					<div class="media-body" >   
+						<form class="form-inline my-2 my-lg-0" th:Action="@{/new-musical-interests}"  th:object="${musical_interest}" method="post"> 
+							 <input type="hidden"  th:value="${user.id}" th:id="user_id" th:name="user_id"></input>
+							 <input type="hidden"  th:value="${musical_interest.label}"  th:name="label"></input>
+							 <input type="hidden"  th:value="${musical_interest.musicalInterestId}" th:id="musicalInterestId" th:name="musicalInterestId"></input>	    
+								<p> <b>Label : </b> <span th:text="${musical_interest.label}"></span></p>  
+						
+								<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Add Interest</button>
+						</form>	
+					</div>
+				</div>
+				
+				
 			</div>
 		</div>
 		<div class="col-md-9">
-            <div class="profile-content" th:each="concert : ${concertList}">
-			   <div class="row">
-<div class="col-8 offset-2">
-<div class="card border-success">
-  <img class="card-img-top" th:src="${concert.image_path}" alt="Card image cap"></img>
-  <div class="card-body">
-    <a class="card-title" th:href="@{~/concert/{id}(id=${concert.id})}" th:text="${concert.name}"></a>
-    <a href="#" class="btn btn-success">Attending</a>
-    <a href="#" class="btn btn-warning">Maybe</a>
-    <hr />
-    <div class="row">
-    <div class="col-4">
-    <p><b>Artist : </b> <span th:text="${concert.artist.name}"></span></p>
-    <p><b>Created By :</b> <span th:text="${concert.created_by.name}"></span> </p>
-    <a th:href="${concert.ticket}">Ticket</a>
-  
-    </div>
-    <div class="col-4">
-    <p><b>Location : </b> <span th:text="${concert.location.city}"> </span></p>
-    <p><b>Date :</b> <span th:text="${concert.date_str}"></span></p>
-    <p><b>Time :</b> <span th:text="${concert.time_str}"></span> </p>
-    
-    </div>
-    <div class="col-4">
-    <p><b>Min Price : </b> <span th:text="${concert.min_price}"></span></p>
-    <p> <b>Max Price : </b> <span th:text="${concert.max_price}"></span></p>
-    <p><b>Rate : </b> <span th:text="${concert.rate}"></span></p>
-    </div>
-    </div>
-    <hr />
-    <div class="media comment" th:each="comment : ${concert.commentList}">
-  <a href="/profile/1"><img class="align-self-center mr-3 commenterPhoto" src="/fatihGuven.jpg" alt="Generic placeholder image"></img></a>
-  <div class="media-body" >
-    <a class="mt-0" href="/profile/1"><b>Fatih Güven</b></a>
-    <p th:text="${comment.comment}"></p>
-  </div>
-  <hr/>
-  
-</div>
-  </div>
-</div>
-<hr />
-</div>
-
-</div>
+             <div class="concert-listing-container" th:each="concert : ${concertList}">
+                <div class="card">
+                    <div class="card-image">
+                        <img class="card-img-top"  th:src="${concert.image_path}" alt="Card image cap"></img>
+                    </div>
+                    <div class="card-body">
+                        <div class="clearfix">
+                            <a class="card-title flaot-left" th:href="@{~/concert/{id}(id=${concert.id})}" th:text="${concert.name}" style="display: inline-block"></a>
+                            <div class="concert-location float-right " style="color: grey"><i class="fa fa-map-marker" aria-hidden="true"></i> <span th:text="${concert.location.city}"> </span></div>
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-4">
+                                    <p>
+                                        <span th:text="${concert.artist.name}"></span>
+                                    </p>
+                                </div>
+                                <div class="col-4">
+                                    <p>
+                                        <i class="fa fa-calendar" aria-hidden="true"></i> 21.06.2019 18:00
+                                    </p>
+                                </div>
+                                <div class="col-4">
+                                    <p>
+                                        <i class="fa fa-money" aria-hidden="true"></i> <span th:text="${concert.min_price}"></span>$ - <span th:text="${concert.max_price}"></span>$
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-4">
+                                    <p>Created By:
+                                        <span th:text="${concert.created_by.name}"></span>
+                                    </p>
+                                </div>
+                                <div class="col-4">
+                                    <p> Concert Rate:
+                                        <span th:text="${concert.rate}"></span>
+                                    </p>
+                                </div>
+                               	<form class="form-inline my-2 my-lg-0" th:Action="@{/attend}" th:object="${attend}" method="post">
+							      <input class="form-control mr-sm-2" type="hidden" placeholder="Search" aria-label="Search" th:id="concert_id" th:name="concert_id" th:value="${concert.id}"></input>
+							      <button class="btn btn-success" type="submit">Attending</button>
+    							</form>
+    							<a th:href="${concert.ticket}">Ticket</a>
+                            </div>
+                        </div>
+                        <div class="card-line">
+                            <div class="card-inner-line">
+                            </div>
+                        </div>
+                        <div >
+                            <div class="container">
+                                <div class="row comment">
+                                    <div class="col-1">
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                          
+                             <div class="media concert-comment" th:each="comment : ${concert.commentList}">
+							  	<a href="/profile/1"><img class="align-self-center mr-3 commenterPhoto" src="/fatihGuven.jpg" alt="Generic placeholder image"></img></a>
+							  	<div class="media-body" >
+							    	<a class="mt-0" href="/profile/1"><b>Fatih Güven</b></a>
+							    	<p th:text="${comment.comment}"></p>
+							    
+							    <!--  <p th:text="'Execution mode is ' + ( (${comment.category} == '1')? 'Development' : 'Production')"></p>
+							    -->
+							 	</div>
+							  	<hr/>
+							</div>
+                        </div>
+                    </div>
+                </div>
             </div>
 		</div>
 	</div>
 </div>
 
 </body>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" ></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" ></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/js/home-page-functions.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- Bootstrap Date-Picker Plugin -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 </html>
