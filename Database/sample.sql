@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: concerter_db
 -- ------------------------------------------------------
--- Server version	5.7.20-0ubuntu0.17.10.1
+-- Server version	5.7.20-0ubuntu0.16.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -26,7 +26,7 @@ CREATE TABLE `Artists` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -35,7 +35,7 @@ CREATE TABLE `Artists` (
 
 LOCK TABLES `Artists` WRITE;
 /*!40000 ALTER TABLE `Artists` DISABLE KEYS */;
-INSERT INTO `Artists` VALUES (51,'Turgay Erdener');
+INSERT INTO `Artists` VALUES (45,'Kursat Basar'),(46,'Test Artist'),(47,'Test Artist'),(48,'Pentagram'),(49,''),(50,'Hamza Bekir'),(51,'Ezhel'),(52,'Athena'),(53,'Manga'),(54,'Cem Adrian'),(55,'Ak?n Eldes, Alper Durmu?, Batu Mutlugil, Berk Arihan, Cem Çat?k'),(56,'LP'),(57,'LP'),(58,'DEMET GÜRHAN, soprano GÜLER DEM?ROVA GYÖFFRY, piyano HAYR? ÇELEB?, anlat?m ve ?iirler'),(59,'Birsen Tezer'),(60,'Birsen Tezer');
 /*!40000 ALTER TABLE `Artists` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -57,7 +57,7 @@ CREATE TABLE `Attendees` (
   KEY `FK_Attendees_Users` (`user_id`),
   CONSTRAINT `FK_Attendees_Concerts` FOREIGN KEY (`concert_id`) REFERENCES `Concerts` (`id`),
   CONSTRAINT `FK_Attendees_Users` FOREIGN KEY (`user_id`) REFERENCES `Users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,6 +66,7 @@ CREATE TABLE `Attendees` (
 
 LOCK TABLES `Attendees` WRITE;
 /*!40000 ALTER TABLE `Attendees` DISABLE KEYS */;
+INSERT INTO `Attendees` VALUES (4,24,1,54,NULL),(5,27,1,56,NULL),(6,31,1,56,NULL),(7,26,1,56,NULL),(8,28,1,56,NULL),(9,27,1,55,NULL),(10,24,1,55,NULL),(11,25,1,55,NULL);
 /*!40000 ALTER TABLE `Attendees` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,7 +89,7 @@ CREATE TABLE `Comments` (
   PRIMARY KEY (`id`),
   KEY `FK_Comments_Users` (`commented_by`),
   CONSTRAINT `FK_Comments_Users` FOREIGN KEY (`commented_by`) REFERENCES `Users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +98,7 @@ CREATE TABLE `Comments` (
 
 LOCK TABLES `Comments` WRITE;
 /*!40000 ALTER TABLE `Comments` DISABLE KEYS */;
-INSERT INTO `Comments` VALUES (3,55,25,0,0,'eheheh','2017-12-28 03:11:24',1);
+INSERT INTO `Comments` VALUES (1,54,22,0,0,'ehehe','2017-12-26 23:34:59',1);
 /*!40000 ALTER TABLE `Comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -152,7 +153,7 @@ CREATE TABLE `Concerts` (
   CONSTRAINT `FK_Concerts_Artists` FOREIGN KEY (`artist`) REFERENCES `Artists` (`id`),
   CONSTRAINT `FK_Concerts_Location` FOREIGN KEY (`location`) REFERENCES `Locations` (`id`),
   CONSTRAINT `FK_Concerts_Users` FOREIGN KEY (`created_by`) REFERENCES `Users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -161,7 +162,7 @@ CREATE TABLE `Concerts` (
 
 LOCK TABLES `Concerts` WRITE;
 /*!40000 ALTER TABLE `Concerts` DISABLE KEYS */;
-INSERT INTO `Concerts` VALUES (25,'Azizname',55,51,44,'2017-12-30 12:00:00',10,110,0,0,'http://www.biletix.com/static/images/live/event/groupimages/azizznaame-002017.png','http://www.biletix.com/etkinlik-grup/130983896/TURKIYE/tr');
+INSERT INTO `Concerts` VALUES (24,'Loc Test',54,50,43,'2017-12-29 13:00:00',10,120,0,0,'https://cdn.londonandpartners.com/visit/london-organisations/alexandra-palace/92923-640x360-alexandra-palace-gig-640.jpg','http://www.biletix.com/etkinlik-grup/134359460/TURKIYE/tr'),(25,'Ezhel',55,51,44,'2018-02-08 21:00:00',35,35,0,0,'https://etkinlik.bursadanerede.com/wp-content/uploads/2017/11/ezhel-bursa-konseri-3.jpg',''),(26,'Athena',55,52,45,'2018-03-10 20:00:00',55,55,0,0,'http://i.milliyet.com.tr/YeniAnaResim/2014/11/15/fft99_mf4977804.Jpeg',''),(27,'Manga',55,53,46,'2018-12-29 21:00:00',60,100,0,0,'http://cdn.esmedya.com.tr/Documents/alem_fm/images/2017/09/23/719x400_d18286aa-6aed-4692-9e8d-a162ad7e1c0e.jpg',''),(28,'Cem Adrian',55,54,47,'2018-01-12 21:00:00',56,56,0,0,'http://sgm.sabanciuniv.edu/sites/sgm.sabanciuniv.edu/files/cem_kucuk-_copy.jpg',''),(29,'Lokalize: Blues Gitaristleri Gecesi Vol.7',55,55,48,'2018-01-25 20:00:00',45,60,0,0,'https://www.fofomo.com/img/r1lm9XXJGz',''),(30,'25. Istanbul Caz Festivali Ozel Konseri: LP',55,56,49,'2018-03-31 20:30:00',169,225,0,0,'http://playtusu.com/wp-content/uploads/2017/12/LP-press-photo-bw-2016-billboard-1548.jpg',''),(31,'25. Istanbul Caz Festivali Ozel Konseri: LP',55,57,50,'2018-04-01 20:00:00',125,225,0,0,'http://playtusu.com/wp-content/uploads/2017/12/LP-press-photo-bw-2016-billboard-1548.jpg',''),(32,'Nazim Hikmeti Anma Konseri',55,58,51,'2018-01-13 20:00:00',56,56,0,0,'http://im.haberturk.com/2016/06/03/ver1495201105/1248542_5baebaa51fdb14f086260ce81bef493b.jpg',''),(34,'Birsen Tezer',55,60,53,'2017-09-16 22:00:00',39,137,0,0,'http://www.birsentezer.com/wp-content/uploads/2015/10/birsen-tezer.jpg','');
 /*!40000 ALTER TABLE `Concerts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -179,7 +180,7 @@ CREATE TABLE `Locations` (
   `city` varchar(100) DEFAULT NULL,
   `address` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -188,7 +189,7 @@ CREATE TABLE `Locations` (
 
 LOCK TABLES `Locations` WRITE;
 /*!40000 ALTER TABLE `Locations` DISABLE KEYS */;
-INSERT INTO `Locations` VALUES (38,45.12312,63.43432,'Trump Kultur Merkezi','Trump Kultur Merkezi'),(39,45.12312,63.43432,'Beykoz','Beykoz'),(40,45.12312,63.43432,'Istanbul','Istanbul'),(41,45.12312,63.43432,'Zorlu PSM','Zorlu PSM'),(42,45.12312,63.43432,'null','null'),(43,28.978551400000015,41.0349374,'Hüseyina?a Mahallesi, Balo Sokak No:22','Hüseyina?a Mahallesi, Balo Sokak No:22'),(44,27.207383400000026,38.4500228,'KidsMall AVM 367/6 Sok. No:5/11 Bornava/','KidsMall AVM 367/6 Sok. No:5/11 Bornava/');
+INSERT INTO `Locations` VALUES (38,45.12312,63.43432,'Trump Kultur Merkezi','Trump Kultur Merkezi'),(39,45.12312,63.43432,'Beykoz','Beykoz'),(40,45.12312,63.43432,'Istanbul','Istanbul'),(41,45.12312,63.43432,'Zorlu PSM','Zorlu PSM'),(42,45.12312,63.43432,'null','null'),(43,28.978551400000015,41.0349374,'Hüseyina?a Mahallesi, Balo Sokak No:22','Hüseyina?a Mahallesi, Balo Sokak No:22'),(44,28.977475000000027,41.0349,'Hüseyina?a Mahallesi, Kameriye Sokak No:13','Hüseyina?a Mahallesi, Kameriye Sokak No:13'),(45,29.121495299999992,37.8261388,'Eskihisar Mahallesi','Eskihisar Mahallesi'),(46,32.51797829999998,38.0066078,'undefined','undefined'),(47,28.977701000000025,40.221691,'Cumhuriyet Mahallesi, 16210, Fatih Sultan Mehmet Bulvar? No:59','Cumhuriyet Mahallesi, 16210, Fatih Sultan Mehmet Bulvar? No:59'),(48,29.017424600000027,41.0660865,'Levaz?m Mah., Koru Sok. No:2, Be?ikta?','Levaz?m Mah., Koru Sok. No:2, Be?ikta?'),(49,32.8035989,39.9116342,'Sö?ütözü Mahallesi, Sö?ütözü Caddesi No:1','Sö?ütözü Mahallesi, Sö?ütözü Caddesi No:1'),(50,29.017424600000027,41.0660865,'Levaz?m Mah., Koru Sok. No:2, Be?ikta?','Levaz?m Mah., Koru Sok. No:2, Be?ikta?'),(51,32.85930840000003,39.8942025,'Çankaya Mahallesi, Nilgün Sokak Ba? Apartman? D:14/2','Çankaya Mahallesi, Nilgün Sokak Ba? Apartman? D:14/2'),(52,28.977475000000027,41.0349,'Hüseyina?a Mahallesi, Kameriye Sokak No:13','Hüseyina?a Mahallesi, Kameriye Sokak No:13'),(53,28.977475000000027,41.0349,'Hüseyina?a Mahallesi, Kameriye Sokak No:13','Hüseyina?a Mahallesi, Kameriye Sokak No:13');
 /*!40000 ALTER TABLE `Locations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -264,6 +265,7 @@ CREATE TABLE `Notifications` (
 
 LOCK TABLES `Notifications` WRITE;
 /*!40000 ALTER TABLE `Notifications` DISABLE KEYS */;
+INSERT INTO `Notifications` VALUES (4,'test is attending to Loc Test.',48,24),(5,'test is attending to Loc Test.',51,24);
 /*!40000 ALTER TABLE `Notifications` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -283,7 +285,7 @@ CREATE TABLE `Relations` (
   KEY `FK_Relations_Users_Following` (`follower_id`),
   CONSTRAINT `FK_Relations_Users_Follower` FOREIGN KEY (`follower_id`) REFERENCES `Users` (`id`),
   CONSTRAINT `FK_Relations_Users_Following` FOREIGN KEY (`follower_id`) REFERENCES `Users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -292,6 +294,7 @@ CREATE TABLE `Relations` (
 
 LOCK TABLES `Relations` WRITE;
 /*!40000 ALTER TABLE `Relations` DISABLE KEYS */;
+INSERT INTO `Relations` VALUES (2,48,54,NULL),(3,51,54,NULL),(4,55,56,NULL);
 /*!40000 ALTER TABLE `Relations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -396,7 +399,7 @@ CREATE TABLE `Users` (
   `username` varchar(100) DEFAULT NULL,
   `spotify_id` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -405,8 +408,33 @@ CREATE TABLE `Users` (
 
 LOCK TABLES `Users` WRITE;
 /*!40000 ALTER TABLE `Users` DISABLE KEYS */;
-INSERT INTO `Users` VALUES (55,'Fatih Guven','fatihguven26@gmail.com','121212',0,0,'https://pm1.narvii.com/5866/76b201e12343e860570c62f4067307e04ed545fe_hq.jpg','2017-12-28 02:52:20','2017-12-28 02:52:20','2017-12-28 02:52:20','ffguven',NULL);
+INSERT INTO `Users` VALUES (48,'Fatih Güven','fatih.guven@hotmail.com',NULL,0,0,'https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/12042817_10206845907799008_1170828127403682503_n.jpg?oh=0690ae3394ceb9d99b87b10dc5063031&oe=5A9B890B','2017-12-04 20:22:53','2017-12-04 20:22:53','2017-12-04 20:22:53',NULL,'11128938007'),(51,'Test User','tuser@gmail.com','654321',0,0,'https://www.randomlists.com/img/people/arnold_schwarzenegger.jpg','2017-12-06 00:05:57','2017-12-06 00:05:57','2017-12-06 00:05:57','tuser',NULL),(54,'test','test@test.com','121212',0,0,'https://i1.wp.com/visboo.com/img/29042010/66120.jpg','2017-12-26 23:34:23','2017-12-26 23:34:23','2017-12-26 23:34:23','test',NULL),(55,'begun','begun@gmail.com','begun',0,0,'','2017-12-28 05:45:58','2017-12-28 05:45:58','2017-12-28 05:45:58','unal',NULL),(56,'hazan','hazan@gmail.com','hazan',0,0,'','2017-12-28 07:51:00','2017-12-28 07:51:00','2017-12-28 07:51:00','akgul',NULL);
 /*!40000 ALTER TABLE `Users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `WordVec`
+--
+
+DROP TABLE IF EXISTS `WordVec`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `WordVec` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `base` varchar(100) DEFAULT NULL,
+  `compare` varchar(100) DEFAULT NULL,
+  `score` double NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `WordVec`
+--
+
+LOCK TABLES `WordVec` WRITE;
+/*!40000 ALTER TABLE `WordVec` DISABLE KEYS */;
+/*!40000 ALTER TABLE `WordVec` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -418,4 +446,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-28  3:24:01
+-- Dump completed on 2017-12-28  8:14:08
