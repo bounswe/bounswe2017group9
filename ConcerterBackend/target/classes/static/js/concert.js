@@ -64,9 +64,7 @@ $(document).ready(function(){
 		var inputText = x.children().first();
 		var inputButton = x.children().last();
 		inputButton.click(function(){
-			$.get("http://concerterservice-env.yzkzigt6vn.eu-central-1.elasticbeanstalk.com/searchWikidata/" + inputText.val(), function(data){
-				console.log(data);
-			});
+			alert();
 		});
 	}
 });
