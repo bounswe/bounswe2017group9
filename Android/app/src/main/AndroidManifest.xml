@@ -32,7 +32,12 @@
             android:theme="@style/noAnimTheme" />
         <activity android:name=".activities.CreateConcertActivity" />
         <activity android:name=".activities.ProfileConcertsActivity" />
-        <activity android:name=".activities.ProfileOldConcertsActivity"></activity>
+        <activity android:name=".activities.ProfileOldConcertsActivity" />
+        <activity
+            android:name=".activities.AdvSearchActivity"
+            android:theme="@style/noAnimTheme">
+
+        </activity>
     </application>
 
 </manifest>

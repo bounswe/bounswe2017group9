@@ -193,4 +193,11 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(MainActivity.this, CreateConcertActivity.class);
         startActivity(intent);
     }
+
+    @OnClick(R.id.adv_search)
+    public void onClickAdv(){
+        finish();
+        Intent intent = new Intent(MainActivity.this, AdvSearchActivity.class);
+        startActivity(intent);
+    }
 }

@@ -60,21 +60,33 @@
       </LinearLayout>
       <LinearLayout
           android:layout_width="match_parent"
-          android:layout_height="wrap_content">
+          android:layout_height="wrap_content"
+          android:gravity="center">
          <EditText
 
              android:id="@+id/et_search"
-             android:layout_width="232dp"
+             android:layout_width="0dp"
+             android:layout_weight="6"
              android:layout_height="wrap_content"
              android:layout_marginLeft="20dp"
 
              />
+
          <Button
              android:id="@+id/btn_search"
-             android:layout_marginLeft="10dp"
-             android:layout_width="wrap_content"
+             android:layout_width="0dp"
              android:layout_height="wrap_content"
-             android:text="     Search    " />
+             android:layout_marginLeft="10dp"
+             android:layout_weight="2"
+             android:text="Search" />
+
+         <Button
+             android:id="@+id/adv_search"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             android:text="Adv"
+             android:textSize="10sp" />
 
       </LinearLayout>
       <Button

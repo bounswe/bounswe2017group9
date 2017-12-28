@@ -4,6 +4,7 @@ import com.example.abtasdan.listviewtutorial.modals.Concert;
 import com.example.abtasdan.listviewtutorial.modals.CreateConcertObject;
 import com.example.abtasdan.listviewtutorial.modals.CreatedBy;
 import com.example.abtasdan.listviewtutorial.modals.NewUserObject;
+import com.example.abtasdan.listviewtutorial.modals.requests.AdvReq;
 import com.example.abtasdan.listviewtutorial.modals.requests.AttendConcertReq;
 import com.example.abtasdan.listviewtutorial.modals.requests.LoginReq;
 import com.example.abtasdan.listviewtutorial.modals.requests.SearchResult;
@@ -42,6 +43,9 @@ public interface ConcertifyApiRequest {
 
     @GET("/concerts")
     void getAttendConcerts(@Body AttendConcertReq attendConcertReq, Callback<ArrayList<Concert>> arrayListCallback);
+
+    @POST("/advanced-search")
+    void getAdvResult(@Body AdvReq advrequest, Callback<ArrayList<Concert>> arrayListCallback);
 //
 //    @GET("/misc/force-update-check")
 //    void forceUpdate(@Query("platform") int platform, @Query("version") String version,
