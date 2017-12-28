@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import boun.group9.backend.app.data.Notifications;
 import boun.group9.backend.app.data.Search;
+import boun.group9.backend.app.data.Users;
 import boun.group9.backend.app.helper.NotificationOperations;
 
 @Controller
@@ -21,6 +22,7 @@ public class NotificationController {
 		ArrayList<Notifications> notificationList = NotificationOperations.getNotificationList(userId);
 		model.addAttribute("notificationList",notificationList);
 		model.addAttribute("search",new Search());
+		model.addAttribute("loggedInUser",(Users)session.getAttribute("loggedInUser"));
 		return "notifications";
 	}
 }
