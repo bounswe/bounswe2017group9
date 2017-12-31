@@ -113,7 +113,7 @@ CREATE TABLE `Comments_categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -122,7 +122,7 @@ CREATE TABLE `Comments_categories` (
 
 LOCK TABLES `Comments_categories` WRITE;
 /*!40000 ALTER TABLE `Comments_categories` DISABLE KEYS */;
-INSERT INTO `Comments_categories` VALUES (1,'Costume'),(2,'Music'),(3,'Place'),(4,'Foods');
+INSERT INTO `Comments_categories` VALUES (1,'Costume'),(2,'Music'),(3,'Place'),(5,'Price'),(6,'Transportation');
 /*!40000 ALTER TABLE `Comments_categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -448,4 +448,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-31 18:18:27
+-- Dump completed on 2017-12-31 18:30:35
