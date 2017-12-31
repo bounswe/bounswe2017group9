@@ -57,7 +57,7 @@ CREATE TABLE `Attendees` (
   KEY `FK_Attendees_Users` (`user_id`),
   CONSTRAINT `FK_Attendees_Concerts` FOREIGN KEY (`concert_id`) REFERENCES `Concerts` (`id`),
   CONSTRAINT `FK_Attendees_Users` FOREIGN KEY (`user_id`) REFERENCES `Users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,7 +66,7 @@ CREATE TABLE `Attendees` (
 
 LOCK TABLES `Attendees` WRITE;
 /*!40000 ALTER TABLE `Attendees` DISABLE KEYS */;
-INSERT INTO `Attendees` VALUES (4,24,1,54,NULL),(5,27,1,56,NULL),(6,31,1,56,NULL),(7,26,1,56,NULL),(8,28,1,56,NULL),(9,27,1,55,NULL),(10,24,1,55,NULL),(11,25,1,55,NULL),(12,28,1,57,NULL),(13,25,1,58,NULL),(14,28,1,58,NULL),(15,36,1,58,NULL),(16,31,1,59,NULL),(17,36,1,59,NULL),(18,31,1,59,NULL),(19,31,1,61,NULL),(20,36,1,61,NULL),(21,40,1,61,NULL);
+INSERT INTO `Attendees` VALUES (4,24,1,54,NULL),(5,27,1,56,NULL),(6,31,1,56,NULL),(7,26,1,56,NULL),(8,28,1,56,NULL),(9,27,1,55,NULL),(10,24,1,55,NULL),(11,25,1,55,NULL),(12,28,1,57,NULL),(13,25,1,58,NULL),(14,28,1,58,NULL),(15,36,1,58,NULL),(16,31,1,59,NULL),(17,36,1,59,NULL),(18,31,1,59,NULL),(19,31,1,61,NULL),(20,36,1,61,NULL),(21,40,1,61,NULL),(22,42,1,57,NULL),(23,35,1,66,NULL);
 /*!40000 ALTER TABLE `Attendees` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -89,7 +89,7 @@ CREATE TABLE `Comments` (
   PRIMARY KEY (`id`),
   KEY `FK_Comments_Users` (`commented_by`),
   CONSTRAINT `FK_Comments_Users` FOREIGN KEY (`commented_by`) REFERENCES `Users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,7 +98,7 @@ CREATE TABLE `Comments` (
 
 LOCK TABLES `Comments` WRITE;
 /*!40000 ALTER TABLE `Comments` DISABLE KEYS */;
-INSERT INTO `Comments` VALUES (1,54,22,0,0,'ehehe','2017-12-26 23:34:59',1);
+INSERT INTO `Comments` VALUES (1,54,22,0,0,'ehehe','2017-12-26 23:34:59',1),(2,55,41,0,0,'The price is reasonable for a new year event','2017-12-31 14:55:00',5),(3,55,43,0,0,'I love his \"Stay with me','2017-12-31 14:56:16',1),(4,55,34,0,0,'The place was fresh','2017-12-31 14:57:20',3),(5,55,28,0,0,'He has a perfect voice. I am so excited to listen him live.','2017-12-31 14:58:17',1),(6,57,41,0,0,'How can i go there?','2017-12-31 15:11:48',4),(7,57,37,0,0,'It is not expensive at all','2017-12-31 15:12:23',5),(9,66,41,0,0,'I have searched for the musicians. They are wonderful.','2017-12-31 15:15:56',1),(10,66,35,0,0,'This is going to be interesting to listen instruments from both East and West at the same time','2017-12-31 15:19:11',1),(11,66,30,0,0,'The tickets are sold out, Because it is really cheap.','2017-12-31 15:22:28',5),(12,64,41,0,0,'This is a new year night. How are we going to return when there is a traffic jam in Istanbul','2017-12-31 15:31:40',4),(13,64,36,0,0,'I love his new album. I hope he will sing some of his songs in acoustic version','2017-12-31 15:32:20',1),(14,64,40,0,0,'I AM SO EXCITED TO SEE HER WITH INTERESTING AND WEIRD COSTUMES <3','2017-12-31 15:33:20',2),(15,64,29,0,0,'Lots of talented musicians at one show','2017-12-31 15:34:32',1);
 /*!40000 ALTER TABLE `Comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -285,7 +285,7 @@ CREATE TABLE `Relations` (
   KEY `FK_Relations_Users_Following` (`follower_id`),
   CONSTRAINT `FK_Relations_Users_Follower` FOREIGN KEY (`follower_id`) REFERENCES `Users` (`id`),
   CONSTRAINT `FK_Relations_Users_Following` FOREIGN KEY (`follower_id`) REFERENCES `Users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -294,7 +294,7 @@ CREATE TABLE `Relations` (
 
 LOCK TABLES `Relations` WRITE;
 /*!40000 ALTER TABLE `Relations` DISABLE KEYS */;
-INSERT INTO `Relations` VALUES (2,48,54,NULL),(3,51,54,NULL),(4,55,56,NULL);
+INSERT INTO `Relations` VALUES (2,48,54,NULL),(3,51,54,NULL),(4,55,56,NULL),(5,64,66,NULL),(6,64,55,NULL),(7,64,48,NULL),(8,57,55,NULL),(9,57,58,NULL),(10,57,61,NULL),(11,62,57,NULL),(12,62,61,NULL),(13,62,48,NULL),(14,60,48,NULL),(15,60,55,NULL),(16,60,56,NULL),(17,60,58,NULL);
 /*!40000 ALTER TABLE `Relations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -446,4 +446,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-30 15:41:15
+-- Dump completed on 2017-12-31 15:43:29
