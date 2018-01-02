@@ -28,15 +28,29 @@ import boun.group9.webservice.helper.FileChecker;
 import boun.group9.webservice.helper.LocationChecker;
 import boun.group9.webservice.helper.NotificationChecker;
 
+/**
+ * Controller to handle operations related with comments
+ * @author ffguven
+ *
+ */
 @RestController
 public class ConcertController {
-	
+	/**
+	 * HTTP GET request with request parameter will result in fetching all concerts for specified concert
+	 * @param concertID id of a concert of which comments will be fetched from db
+	 * @return JSON array of comments
+	 */
 	@RequestMapping(value="concerts/{concertID}/comments",method=RequestMethod.GET)
 	public String getCommentsForConcert(@PathVariable(value="concertID") int concertID) {
-		ArrayList<Comments> commentList = CommentChecker.getCommentList(concertID);
-		String jsonString = Application.gson.toJson(commentList);
+		ArrayList<Comments> commentList = CommentChecker.getCommentList(concertID); // fetch all comments for a concert from db
+		String jsonString = Application.gson.toJson(commentList); // generate json array string from java arraylist
 		return jsonString;
 	}
+	/**
+	 * HTTP GET request with request parameter will result in fetching the specified concert by concert id
+	 * @param concertID id of a concert that will be fetched from db
+	 * @return JSON string of the concert object
+	 */
 	@RequestMapping(value="concerts/{concertID}",method=RequestMethod.GET)
 	public static String getConcert(@PathVariable(value="concertID") int concertID) {
 		String jsonString="";
@@ -48,8 +62,8 @@ public class ConcertController {
 		Artists artist;
 		Locations location;
 		try {
-			rs = Database.connect(query, Application.MODE_GET);
-			if(rs.next()) {
+			rs = Database.connect(query, Application.MODE_GET); // fetch concert specified by concert id from db
+			if(rs.next()) { // if db returns any concert, then fill Concerts Java object
 				concert = new Concerts();
 				user = new Users();
 				artist = new Artists();
@@ -98,11 +112,24 @@ public class ConcertController {
 		Database.closeConnection();
 		return jsonString;
 	}
+	/**
+	 * HTTP POST request with request parameters will result in rating the concert
+	 * @param concertId id of a concert that will be rated
+	 * @param rate past rate of the concert
+	 * @return info about the status of rating the concert
+	 */
 	@RequestMapping(value="rate-concert",method=RequestMethod.POST)
 	public String rateConcert(@RequestParam(value="id",required=true) int concertId, @RequestParam(value="rate",required=true) int rate) {
-		ConcertChecker.rateConcert(concertId, rate);
+		ConcertChecker.rateConcert(concertId, rate); // use helper method to rate a concert
 		return "OK.";
 	}
+	/**
+	 * HTTP GET request with request parameters will result in fetching attending concerts for the specified user
+	 * @param user_id id of a user of which attending concerts will be fetched
+	 * @param status attending/attended or maybe
+	 * @param created_by
+	 * @return
+	 */
 	@RequestMapping(value="concerts",method = RequestMethod.GET)
 	public String getConcertsForUser(@RequestParam(value="user_id",required=false) Integer user_id,@RequestParam(value="status",required=false) String status,@RequestParam(value="created_by",required=false) String created_by) {
 		String jsonString="";
@@ -124,7 +151,6 @@ public class ConcertController {
 			query = "SELECT Concerts.ticket AS Concerts_ticket,Concerts.id AS Concerts_id, Concerts.name AS Concerts_name, Concerts.date_time AS Concerts_date_time, Concerts.min_price, Concerts.max_price, Concerts.rate AS Concerts_rate, Concerts.voter_amount as Concerts_voter_amount, Concerts.image_path AS Concerts_image_path, Users.id AS Users_id, Users.name AS Users_name, Users.email AS Users_email, Users.followers AS Users_followers, Users.followings AS Users_followings, Users.photo_path AS Users_photo_path, Users.created_at AS Users_created_at, Users.updated_at AS Users_updated_at, Users.last_login AS Users_last_login, Artists.id AS Artists_id, Artists.name AS Artists_name, Locations.id AS Locations_id, Locations.longitude AS Locations_longitude,Locations.latitude AS Locations_latitude, Locations.city AS Locations_city, Locations.address as Locations_address FROM Concerts INNER JOIN Users ON Concerts.created_by = Users.id INNER JOIN Artists ON Concerts.artist = Artists.id INNER JOIN Locations ON Concerts.location = Locations.id;";
 		}
 		
-		//System.out.println(query);
 		ResultSet rs;
 		Concerts concert;
 		ArrayList<Concerts> concertList = new ArrayList<Concerts>();
@@ -132,8 +158,8 @@ public class ConcertController {
 		Artists artist;
 		Locations location;
 		try {
-			rs = Database.connect(query, Application.MODE_GET);
-			while(rs.next()) {
+			rs = Database.connect(query, Application.MODE_GET); // fetch concerts to which specified user will attend
+			while(rs.next()) { // if database returns any concerts, then fill java object with response data
 				concert = new Concerts();
 				user = new Users();
 				artist = new Artists();
@@ -170,7 +196,7 @@ public class ConcertController {
 				concertList.add(concert);
 			}
 			rs.close();
-			concertList=ConcertChecker.sortByDate(concertList);
+			concertList=ConcertChecker.sortByDate(concertList); // sort concerts by data in a way last added concert at the top of list
 			
 			jsonString = Application.gson.toJson(concertList);
 		}catch(SQLException ex) {
@@ -184,45 +210,31 @@ public class ConcertController {
 		Database.closeConnection();
 		return jsonString;
 	}
+	/**
+	 * HTTP POST request with JSON String of a Concerts object will result in creation of the concert
+	 * @param body JSON string of the Concert that will be created
+	 * @return info about the status of creation the concert
+	 */
 	@RequestMapping(value="concerts",method=RequestMethod.POST)
 	public String createConcert(@RequestBody String body) {
 		int artist_id=0;
 		int location_id=0;
 		ResultSet rs;
-		Concerts concert = Application.gson.fromJson(body, Concerts.class);
-		String artistQuery = ArtistChecker.insertArtistQuery(concert.getArtist());
-		String locationQuery = LocationChecker.insertLocationQuery(concert.getLocation());
+		Concerts concert = Application.gson.fromJson(body, Concerts.class); // create a java object with form fields json string
+		String artistQuery = ArtistChecker.insertArtistQuery(concert.getArtist()); // generate query to insert artist info to db
+		String locationQuery = LocationChecker.insertLocationQuery(concert.getLocation()); // generate query to insert location info to db
 		String concertQuery;
-		System.out.println(artistQuery);
-		System.out.println(locationQuery);
 		try {
-				
-				Database.connect(artistQuery, Application.MODE_UPDATE);
-				
-				/*
-				rs = Database.connect("SELECT LAST_INSERT_ID();", Application.MODE_GET);
-				if(rs.next()) {
-					artist_id = rs.getInt("LAST_INSERT_ID()");
-				}
-				*/
-				artist_id = Database.last_generated_id;
+				Database.connect(artistQuery, Application.MODE_UPDATE); // insert artist info object to db
+				artist_id = Database.last_generated_id; // get database primary key (id) for artist object
 				Database.closeConnection();
-				Database.connect(locationQuery, Application.MODE_UPDATE);
-				location_id = Database.last_generated_id;
+				Database.connect(locationQuery, Application.MODE_UPDATE); // insert location info object to db
+				location_id = Database.last_generated_id; // get database primary key (id) for location object
 				Database.closeConnection();
-				/*
-				rs = Database.connect("SELECT LAST_INSERT_ID();", Application.MODE_GET);
-				if(rs.next()) {
-					location_id = rs.getInt("LAST_INSERT_ID()");
-				}
-				*/
-				System.out.println(location_id);
-				System.out.println(artist_id);
-				concert.setArtist_id(artist_id);
-				concert.setLocation_id(location_id);
-				concertQuery = ConcertChecker.insertConcertQuery(concert);
-				System.out.println(concertQuery);
-				Database.connect(concertQuery, Application.MODE_UPDATE);
+				concert.setArtist_id(artist_id); // fill Concerts java object with db data
+				concert.setLocation_id(location_id); // fill Concerts java object with db data
+				concertQuery = ConcertChecker.insertConcertQuery(concert); // generate query to insert concert info to db
+				Database.connect(concertQuery, Application.MODE_UPDATE); // insert concert info object to db
 				Database.closeConnection();
 		}catch(SQLException ex) {
 			ex.printStackTrace();
@@ -235,14 +247,20 @@ public class ConcertController {
 		}
 		return "Saved.";
 	}
+	/**
+	 * HTTP POST request with request parameters will result in attending to a concert specified by concertID
+	 * @param concertID id of a concert to which user specified by userID will attend
+	 * @param userID id of a user that will attend to a concert specified by concertID
+	 * @return info about the status of attending to a concert
+	 */
 	@RequestMapping(value="concert/{concertID}/attendee/{userID}",method=RequestMethod.POST)
 	public String attendConcert(@PathVariable int concertID, @PathVariable int userID) {
-		String query=ConcertChecker.attend(concertID,userID);
+		String query=ConcertChecker.attend(concertID,userID); // generate query to attend to a concert for specified user
 		String result;
 		try{
-			Database.connect(query, Application.MODE_UPDATE);
+			Database.connect(query, Application.MODE_UPDATE); // attend to a concert for specified user
 			Database.closeConnection();
-			NotificationChecker.notify(concertID,userID);
+			NotificationChecker.notify(concertID,userID); // generate notifications for users who follows the attending user
 			result="OK";
 		}catch(SQLException ex) {
 			ex.printStackTrace();
@@ -256,22 +274,18 @@ public class ConcertController {
 		return result;
 		
 	}
-
+	
 	//concerts that the user attended is considered.
 	@RequestMapping(value = "concert/{concert_id}/{userID}/{current_rate}" , method = RequestMethod.POST)
 	public String postRateForaConcert(@PathVariable(value = "concert_id") int concert_id ,
 									  @PathVariable(value = "current_rate") int current_rate,
 									  @PathVariable(value = "userID") int userID ){
 
-		String rateNumberQuery = ConcertChecker.updateRateNum(concert_id);
-		String postRatequery = ConcertChecker.postRate(userID ,concert_id, current_rate);
-
-		System.out.println(rateNumberQuery);
-		System.out.println(postRatequery);
-
+		String rateNumberQuery = ConcertChecker.updateRateNum(concert_id); // generate query to calculate rate of the concert
+		String postRatequery = ConcertChecker.postRate(userID ,concert_id, current_rate); // generate query for inserting new rate of the concert
 		try{
-			Database.connect(rateNumberQuery, Application.MODE_UPDATE);
-			Database.connect(postRatequery, Application.MODE_UPDATE);
+			Database.connect(rateNumberQuery, Application.MODE_UPDATE); // update voter_amount at db
+			Database.connect(postRatequery, Application.MODE_UPDATE); // update rate value at db
 		}catch(SQLException ex) {
 			System.out.println("SQL Exception occured");
 			ex.printStackTrace();
@@ -283,7 +297,11 @@ public class ConcertController {
 		return "Saved.";
 	}
 	
-		@RequestMapping(value="nextconcerts",method = RequestMethod.GET)
+	/**
+	 * HTTP GET request will result in fetching next available concerts 
+	 * @return JSON array of the concerts that are available to attend
+	 */
+	@RequestMapping(value="nextconcerts",method = RequestMethod.GET)
 	public String getAllNextConcerts() {
 		String jsonString="";
 		ResultSet rs;
@@ -293,9 +311,9 @@ public class ConcertController {
 		Concerts concert;
 		ArrayList<Concerts> concertList = new ArrayList<Concerts>();
 		try {
-			String query = ConcertChecker.getNextConcertsQuery();
+			String query = ConcertChecker.getNextConcertsQuery(); // generate query to fetch next available concerts
 			rs = Database.connect(query, Application.MODE_GET);
-			while(rs.next()) {
+			while(rs.next()) { // if response is not empty, then fill java object
 				concert = new Concerts();
 				user = new Users();
 				artist = new Artists();
@@ -330,8 +348,7 @@ public class ConcertController {
 				concertList.add(concert);
 			}
 			rs.close();
-			concertList=ConcertChecker.sortByDate(concertList);
-			
+			concertList=ConcertChecker.sortByDate(concertList); // sort concert list in a way last added concert is at the top of list
 			jsonString = Application.gson.toJson(concertList);
 		}catch(SQLException ex) {
 			System.out.println("SQL Exception occured");
@@ -343,7 +360,10 @@ public class ConcertController {
 		}
 		return jsonString;
 	}
-
+	/**
+	 * HTTP GET request will result in fetching past concerts
+	 * @return JSON array of the concerts which were occured before now
+	 */
 	@RequestMapping(value="pastconcerts",method = RequestMethod.GET)
 	public String getAllPastConcerts() {
 		String jsonString="";
@@ -354,9 +374,9 @@ public class ConcertController {
 		Concerts concert;
 		ArrayList<Concerts> concertList = new ArrayList<Concerts>();
 		try {
-			String query = ConcertChecker.getPastConcertsQuery();
-			rs = Database.connect(query, Application.MODE_GET);
-			while(rs.next()) {
+			String query = ConcertChecker.getPastConcertsQuery(); // generate query to fetch ended concerts from db
+			rs = Database.connect(query, Application.MODE_GET); // fetch ended concerts from db
+			while(rs.next()) { // if response is not empty, then fill java object
 				concert = new Concerts();
 				user = new Users();
 				artist = new Artists();
@@ -391,7 +411,7 @@ public class ConcertController {
 				concertList.add(concert);
 			}
 			rs.close();
-			jsonString = Application.gson.toJson(concertList);
+			jsonString = Application.gson.toJson(concertList); // generate json array string that contains concert list
 		}catch(SQLException ex) {
 			System.out.println("SQL Exception occured");
 			Database.closeConnection();
@@ -409,7 +429,12 @@ public class ConcertController {
 	}
 
 
-
+/**
+ * HTTP POST request with request parameters will result in rating the specified concert
+ * @param concert_id id of a concert that will be rated 
+ * @param current_rate rate of the concert for before voting
+ * @return info about the status of rating a concert
+ */
 	@RequestMapping(value = "concert/{concert_id}/{current_rate}" , method = RequestMethod.POST)
 	public String postConcertRate(@PathVariable(value = "concert_id") int concert_id , @PathVariable(value = "current_rate") int current_rate){
 		String rateNumberQuery = ConcertChecker.updateRateNumber(concert_id);
@@ -433,6 +458,10 @@ public class ConcertController {
 		}
 		return "Saved.";
 	}
+	/**
+	 * HTTP GET requst will result in fetching active concerts
+	 * @return JSON array of Java object of concerts
+	 */
 	@RequestMapping(value="active-concerts",method=RequestMethod.GET)
 	public static String allActiveConcerts() {
 		String jsonString="";
@@ -446,7 +475,7 @@ public class ConcertController {
 		Artists artist;
 		Locations location;
 		try {
-			rs = Database.connect(query, Application.MODE_GET);
+			rs = Database.connect(query, Application.MODE_GET); // fetch all active (not ended) concerts from db
 			while(rs.next()) {
 				concert = new Concerts();
 				user = new Users();

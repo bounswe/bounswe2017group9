@@ -33,9 +33,18 @@ import boun.group9.webservice.exception.NotSavedException;
 import boun.group9.webservice.helper.Database;
 import boun.group9.webservice.helper.SemanticTagsChecker;
 
-
+/**
+ * Controller to handle operations related with Semantic Tags
+ * @author ffguven
+ *
+ */
 @RestController
 public class SemanticTagsController {
+	/**
+	 * HTTP POST request with JSON string of SemanticTags object will result in creation of new semantic tag on db
+	 * @param body SemanticTags object 
+	 * @return status
+	 */
 	@RequestMapping(value="new-semantictag",method=RequestMethod.POST)
 	public String newsemanticTag(@RequestBody String body) {
 		SemanticTags tag;
@@ -60,7 +69,11 @@ public class SemanticTagsController {
 			throw new InternalServerException();
 		}
 	}
-
+	/**
+	 * HTTP GET request with request parameter will result in fetching list of SemanticTags related with a concert
+	 * @param concertID id of a concert of which semantic tags will be fetched
+	 * @return JSON array of SemanticTags objects
+	 */
 	@RequestMapping(value="semantic-tags/{concertID}",method=RequestMethod.GET)
 	public String getsemanticTags(@PathVariable(value="concertID") int concertID) {
 		String jsonString="";
@@ -93,6 +106,11 @@ public class SemanticTagsController {
 		Database.closeConnection();
 		return jsonString;
 	}
+	/**
+	 * HTTP GET request with request parameter tagID will result in fetching specified semantic tags
+	 * @param tagID id of the semantic tag which will be fetched
+	 * @return JSON String of SemanticTags object
+	 */
 	@RequestMapping(value="semantictags/{tagID}",method=RequestMethod.GET)
 	public String getsemanticTag(@PathVariable(value="tagID") String tagID) {
 		String jsonString="";
@@ -123,7 +141,11 @@ public class SemanticTagsController {
 		Database.closeConnection();
 		return jsonString;
 	}
-
+	/**
+	 * HTTP GET request with request parameter searchKey will result in searching semantic tags on WikiData
+	 * @param search key to search on WikiData
+	 * @return JSON array of SemanticTags objects
+	 */
 	@RequestMapping(value="searchWikidata/{search}",method=RequestMethod.GET)
 	public String getSementicTagsFromWikidata(@PathVariable(value="search") String search) {
 		String jsonString="";
@@ -162,7 +184,11 @@ public class SemanticTagsController {
 		return jsonString;
 	}
 
-
+	/**
+	 * HTTP GET request with path variable will result in fetching search-tags
+	 * @param tagID id of the specified semantic tag
+	 * @return JSON array of SemanticTags objects
+	 */
 	@RequestMapping(value="search-tags/{tagID}",method=RequestMethod.GET)
 	public String searchSemanticTag(@PathVariable(value="tagID") String tagID) {
 		String jsonString="";
@@ -224,9 +250,12 @@ public class SemanticTagsController {
 		Database.closeConnection();
 		return jsonString;
 	}
-
-
-
+	/**
+	 * HTTP GET request with request parameters SemanticTagId and ConcertId will result in fetching same tags
+	 * @param semanticTagId id of the specified semantic tag of which similar tag will be fetched
+	 * @param concertId id of the concert
+	 * @return
+	 */
 	@RequestMapping(value="same-tags/{tagID}/{concertID}",method=RequestMethod.GET)
 	public String findConcertsWithSameTags(@PathVariable(value="tagID") String semanticTagId,@PathVariable(value="concertID") int concertId) {
 		String jsonString="";
@@ -289,6 +318,11 @@ public class SemanticTagsController {
 		return jsonString;
 	}
 
+	/**
+	 * HTTP GET request will ConcertId will result in fetching similar concerts by using semantic-search
+	 * @param concertID id of the concert to which similar concerts will be fetched
+	 * @return JSON array of Concerts objects
+	 */
 //return similar concerts
 	@RequestMapping(value="semantic-search/{concertID}",method=RequestMethod.GET)
 	public String semanticSearch(@PathVariable(value="concertID") int concertID) {
@@ -358,7 +392,7 @@ public class SemanticTagsController {
 	}
 
 
-
+	
 	@RequestMapping(value="word-vec/base")
 	public String getBaseValue(@RequestParam(value="base") String base) {
 		String jsonString="";
@@ -497,7 +531,6 @@ public class SemanticTagsController {
 	}
 
 	// data are load into DB.
-
 	@RequestMapping(value="add-db",method =RequestMethod.GET)
 	public  String cleanData() {
 		String FILENAME = "C:\\Users\\hilaldonmez\\Desktop\\Latif\\tagsimilarities.txt";  //change filename

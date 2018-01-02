@@ -30,15 +30,11 @@ public class UserController {
 	public String test() {
 		return "Works.";
 	}
-	@SuppressWarnings("TransferManager")
-	@RequestMapping(value="user/photo",method=RequestMethod.POST)
-	public String uploadPhoto(@RequestParam("file") MultipartFile file) {
-		if(file.isEmpty()) {
-			return "File is empty.";
-		}
-		TransferManager tm = new TransferManager(new ProfileCredentialsProvider());
-		return null;
-	}
+	/**
+	 * HTTP POST request with Users JSON object will result in signing up
+	 * @param body JSON string of Users object
+	 * @return status
+	 */
 	@RequestMapping(value="new-user",method=RequestMethod.POST)
 	public String newUser(@RequestBody String body) {
 		Users user;
@@ -73,6 +69,11 @@ public class UserController {
 			throw new InternalServerException();
 		}
 	}
+	/**
+	 * HTTP POST request with request parameter JSON String of Users object will result in login operation
+	 * @param body JSON String of a User object which contains email and password only
+	 * @return logged in user or nothing
+	 */
 	@RequestMapping(value = "user",method = RequestMethod.POST)
 	public String user(@RequestBody String body) {
 		Users user;

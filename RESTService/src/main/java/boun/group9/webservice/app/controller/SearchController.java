@@ -20,20 +20,29 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+/**
+ * Controller to handle operations related with search
+ * @author ffguven
+ *
+ */
 @RestController
 public class SearchController {
 	
+	/**
+	 * HTTP GET request with request parameter searchKey will result in searching the key in concerts,artists  and users
+	 * @param searchKey the parameter that will be searched on Concerts, Artists and Users table on db
+	 * @return JSON string of BasicSearch object
+	 */
 	//searches
     @RequestMapping(value="basic-search",method=RequestMethod.GET)
     public String basicSearch(@RequestParam String searchKey) {
     	String result;
     	BasicSearch bs;
-    	ArrayList<Users> userList = SearchChecker.searchUsers(searchKey);
-    	ArrayList<Concerts> concertList = SearchChecker.searchConcerts(searchKey);
+    	ArrayList<Users> userList = SearchChecker.searchUsers(searchKey); // search users by using helper function
+    	ArrayList<Concerts> concertList = SearchChecker.searchConcerts(searchKey); //search concerts by using helper function
     	concertList= ConcertChecker.sortByDate(concertList);
         
-    	ArrayList<Artists> artistList = SearchChecker.searchArtists(searchKey);
+    	ArrayList<Artists> artistList = SearchChecker.searchArtists(searchKey); //search artists by using helper function
     	bs = new BasicSearch(userList,concertList,artistList);
     	result = Application.gson.toJson(bs);
     	return result;

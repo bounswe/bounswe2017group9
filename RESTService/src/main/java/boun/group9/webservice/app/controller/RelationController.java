@@ -18,17 +18,33 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+/**
+ * Controller to handle the operations related with following
+ * @author ffguven
+ *
+ */
 @RestController
 public class RelationController {
+	/**
+	 * HTTP POST request with request parameters will result in following the specified user
+	 * @param follower id of the follower user
+	 * @param following id of the following user
+	 * @return status
+	 */
 	@RequestMapping(value="follow",method=RequestMethod.POST)
 	public String follow(@RequestParam int follower, @RequestParam int following) {
-		RelationChecker.follow(follower,following);
+		RelationChecker.follow(follower,following); // use helper function to follow specified user
 		return "OK.";
 	}
+	/**
+	 * HTTP POST request with request parameters will result in unfollowing the specified user
+	 * @param follower id of the follower user
+	 * @param following id of the following user
+	 * @return
+	 */
 	@RequestMapping(value="unfollow",method=RequestMethod.POST)
 	public String unfollow(@RequestParam int follower, @RequestParam int following) {
-		RelationChecker.unfollow(follower,following);
+		RelationChecker.unfollow(follower,following); // use helper function to unfollow specified user
 		return "OK.";
 	}
 }
