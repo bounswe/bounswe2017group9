@@ -16,7 +16,7 @@ import boun.group9.webservice.helper.Database;
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer{
 	public static String username="root"; // username for mysql root user
-	public static String password="4519root"; // password for mysql root user
+	public static String password="121212"; // password for mysql root user
 
 	public static Gson gson = new Gson(); // object to parse from json or parse to json
 	public static final int MODE_GET = 0; // whether Database class get some data or not 

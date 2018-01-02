@@ -20,3 +20,18 @@ This project is about creating a social media platform for finding new concerts 
 * [Ahmet Buğrahan Taşdan](https://github.com/bounswe/bounswe2017group8/wiki/Ahmet-Bu%C4%9Frahan-Ta%C5%9Fdan)
 * [Harun Zengin](https://github.com/bounswe/bounswe2017group8/wiki/Harun-Zengin)
 * [Efehan Atıcı](https://github.com/bounswe/bounswe2017group9/wiki/Efehan-At%C4%B1c%C4%B1) (Former Member)
+
+###Deployment:
+
+* Open the Database folder an see sample.sql.
+* Create an Amazon RDS instance or import the sql file to your local MySQL client.
+* Copy the host name of MySQL client, root username, and password.
+* Open the Database.java file under RESTService project.
+* Copy the MySQL client's host name, root username and password.
+* Build the RESTService with Maven and generate the .war file.
+* Upload the .war file to Amazon ElasticBeanStalk Tomcat instance, copy the URL.
+* Open the Application.java file under ConcerterBackend
+* Update the API_ENDPOINT variable with Amazon URL or local URL/port.
+* Build the ConcerterBackend with Maven and generate the .war file.
+* Upload the .war file to Amazn ElasticBeanStalk Tomcat instance, or deploy it to your local Tomcat.
+* The Concerter Backend Application is deployed now.
