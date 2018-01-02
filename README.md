@@ -21,7 +21,7 @@ This project is about creating a social media platform for finding new concerts 
 * [Harun Zengin](https://github.com/bounswe/bounswe2017group8/wiki/Harun-Zengin)
 * [Efehan Atıcı](https://github.com/bounswe/bounswe2017group9/wiki/Efehan-At%C4%B1c%C4%B1) (Former Member)
 
-###Deployment:
+### Deployment:
 
 * Open the Database folder an see sample.sql.
 * Create an Amazon RDS instance or import the sql file to your local MySQL client.
